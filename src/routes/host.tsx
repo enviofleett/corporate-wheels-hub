@@ -28,7 +28,18 @@ function HostHome() {
       </header>
 
       <main className="mx-auto -mt-4 w-full max-w-md space-y-3 px-5">
-        <Card icon={<Bell />} title="Browse requests" desc="Coming in Phase 2" />
+        <Link
+          to="/feed"
+          className="flex items-center gap-3 rounded-2xl border border-accent/30 bg-accent-soft p-4 shadow-[var(--shadow-card)]"
+        >
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+            <Bell className="h-5 w-5" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-semibold text-foreground">Browse requests</div>
+            <div className="text-xs text-muted-foreground">See live corporate requests now</div>
+          </div>
+        </Link>
         <Card icon={<Car />} title="My vehicles" desc="Coming in Phase 5" />
         <Card icon={<TrendingUp />} title="Earnings" desc="Coming in Phase 5" />
 
