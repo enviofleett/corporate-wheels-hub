@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RoleRouteImport } from './routes/role'
 import { Route as HostRouteImport } from './routes/host'
+import { Route as FeedRouteImport } from './routes/feed'
 import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupHostRouteImport } from './routes/signup.host'
@@ -30,6 +31,11 @@ const RoleRoute = RoleRouteImport.update({
 const HostRoute = HostRouteImport.update({
   id: '/host',
   path: '/host',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedRoute = FeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CorporateRoute = CorporateRouteImport.update({
@@ -56,6 +62,7 @@ const SignupCorporateRoute = SignupCorporateRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRoute
+  '/feed': typeof FeedRoute
   '/host': typeof HostRoute
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRoute
+  '/feed': typeof FeedRoute
   '/host': typeof HostRoute
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRoute
+  '/feed': typeof FeedRoute
   '/host': typeof HostRoute
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/corporate'
+    | '/feed'
     | '/host'
     | '/role'
     | '/terms'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/corporate'
+    | '/feed'
     | '/host'
     | '/role'
     | '/terms'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/corporate'
+    | '/feed'
     | '/host'
     | '/role'
     | '/terms'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CorporateRoute: typeof CorporateRoute
+  FeedRoute: typeof FeedRoute
   HostRoute: typeof HostRoute
   RoleRoute: typeof RoleRoute
   TermsRoute: typeof TermsRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/host'
       fullPath: '/host'
       preLoaderRoute: typeof HostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed': {
+      id: '/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/corporate': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CorporateRoute: CorporateRoute,
+  FeedRoute: FeedRoute,
   HostRoute: HostRoute,
   RoleRoute: RoleRoute,
   TermsRoute: TermsRoute,
@@ -187,3 +208,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

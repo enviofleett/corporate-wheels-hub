@@ -1,13 +1,21 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, Inbox, PlusCircle, Car, User } from "lucide-react";
+import { Home, Inbox, PlusCircle, Car, User, type LucideIcon } from "lucide-react";
 
-const items = [
+type Item = {
+  to: "/feed";
+  label: string;
+  icon: LucideIcon;
+  disabled?: boolean;
+  primary?: boolean;
+};
+
+const items: Item[] = [
   { to: "/feed", label: "Feed", icon: Home },
   { to: "/feed", label: "Offers", icon: Inbox, disabled: true },
   { to: "/feed", label: "Post", icon: PlusCircle, primary: true },
   { to: "/feed", label: "Vehicles", icon: Car, disabled: true },
   { to: "/feed", label: "Profile", icon: User, disabled: true },
-] as const;
+];
 
 export function BottomNav() {
   const { pathname } = useLocation();
@@ -29,17 +37,22 @@ export function BottomNav() {
               </li>
             );
           }
+          if (disabled) {
+            return (
+              <li key={label} className="flex justify-center">
+                <span className="flex h-12 w-full flex-col items-center justify-center gap-0.5 text-[10px] font-medium text-muted-foreground/50">
+                  <Icon className="h-5 w-5" />
+                  {label}
+                </span>
+              </li>
+            );
+          }
           return (
             <li key={label} className="flex justify-center">
               <Link
                 to={to}
-                disabled={disabled}
                 className={`flex h-12 w-full flex-col items-center justify-center gap-0.5 text-[10px] font-medium ${
-                  isActive
-                    ? "text-primary"
-                    : disabled
-                      ? "text-muted-foreground/50"
-                      : "text-muted-foreground"
+                  isActive ? "text-primary" : "text-muted-foreground"
                 }`}
               >
                 <Icon className="h-5 w-5" />
