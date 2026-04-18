@@ -9,38 +9,148 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as RoleRouteImport } from './routes/role'
+import { Route as HostRouteImport } from './routes/host'
+import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SignupHostRouteImport } from './routes/signup.host'
+import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoleRoute = RoleRouteImport.update({
+  id: '/role',
+  path: '/role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostRoute = HostRouteImport.update({
+  id: '/host',
+  path: '/host',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CorporateRoute = CorporateRouteImport.update({
+  id: '/corporate',
+  path: '/corporate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupHostRoute = SignupHostRouteImport.update({
+  id: '/signup/host',
+  path: '/signup/host',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupCorporateRoute = SignupCorporateRouteImport.update({
+  id: '/signup/corporate',
+  path: '/signup/corporate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/corporate': typeof CorporateRoute
+  '/host': typeof HostRoute
+  '/role': typeof RoleRoute
+  '/terms': typeof TermsRoute
+  '/signup/corporate': typeof SignupCorporateRoute
+  '/signup/host': typeof SignupHostRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/corporate': typeof CorporateRoute
+  '/host': typeof HostRoute
+  '/role': typeof RoleRoute
+  '/terms': typeof TermsRoute
+  '/signup/corporate': typeof SignupCorporateRoute
+  '/signup/host': typeof SignupHostRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/corporate': typeof CorporateRoute
+  '/host': typeof HostRoute
+  '/role': typeof RoleRoute
+  '/terms': typeof TermsRoute
+  '/signup/corporate': typeof SignupCorporateRoute
+  '/signup/host': typeof SignupHostRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/corporate'
+    | '/host'
+    | '/role'
+    | '/terms'
+    | '/signup/corporate'
+    | '/signup/host'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/corporate'
+    | '/host'
+    | '/role'
+    | '/terms'
+    | '/signup/corporate'
+    | '/signup/host'
+  id:
+    | '__root__'
+    | '/'
+    | '/corporate'
+    | '/host'
+    | '/role'
+    | '/terms'
+    | '/signup/corporate'
+    | '/signup/host'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CorporateRoute: typeof CorporateRoute
+  HostRoute: typeof HostRoute
+  RoleRoute: typeof RoleRoute
+  TermsRoute: typeof TermsRoute
+  SignupCorporateRoute: typeof SignupCorporateRoute
+  SignupHostRoute: typeof SignupHostRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/role': {
+      id: '/role'
+      path: '/role'
+      fullPath: '/role'
+      preLoaderRoute: typeof RoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/host': {
+      id: '/host'
+      path: '/host'
+      fullPath: '/host'
+      preLoaderRoute: typeof HostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corporate': {
+      id: '/corporate'
+      path: '/corporate'
+      fullPath: '/corporate'
+      preLoaderRoute: typeof CorporateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +158,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/signup/host': {
+      id: '/signup/host'
+      path: '/signup/host'
+      fullPath: '/signup/host'
+      preLoaderRoute: typeof SignupHostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup/corporate': {
+      id: '/signup/corporate'
+      path: '/signup/corporate'
+      fullPath: '/signup/corporate'
+      preLoaderRoute: typeof SignupCorporateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CorporateRoute: CorporateRoute,
+  HostRoute: HostRoute,
+  RoleRoute: RoleRoute,
+  TermsRoute: TermsRoute,
+  SignupCorporateRoute: SignupCorporateRoute,
+  SignupHostRoute: SignupHostRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
