@@ -56,7 +56,7 @@ function OffersPage() {
                   >
                     <div className="flex items-center gap-3">
                       {req && (
-                        <CompanyAvatar hue={req.company.avatarHue} size={44} />
+                        <CompanyAvatar hue={req.company.avatarHue} />
                       )}
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
