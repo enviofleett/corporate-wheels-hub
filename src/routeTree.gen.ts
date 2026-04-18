@@ -16,9 +16,14 @@ import { Route as HostRouteImport } from './routes/host'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HostIndexRouteImport } from './routes/host.index'
 import { Route as SignupHostRouteImport } from './routes/signup.host'
 import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
 import { Route as OffersNegotiationIdRouteImport } from './routes/offers.$negotiationId'
+import { Route as HostVehiclesRouteImport } from './routes/host.vehicles'
+import { Route as HostOffersRouteImport } from './routes/host.offers'
+import { Route as HostEngagedRouteImport } from './routes/host.engaged'
+import { Route as HostEarningsRouteImport } from './routes/host.earnings'
 import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
 import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
 import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
@@ -59,6 +64,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HostIndexRoute = HostIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HostRoute,
+} as any)
 const SignupHostRoute = SignupHostRouteImport.update({
   id: '/signup/host',
   path: '/signup/host',
@@ -73,6 +83,26 @@ const OffersNegotiationIdRoute = OffersNegotiationIdRouteImport.update({
   id: '/$negotiationId',
   path: '/$negotiationId',
   getParentRoute: () => OffersRoute,
+} as any)
+const HostVehiclesRoute = HostVehiclesRouteImport.update({
+  id: '/vehicles',
+  path: '/vehicles',
+  getParentRoute: () => HostRoute,
+} as any)
+const HostOffersRoute = HostOffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => HostRoute,
+} as any)
+const HostEngagedRoute = HostEngagedRouteImport.update({
+  id: '/engaged',
+  path: '/engaged',
+  getParentRoute: () => HostRoute,
+} as any)
+const HostEarningsRoute = HostEarningsRouteImport.update({
+  id: '/earnings',
+  path: '/earnings',
+  getParentRoute: () => HostRoute,
 } as any)
 const CorporateRequestsRoute = CorporateRequestsRouteImport.update({
   id: '/requests',
@@ -100,32 +130,41 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
-  '/host': typeof HostRoute
+  '/host': typeof HostRouteWithChildren
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
+  '/host/earnings': typeof HostEarningsRoute
+  '/host/engaged': typeof HostEngagedRoute
+  '/host/offers': typeof HostOffersRoute
+  '/host/vehicles': typeof HostVehiclesRoute
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/host/': typeof HostIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
-  '/host': typeof HostRoute
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
+  '/host/earnings': typeof HostEarningsRoute
+  '/host/engaged': typeof HostEngagedRoute
+  '/host/offers': typeof HostOffersRoute
+  '/host/vehicles': typeof HostVehiclesRoute
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/host': typeof HostIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
 }
 export interface FileRoutesById {
@@ -133,16 +172,21 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
-  '/host': typeof HostRoute
+  '/host': typeof HostRouteWithChildren
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
+  '/host/earnings': typeof HostEarningsRoute
+  '/host/engaged': typeof HostEngagedRoute
+  '/host/offers': typeof HostOffersRoute
+  '/host/vehicles': typeof HostVehiclesRoute
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/host/': typeof HostIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
 }
 export interface FileRouteTypes {
@@ -158,25 +202,34 @@ export interface FileRouteTypes {
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
+    | '/host/earnings'
+    | '/host/engaged'
+    | '/host/offers'
+    | '/host/vehicles'
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/host/'
     | '/corporate/requests/$requestId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/corporate'
     | '/feed'
-    | '/host'
     | '/offers'
     | '/role'
     | '/terms'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
+    | '/host/earnings'
+    | '/host/engaged'
+    | '/host/offers'
+    | '/host/vehicles'
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/host'
     | '/corporate/requests/$requestId'
   id:
     | '__root__'
@@ -190,9 +243,14 @@ export interface FileRouteTypes {
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
+    | '/host/earnings'
+    | '/host/engaged'
+    | '/host/offers'
+    | '/host/vehicles'
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/host/'
     | '/corporate/requests/$requestId'
   fileRoutesById: FileRoutesById
 }
@@ -200,7 +258,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CorporateRoute: typeof CorporateRouteWithChildren
   FeedRoute: typeof FeedRoute
-  HostRoute: typeof HostRoute
+  HostRoute: typeof HostRouteWithChildren
   OffersRoute: typeof OffersRouteWithChildren
   RoleRoute: typeof RoleRoute
   TermsRoute: typeof TermsRoute
@@ -259,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/host/': {
+      id: '/host/'
+      path: '/'
+      fullPath: '/host/'
+      preLoaderRoute: typeof HostIndexRouteImport
+      parentRoute: typeof HostRoute
+    }
     '/signup/host': {
       id: '/signup/host'
       path: '/signup/host'
@@ -279,6 +344,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/offers/$negotiationId'
       preLoaderRoute: typeof OffersNegotiationIdRouteImport
       parentRoute: typeof OffersRoute
+    }
+    '/host/vehicles': {
+      id: '/host/vehicles'
+      path: '/vehicles'
+      fullPath: '/host/vehicles'
+      preLoaderRoute: typeof HostVehiclesRouteImport
+      parentRoute: typeof HostRoute
+    }
+    '/host/offers': {
+      id: '/host/offers'
+      path: '/offers'
+      fullPath: '/host/offers'
+      preLoaderRoute: typeof HostOffersRouteImport
+      parentRoute: typeof HostRoute
+    }
+    '/host/engaged': {
+      id: '/host/engaged'
+      path: '/engaged'
+      fullPath: '/host/engaged'
+      preLoaderRoute: typeof HostEngagedRouteImport
+      parentRoute: typeof HostRoute
+    }
+    '/host/earnings': {
+      id: '/host/earnings'
+      path: '/earnings'
+      fullPath: '/host/earnings'
+      preLoaderRoute: typeof HostEarningsRouteImport
+      parentRoute: typeof HostRoute
     }
     '/corporate/requests': {
       id: '/corporate/requests'
@@ -338,6 +431,24 @@ const CorporateRouteWithChildren = CorporateRoute._addFileChildren(
   CorporateRouteChildren,
 )
 
+interface HostRouteChildren {
+  HostEarningsRoute: typeof HostEarningsRoute
+  HostEngagedRoute: typeof HostEngagedRoute
+  HostOffersRoute: typeof HostOffersRoute
+  HostVehiclesRoute: typeof HostVehiclesRoute
+  HostIndexRoute: typeof HostIndexRoute
+}
+
+const HostRouteChildren: HostRouteChildren = {
+  HostEarningsRoute: HostEarningsRoute,
+  HostEngagedRoute: HostEngagedRoute,
+  HostOffersRoute: HostOffersRoute,
+  HostVehiclesRoute: HostVehiclesRoute,
+  HostIndexRoute: HostIndexRoute,
+}
+
+const HostRouteWithChildren = HostRoute._addFileChildren(HostRouteChildren)
+
 interface OffersRouteChildren {
   OffersNegotiationIdRoute: typeof OffersNegotiationIdRoute
 }
@@ -353,7 +464,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CorporateRoute: CorporateRouteWithChildren,
   FeedRoute: FeedRoute,
-  HostRoute: HostRoute,
+  HostRoute: HostRouteWithChildren,
   OffersRoute: OffersRouteWithChildren,
   RoleRoute: RoleRoute,
   TermsRoute: TermsRoute,
