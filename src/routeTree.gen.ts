@@ -19,6 +19,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupHostRouteImport } from './routes/signup.host'
 import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
 import { Route as OffersNegotiationIdRouteImport } from './routes/offers.$negotiationId'
+import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
+import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
+import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
+import { Route as CorporateRequestsRequestIdRouteImport } from './routes/corporate.requests.$requestId'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -70,43 +74,76 @@ const OffersNegotiationIdRoute = OffersNegotiationIdRouteImport.update({
   path: '/$negotiationId',
   getParentRoute: () => OffersRoute,
 } as any)
+const CorporateRequestsRoute = CorporateRequestsRouteImport.update({
+  id: '/requests',
+  path: '/requests',
+  getParentRoute: () => CorporateRoute,
+} as any)
+const CorporateOffersRoute = CorporateOffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => CorporateRoute,
+} as any)
+const CorporateDealsRoute = CorporateDealsRouteImport.update({
+  id: '/deals',
+  path: '/deals',
+  getParentRoute: () => CorporateRoute,
+} as any)
+const CorporateRequestsRequestIdRoute =
+  CorporateRequestsRequestIdRouteImport.update({
+    id: '/$requestId',
+    path: '/$requestId',
+    getParentRoute: () => CorporateRequestsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/corporate': typeof CorporateRoute
+  '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
   '/host': typeof HostRoute
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/corporate/deals': typeof CorporateDealsRoute
+  '/corporate/offers': typeof CorporateOffersRoute
+  '/corporate/requests': typeof CorporateRequestsRouteWithChildren
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/corporate': typeof CorporateRoute
+  '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
   '/host': typeof HostRoute
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/corporate/deals': typeof CorporateDealsRoute
+  '/corporate/offers': typeof CorporateOffersRoute
+  '/corporate/requests': typeof CorporateRequestsRouteWithChildren
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/corporate': typeof CorporateRoute
+  '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
   '/host': typeof HostRoute
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/corporate/deals': typeof CorporateDealsRoute
+  '/corporate/offers': typeof CorporateOffersRoute
+  '/corporate/requests': typeof CorporateRequestsRouteWithChildren
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,9 +155,13 @@ export interface FileRouteTypes {
     | '/offers'
     | '/role'
     | '/terms'
+    | '/corporate/deals'
+    | '/corporate/offers'
+    | '/corporate/requests'
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/corporate/requests/$requestId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,9 +171,13 @@ export interface FileRouteTypes {
     | '/offers'
     | '/role'
     | '/terms'
+    | '/corporate/deals'
+    | '/corporate/offers'
+    | '/corporate/requests'
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/corporate/requests/$requestId'
   id:
     | '__root__'
     | '/'
@@ -142,14 +187,18 @@ export interface FileRouteTypes {
     | '/offers'
     | '/role'
     | '/terms'
+    | '/corporate/deals'
+    | '/corporate/offers'
+    | '/corporate/requests'
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/corporate/requests/$requestId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CorporateRoute: typeof CorporateRoute
+  CorporateRoute: typeof CorporateRouteWithChildren
   FeedRoute: typeof FeedRoute
   HostRoute: typeof HostRoute
   OffersRoute: typeof OffersRouteWithChildren
@@ -231,8 +280,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OffersNegotiationIdRouteImport
       parentRoute: typeof OffersRoute
     }
+    '/corporate/requests': {
+      id: '/corporate/requests'
+      path: '/requests'
+      fullPath: '/corporate/requests'
+      preLoaderRoute: typeof CorporateRequestsRouteImport
+      parentRoute: typeof CorporateRoute
+    }
+    '/corporate/offers': {
+      id: '/corporate/offers'
+      path: '/offers'
+      fullPath: '/corporate/offers'
+      preLoaderRoute: typeof CorporateOffersRouteImport
+      parentRoute: typeof CorporateRoute
+    }
+    '/corporate/deals': {
+      id: '/corporate/deals'
+      path: '/deals'
+      fullPath: '/corporate/deals'
+      preLoaderRoute: typeof CorporateDealsRouteImport
+      parentRoute: typeof CorporateRoute
+    }
+    '/corporate/requests/$requestId': {
+      id: '/corporate/requests/$requestId'
+      path: '/$requestId'
+      fullPath: '/corporate/requests/$requestId'
+      preLoaderRoute: typeof CorporateRequestsRequestIdRouteImport
+      parentRoute: typeof CorporateRequestsRoute
+    }
   }
 }
+
+interface CorporateRequestsRouteChildren {
+  CorporateRequestsRequestIdRoute: typeof CorporateRequestsRequestIdRoute
+}
+
+const CorporateRequestsRouteChildren: CorporateRequestsRouteChildren = {
+  CorporateRequestsRequestIdRoute: CorporateRequestsRequestIdRoute,
+}
+
+const CorporateRequestsRouteWithChildren =
+  CorporateRequestsRoute._addFileChildren(CorporateRequestsRouteChildren)
+
+interface CorporateRouteChildren {
+  CorporateDealsRoute: typeof CorporateDealsRoute
+  CorporateOffersRoute: typeof CorporateOffersRoute
+  CorporateRequestsRoute: typeof CorporateRequestsRouteWithChildren
+}
+
+const CorporateRouteChildren: CorporateRouteChildren = {
+  CorporateDealsRoute: CorporateDealsRoute,
+  CorporateOffersRoute: CorporateOffersRoute,
+  CorporateRequestsRoute: CorporateRequestsRouteWithChildren,
+}
+
+const CorporateRouteWithChildren = CorporateRoute._addFileChildren(
+  CorporateRouteChildren,
+)
 
 interface OffersRouteChildren {
   OffersNegotiationIdRoute: typeof OffersNegotiationIdRoute
@@ -247,7 +351,7 @@ const OffersRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CorporateRoute: CorporateRoute,
+  CorporateRoute: CorporateRouteWithChildren,
   FeedRoute: FeedRoute,
   HostRoute: HostRoute,
   OffersRoute: OffersRouteWithChildren,
