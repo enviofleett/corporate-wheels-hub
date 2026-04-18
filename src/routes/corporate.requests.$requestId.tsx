@@ -8,6 +8,7 @@ import {
   listOffersForRequest,
   REQUEST_LABEL,
   type IncomingOffer,
+  type CorpRequestSummary,
 } from "@/lib/corporate-data";
 import { CorporateBottomNav } from "@/components/corporate/CorporateBottomNav";
 import { OfferComparison } from "@/components/corporate/OfferComparison";
@@ -51,7 +52,7 @@ export const Route = createFileRoute("/corporate/requests/$requestId")({
 type SortKey = "best" | "price" | "rating" | "recent";
 
 function RequestDetailPage() {
-  const { request } = Route.useLoaderData();
+  const { request } = Route.useLoaderData() as { request: CorpRequestSummary };
   const offers = listOffersForRequest(request.id);
   const [sort, setSort] = useState<SortKey>("best");
   const [confirm, setConfirm] = useState<IncomingOffer | null>(null);
