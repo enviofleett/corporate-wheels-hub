@@ -1,7 +1,8 @@
 // Bottom sheet shown when a host taps "Offer vehicle" or "Counter offer".
-// Phase 2 stub — full negotiation timeline arrives in Phase 3.
+// Phase 3 — on submit, points the host to the threaded Offers inbox.
 
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { X, Check, Info } from "lucide-react";
 import type { CorporateRequest } from "@/lib/mock-data";
 import { formatNaira } from "@/lib/format";
@@ -75,13 +76,22 @@ export function OfferSheet({ open, mode, request, onClose }: Props) {
             <p className="mt-1 text-sm text-muted-foreground">
               The corporate has been notified anonymously. You'll see updates in your Offers tab.
             </p>
-            <button
-              type="button"
-              onClick={onClose}
-              className="mt-6 flex h-11 w-full items-center justify-center rounded-xl bg-primary text-sm font-semibold text-primary-foreground"
-            >
-              Done
-            </button>
+            <div className="mt-6 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex h-11 items-center justify-center rounded-xl border border-border bg-background text-sm font-semibold text-foreground"
+              >
+                Done
+              </button>
+              <Link
+                to="/offers"
+                onClick={onClose}
+                className="flex h-11 items-center justify-center rounded-xl bg-primary text-sm font-semibold text-primary-foreground"
+              >
+                View thread
+              </Link>
+            </div>
           </div>
         ) : (
           <form
