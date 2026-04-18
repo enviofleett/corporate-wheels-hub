@@ -11,12 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RoleRouteImport } from './routes/role'
+import { Route as OffersRouteImport } from './routes/offers'
 import { Route as HostRouteImport } from './routes/host'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupHostRouteImport } from './routes/signup.host'
 import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
+import { Route as OffersNegotiationIdRouteImport } from './routes/offers.$negotiationId'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -26,6 +28,11 @@ const TermsRoute = TermsRouteImport.update({
 const RoleRoute = RoleRouteImport.update({
   id: '/role',
   path: '/role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffersRoute = OffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HostRoute = HostRouteImport.update({
@@ -58,14 +65,21 @@ const SignupCorporateRoute = SignupCorporateRouteImport.update({
   path: '/signup/corporate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OffersNegotiationIdRoute = OffersNegotiationIdRouteImport.update({
+  id: '/$negotiationId',
+  path: '/$negotiationId',
+  getParentRoute: () => OffersRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/corporate': typeof CorporateRoute
   '/feed': typeof FeedRoute
   '/host': typeof HostRoute
+  '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
 }
@@ -74,8 +88,10 @@ export interface FileRoutesByTo {
   '/corporate': typeof CorporateRoute
   '/feed': typeof FeedRoute
   '/host': typeof HostRoute
+  '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
 }
@@ -85,8 +101,10 @@ export interface FileRoutesById {
   '/corporate': typeof CorporateRoute
   '/feed': typeof FeedRoute
   '/host': typeof HostRoute
+  '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
 }
@@ -97,8 +115,10 @@ export interface FileRouteTypes {
     | '/corporate'
     | '/feed'
     | '/host'
+    | '/offers'
     | '/role'
     | '/terms'
+    | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
   fileRoutesByTo: FileRoutesByTo
@@ -107,8 +127,10 @@ export interface FileRouteTypes {
     | '/corporate'
     | '/feed'
     | '/host'
+    | '/offers'
     | '/role'
     | '/terms'
+    | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
   id:
@@ -117,8 +139,10 @@ export interface FileRouteTypes {
     | '/corporate'
     | '/feed'
     | '/host'
+    | '/offers'
     | '/role'
     | '/terms'
+    | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
   fileRoutesById: FileRoutesById
@@ -128,6 +152,7 @@ export interface RootRouteChildren {
   CorporateRoute: typeof CorporateRoute
   FeedRoute: typeof FeedRoute
   HostRoute: typeof HostRoute
+  OffersRoute: typeof OffersRouteWithChildren
   RoleRoute: typeof RoleRoute
   TermsRoute: typeof TermsRoute
   SignupCorporateRoute: typeof SignupCorporateRoute
@@ -148,6 +173,13 @@ declare module '@tanstack/react-router' {
       path: '/role'
       fullPath: '/role'
       preLoaderRoute: typeof RoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offers': {
+      id: '/offers'
+      path: '/offers'
+      fullPath: '/offers'
+      preLoaderRoute: typeof OffersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/host': {
@@ -192,14 +224,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupCorporateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/offers/$negotiationId': {
+      id: '/offers/$negotiationId'
+      path: '/$negotiationId'
+      fullPath: '/offers/$negotiationId'
+      preLoaderRoute: typeof OffersNegotiationIdRouteImport
+      parentRoute: typeof OffersRoute
+    }
   }
 }
+
+interface OffersRouteChildren {
+  OffersNegotiationIdRoute: typeof OffersNegotiationIdRoute
+}
+
+const OffersRouteChildren: OffersRouteChildren = {
+  OffersNegotiationIdRoute: OffersNegotiationIdRoute,
+}
+
+const OffersRouteWithChildren =
+  OffersRoute._addFileChildren(OffersRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CorporateRoute: CorporateRoute,
   FeedRoute: FeedRoute,
   HostRoute: HostRoute,
+  OffersRoute: OffersRouteWithChildren,
   RoleRoute: RoleRoute,
   TermsRoute: TermsRoute,
   SignupCorporateRoute: SignupCorporateRoute,
@@ -208,3 +259,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
