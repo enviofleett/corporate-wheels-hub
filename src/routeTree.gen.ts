@@ -36,6 +36,8 @@ import { Route as HostEarningsRouteImport } from './routes/host.earnings'
 import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
 import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
 import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
+import { Route as AdminKycRouteImport } from './routes/admin.kyc'
+import { Route as AdminDisputesRouteImport } from './routes/admin.disputes'
 import { Route as PaymentsReceiptsIndexRouteImport } from './routes/payments.receipts.index'
 import { Route as AdminUsersIndexRouteImport } from './routes/admin.users.index'
 import { Route as TrustReviewDealIdRouteImport } from './routes/trust.review.$dealId'
@@ -180,6 +182,16 @@ const CorporateDealsRoute = CorporateDealsRouteImport.update({
   path: '/deals',
   getParentRoute: () => CorporateRoute,
 } as any)
+const AdminKycRoute = AdminKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDisputesRoute = AdminDisputesRouteImport.update({
+  id: '/disputes',
+  path: '/disputes',
+  getParentRoute: () => AdminRoute,
+} as any)
 const PaymentsReceiptsIndexRoute = PaymentsReceiptsIndexRouteImport.update({
   id: '/payments/receipts/',
   path: '/payments/receipts/',
@@ -232,6 +244,8 @@ export interface FileRoutesByFullPath {
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRouteWithChildren
+  '/admin/disputes': typeof AdminDisputesRoute
+  '/admin/kyc': typeof AdminKycRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -267,6 +281,8 @@ export interface FileRoutesByTo {
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRouteWithChildren
+  '/admin/disputes': typeof AdminDisputesRoute
+  '/admin/kyc': typeof AdminKycRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -305,6 +321,8 @@ export interface FileRoutesById {
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRouteWithChildren
+  '/admin/disputes': typeof AdminDisputesRoute
+  '/admin/kyc': typeof AdminKycRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -344,6 +362,8 @@ export interface FileRouteTypes {
     | '/role'
     | '/terms'
     | '/trust'
+    | '/admin/disputes'
+    | '/admin/kyc'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -379,6 +399,8 @@ export interface FileRouteTypes {
     | '/role'
     | '/terms'
     | '/trust'
+    | '/admin/disputes'
+    | '/admin/kyc'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -416,6 +438,8 @@ export interface FileRouteTypes {
     | '/role'
     | '/terms'
     | '/trust'
+    | '/admin/disputes'
+    | '/admin/kyc'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -654,6 +678,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorporateDealsRouteImport
       parentRoute: typeof CorporateRoute
     }
+    '/admin/kyc': {
+      id: '/admin/kyc'
+      path: '/kyc'
+      fullPath: '/admin/kyc'
+      preLoaderRoute: typeof AdminKycRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/disputes': {
+      id: '/admin/disputes'
+      path: '/disputes'
+      fullPath: '/admin/disputes'
+      preLoaderRoute: typeof AdminDisputesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/payments/receipts/': {
       id: '/payments/receipts/'
       path: '/payments/receipts'
@@ -714,12 +752,16 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminDisputesRoute: typeof AdminDisputesRoute
+  AdminKycRoute: typeof AdminKycRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminUsersUserIdRoute: typeof AdminUsersUserIdRoute
   AdminUsersIndexRoute: typeof AdminUsersIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminDisputesRoute: AdminDisputesRoute,
+  AdminKycRoute: AdminKycRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminUsersUserIdRoute: AdminUsersUserIdRoute,
   AdminUsersIndexRoute: AdminUsersIndexRoute,
@@ -834,3 +876,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
