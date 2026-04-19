@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { AdminTopBar } from "@/components/admin/AdminTopBar";
 import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
-import { getAdminUser, USER_STATUS_LABEL } from "@/lib/admin-data";
+import { getAdminUser, USER_STATUS_LABEL, type UserStatus } from "@/lib/admin-data";
 import { formatNaira, formatRelativeTime } from "@/lib/format";
 
 export const Route = createFileRoute("/admin/users/$userId")({
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/admin/users/$userId")({
 
 function UserDetail() {
   const user = Route.useLoaderData();
-  const [status, setStatus] = useState<typeof user.status>(user.status);
+  const [status, setStatus] = useState<UserStatus>(user.status);
   const [confirm, setConfirm] = useState<null | "suspend" | "ban" | "reinstate">(null);
   const [showMessage, setShowMessage] = useState(false);
 
