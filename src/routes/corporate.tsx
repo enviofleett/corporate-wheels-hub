@@ -118,6 +118,20 @@ function CorporateHome() {
             </div>
           </>
         )}
+
+        {/* Trust & Safety entry */}
+        <Link
+          to="/trust"
+          className="mt-2 flex items-center justify-between rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)]"
+        >
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-foreground">Trust &amp; Safety</p>
+            <p className="mt-0.5 text-[11px] text-muted-foreground">
+              Verification, disputes, and reviews
+            </p>
+          </div>
+          <ArrowRight className="h-4 w-4 text-muted-foreground" />
+        </Link>
       </main>
 
       <CorporateBottomNav unreadOffers={metrics.newOffers} />
@@ -130,7 +144,7 @@ function SectionHeader({
   to,
 }: {
   title: string;
-  to: "/corporate/requests" | "/corporate/offers" | "/corporate/deals";
+  to: "/corporate/requests" | "/corporate/offers" | "/corporate/deals" | "/trust";
 }) {
   return (
     <div className="flex items-center justify-between pt-1">

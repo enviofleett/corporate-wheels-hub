@@ -40,12 +40,16 @@ function HostHome() {
 
       <main className="mx-auto w-full max-w-md space-y-4 px-5 pt-4">
         {/* Verification banner */}
-        <div className="flex items-center gap-2 rounded-2xl border border-success/30 bg-success/10 p-3">
+        <Link
+          to="/trust"
+          className="flex items-center gap-2 rounded-2xl border border-success/30 bg-success/10 p-3"
+        >
           <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
-          <p className="text-xs text-foreground">
+          <p className="flex-1 text-xs text-foreground">
             Profile verified · {m.avgRating.toFixed(2)} avg rating
           </p>
-        </div>
+          <span className="text-[11px] font-semibold text-success">Trust hub →</span>
+        </Link>
 
         {/* Earnings snapshot */}
         <Link
