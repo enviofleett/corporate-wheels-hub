@@ -37,7 +37,7 @@ export const Route = createFileRoute("/trust/disputes/$disputeId")({
 });
 
 function DisputeDetail() {
-  const { dispute } = Route.useLoaderData();
+  const { dispute } = Route.useLoaderData() as { dispute: Dispute };
 
   const timeline = [
     {
