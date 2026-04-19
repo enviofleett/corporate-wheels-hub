@@ -16,9 +16,11 @@ import { Route as OffersRouteImport } from './routes/offers'
 import { Route as HostRouteImport } from './routes/host'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as CorporateRouteImport } from './routes/corporate'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PaymentsIndexRouteImport } from './routes/payments.index'
 import { Route as HostIndexRouteImport } from './routes/host.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as TrustReviewsRouteImport } from './routes/trust.reviews'
 import { Route as TrustKycRouteImport } from './routes/trust.kyc'
 import { Route as TrustDisputesRouteImport } from './routes/trust.disputes'
@@ -76,6 +78,11 @@ const CorporateRoute = CorporateRouteImport.update({
   path: '/corporate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -90,6 +97,11 @@ const HostIndexRoute = HostIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => HostRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const TrustReviewsRoute = TrustReviewsRouteImport.update({
   id: '/reviews',
@@ -200,6 +212,7 @@ const CorporateRequestsRequestIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
   '/host': typeof HostRouteWithChildren
@@ -222,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/trust/disputes': typeof TrustDisputesRouteWithChildren
   '/trust/kyc': typeof TrustKycRoute
   '/trust/reviews': typeof TrustReviewsRoute
+  '/admin/': typeof AdminIndexRoute
   '/host/': typeof HostIndexRoute
   '/payments/': typeof PaymentsIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
@@ -254,6 +268,7 @@ export interface FileRoutesByTo {
   '/trust/disputes': typeof TrustDisputesRouteWithChildren
   '/trust/kyc': typeof TrustKycRoute
   '/trust/reviews': typeof TrustReviewsRoute
+  '/admin': typeof AdminIndexRoute
   '/host': typeof HostIndexRoute
   '/payments': typeof PaymentsIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
@@ -266,6 +281,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/corporate': typeof CorporateRouteWithChildren
   '/feed': typeof FeedRoute
   '/host': typeof HostRouteWithChildren
@@ -288,6 +304,7 @@ export interface FileRoutesById {
   '/trust/disputes': typeof TrustDisputesRouteWithChildren
   '/trust/kyc': typeof TrustKycRoute
   '/trust/reviews': typeof TrustReviewsRoute
+  '/admin/': typeof AdminIndexRoute
   '/host/': typeof HostIndexRoute
   '/payments/': typeof PaymentsIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
@@ -301,6 +318,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/corporate'
     | '/feed'
     | '/host'
@@ -323,6 +341,7 @@ export interface FileRouteTypes {
     | '/trust/disputes'
     | '/trust/kyc'
     | '/trust/reviews'
+    | '/admin/'
     | '/host/'
     | '/payments/'
     | '/corporate/requests/$requestId'
@@ -355,6 +374,7 @@ export interface FileRouteTypes {
     | '/trust/disputes'
     | '/trust/kyc'
     | '/trust/reviews'
+    | '/admin'
     | '/host'
     | '/payments'
     | '/corporate/requests/$requestId'
@@ -366,6 +386,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/corporate'
     | '/feed'
     | '/host'
@@ -388,6 +409,7 @@ export interface FileRouteTypes {
     | '/trust/disputes'
     | '/trust/kyc'
     | '/trust/reviews'
+    | '/admin/'
     | '/host/'
     | '/payments/'
     | '/corporate/requests/$requestId'
@@ -400,6 +422,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   CorporateRoute: typeof CorporateRouteWithChildren
   FeedRoute: typeof FeedRoute
   HostRoute: typeof HostRouteWithChildren
@@ -467,6 +490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorporateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -487,6 +517,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/host/'
       preLoaderRoute: typeof HostIndexRouteImport
       parentRoute: typeof HostRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/trust/reviews': {
       id: '/trust/reviews'
@@ -638,6 +675,16 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface CorporateRequestsRouteChildren {
   CorporateRequestsRequestIdRoute: typeof CorporateRequestsRequestIdRoute
 }
@@ -726,6 +773,7 @@ const TrustRouteWithChildren = TrustRoute._addFileChildren(TrustRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   CorporateRoute: CorporateRouteWithChildren,
   FeedRoute: FeedRoute,
   HostRoute: HostRouteWithChildren,
