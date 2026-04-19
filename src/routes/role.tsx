@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, Car, ChevronRight } from "lucide-react";
+import { Building2, Car, ChevronRight, ShieldCheck } from "lucide-react";
 import { OnboardingShell } from "@/components/onboarding/OnboardingShell";
 
 export const Route = createFileRoute("/role")({
@@ -34,6 +34,13 @@ function RoleScreen() {
           description="List your vehicles and respond to corporate requests."
           tags={["Earn weekly", "Choose deals", "Telematics"]}
           accent
+        />
+        <RoleCard
+          to="/admin"
+          icon={<ShieldCheck className="h-6 w-6" />}
+          title="Admin"
+          description="Internal tools — manage users, KYC, disputes, finance, and more."
+          tags={["Internal only", "2FA required"]}
         />
       </div>
 
