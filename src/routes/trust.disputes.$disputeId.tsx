@@ -3,11 +3,11 @@ import { Paperclip, MessageSquare, Scale, ChevronRight } from "lucide-react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import { DisputeStatusBadge } from "@/components/trust/DisputeStatusBadge";
 import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
-import { getDispute, REASON_LABELS } from "@/lib/trust-data";
+import { getDispute, REASON_LABELS, type Dispute } from "@/lib/trust-data";
 import { formatNaira, formatRelativeTime } from "@/lib/format";
 
 export const Route = createFileRoute("/trust/disputes/$disputeId")({
-  loader: ({ params }) => {
+  loader: ({ params }): { dispute: Dispute } => {
     const dispute = getDispute(params.disputeId);
     if (!dispute) throw notFound();
     return { dispute };
