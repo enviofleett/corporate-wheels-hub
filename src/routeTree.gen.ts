@@ -17,12 +17,15 @@ import { Route as HostRouteImport } from './routes/host'
 import { Route as FeedRouteImport } from './routes/feed'
 import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PaymentsIndexRouteImport } from './routes/payments.index'
 import { Route as HostIndexRouteImport } from './routes/host.index'
 import { Route as TrustReviewsRouteImport } from './routes/trust.reviews'
 import { Route as TrustKycRouteImport } from './routes/trust.kyc'
 import { Route as TrustDisputesRouteImport } from './routes/trust.disputes'
 import { Route as SignupHostRouteImport } from './routes/signup.host'
 import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
+import { Route as PaymentsPayoutsRouteImport } from './routes/payments.payouts'
+import { Route as PaymentsMethodsRouteImport } from './routes/payments.methods'
 import { Route as OffersNegotiationIdRouteImport } from './routes/offers.$negotiationId'
 import { Route as HostVehiclesRouteImport } from './routes/host.vehicles'
 import { Route as HostOffersRouteImport } from './routes/host.offers'
@@ -31,9 +34,11 @@ import { Route as HostEarningsRouteImport } from './routes/host.earnings'
 import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
 import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
 import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
+import { Route as PaymentsReceiptsIndexRouteImport } from './routes/payments.receipts.index'
 import { Route as TrustReviewDealIdRouteImport } from './routes/trust.review.$dealId'
 import { Route as TrustDisputesNewRouteImport } from './routes/trust.disputes.new'
 import { Route as TrustDisputesDisputeIdRouteImport } from './routes/trust.disputes.$disputeId'
+import { Route as PaymentsReceiptsTxnIdRouteImport } from './routes/payments.receipts.$txnId'
 import { Route as CorporateRequestsRequestIdRouteImport } from './routes/corporate.requests.$requestId'
 
 const TrustRoute = TrustRouteImport.update({
@@ -76,6 +81,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PaymentsIndexRoute = PaymentsIndexRouteImport.update({
+  id: '/payments/',
+  path: '/payments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HostIndexRoute = HostIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -104,6 +114,16 @@ const SignupHostRoute = SignupHostRouteImport.update({
 const SignupCorporateRoute = SignupCorporateRouteImport.update({
   id: '/signup/corporate',
   path: '/signup/corporate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsPayoutsRoute = PaymentsPayoutsRouteImport.update({
+  id: '/payments/payouts',
+  path: '/payments/payouts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsMethodsRoute = PaymentsMethodsRouteImport.update({
+  id: '/payments/methods',
+  path: '/payments/methods',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OffersNegotiationIdRoute = OffersNegotiationIdRouteImport.update({
@@ -146,6 +166,11 @@ const CorporateDealsRoute = CorporateDealsRouteImport.update({
   path: '/deals',
   getParentRoute: () => CorporateRoute,
 } as any)
+const PaymentsReceiptsIndexRoute = PaymentsReceiptsIndexRouteImport.update({
+  id: '/payments/receipts/',
+  path: '/payments/receipts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrustReviewDealIdRoute = TrustReviewDealIdRouteImport.update({
   id: '/review/$dealId',
   path: '/review/$dealId',
@@ -160,6 +185,11 @@ const TrustDisputesDisputeIdRoute = TrustDisputesDisputeIdRouteImport.update({
   id: '/$disputeId',
   path: '/$disputeId',
   getParentRoute: () => TrustDisputesRoute,
+} as any)
+const PaymentsReceiptsTxnIdRoute = PaymentsReceiptsTxnIdRouteImport.update({
+  id: '/payments/receipts/$txnId',
+  path: '/payments/receipts/$txnId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CorporateRequestsRequestIdRoute =
   CorporateRequestsRequestIdRouteImport.update({
@@ -185,16 +215,21 @@ export interface FileRoutesByFullPath {
   '/host/offers': typeof HostOffersRoute
   '/host/vehicles': typeof HostVehiclesRoute
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
+  '/payments/methods': typeof PaymentsMethodsRoute
+  '/payments/payouts': typeof PaymentsPayoutsRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
   '/trust/disputes': typeof TrustDisputesRouteWithChildren
   '/trust/kyc': typeof TrustKycRoute
   '/trust/reviews': typeof TrustReviewsRoute
   '/host/': typeof HostIndexRoute
+  '/payments/': typeof PaymentsIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
+  '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
   '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
   '/trust/disputes/new': typeof TrustDisputesNewRoute
   '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/payments/receipts/': typeof PaymentsReceiptsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -212,16 +247,21 @@ export interface FileRoutesByTo {
   '/host/offers': typeof HostOffersRoute
   '/host/vehicles': typeof HostVehiclesRoute
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
+  '/payments/methods': typeof PaymentsMethodsRoute
+  '/payments/payouts': typeof PaymentsPayoutsRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
   '/trust/disputes': typeof TrustDisputesRouteWithChildren
   '/trust/kyc': typeof TrustKycRoute
   '/trust/reviews': typeof TrustReviewsRoute
   '/host': typeof HostIndexRoute
+  '/payments': typeof PaymentsIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
+  '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
   '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
   '/trust/disputes/new': typeof TrustDisputesNewRoute
   '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/payments/receipts': typeof PaymentsReceiptsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -241,16 +281,21 @@ export interface FileRoutesById {
   '/host/offers': typeof HostOffersRoute
   '/host/vehicles': typeof HostVehiclesRoute
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
+  '/payments/methods': typeof PaymentsMethodsRoute
+  '/payments/payouts': typeof PaymentsPayoutsRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
   '/trust/disputes': typeof TrustDisputesRouteWithChildren
   '/trust/kyc': typeof TrustKycRoute
   '/trust/reviews': typeof TrustReviewsRoute
   '/host/': typeof HostIndexRoute
+  '/payments/': typeof PaymentsIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
+  '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
   '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
   '/trust/disputes/new': typeof TrustDisputesNewRoute
   '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/payments/receipts/': typeof PaymentsReceiptsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -271,16 +316,21 @@ export interface FileRouteTypes {
     | '/host/offers'
     | '/host/vehicles'
     | '/offers/$negotiationId'
+    | '/payments/methods'
+    | '/payments/payouts'
     | '/signup/corporate'
     | '/signup/host'
     | '/trust/disputes'
     | '/trust/kyc'
     | '/trust/reviews'
     | '/host/'
+    | '/payments/'
     | '/corporate/requests/$requestId'
+    | '/payments/receipts/$txnId'
     | '/trust/disputes/$disputeId'
     | '/trust/disputes/new'
     | '/trust/review/$dealId'
+    | '/payments/receipts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -298,16 +348,21 @@ export interface FileRouteTypes {
     | '/host/offers'
     | '/host/vehicles'
     | '/offers/$negotiationId'
+    | '/payments/methods'
+    | '/payments/payouts'
     | '/signup/corporate'
     | '/signup/host'
     | '/trust/disputes'
     | '/trust/kyc'
     | '/trust/reviews'
     | '/host'
+    | '/payments'
     | '/corporate/requests/$requestId'
+    | '/payments/receipts/$txnId'
     | '/trust/disputes/$disputeId'
     | '/trust/disputes/new'
     | '/trust/review/$dealId'
+    | '/payments/receipts'
   id:
     | '__root__'
     | '/'
@@ -326,16 +381,21 @@ export interface FileRouteTypes {
     | '/host/offers'
     | '/host/vehicles'
     | '/offers/$negotiationId'
+    | '/payments/methods'
+    | '/payments/payouts'
     | '/signup/corporate'
     | '/signup/host'
     | '/trust/disputes'
     | '/trust/kyc'
     | '/trust/reviews'
     | '/host/'
+    | '/payments/'
     | '/corporate/requests/$requestId'
+    | '/payments/receipts/$txnId'
     | '/trust/disputes/$disputeId'
     | '/trust/disputes/new'
     | '/trust/review/$dealId'
+    | '/payments/receipts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -347,8 +407,13 @@ export interface RootRouteChildren {
   RoleRoute: typeof RoleRoute
   TermsRoute: typeof TermsRoute
   TrustRoute: typeof TrustRouteWithChildren
+  PaymentsMethodsRoute: typeof PaymentsMethodsRoute
+  PaymentsPayoutsRoute: typeof PaymentsPayoutsRoute
   SignupCorporateRoute: typeof SignupCorporateRoute
   SignupHostRoute: typeof SignupHostRoute
+  PaymentsIndexRoute: typeof PaymentsIndexRoute
+  PaymentsReceiptsTxnIdRoute: typeof PaymentsReceiptsTxnIdRoute
+  PaymentsReceiptsIndexRoute: typeof PaymentsReceiptsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -409,6 +474,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/payments/': {
+      id: '/payments/'
+      path: '/payments'
+      fullPath: '/payments/'
+      preLoaderRoute: typeof PaymentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/host/': {
       id: '/host/'
       path: '/'
@@ -449,6 +521,20 @@ declare module '@tanstack/react-router' {
       path: '/signup/corporate'
       fullPath: '/signup/corporate'
       preLoaderRoute: typeof SignupCorporateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments/payouts': {
+      id: '/payments/payouts'
+      path: '/payments/payouts'
+      fullPath: '/payments/payouts'
+      preLoaderRoute: typeof PaymentsPayoutsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments/methods': {
+      id: '/payments/methods'
+      path: '/payments/methods'
+      fullPath: '/payments/methods'
+      preLoaderRoute: typeof PaymentsMethodsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offers/$negotiationId': {
@@ -507,6 +593,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorporateDealsRouteImport
       parentRoute: typeof CorporateRoute
     }
+    '/payments/receipts/': {
+      id: '/payments/receipts/'
+      path: '/payments/receipts'
+      fullPath: '/payments/receipts/'
+      preLoaderRoute: typeof PaymentsReceiptsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trust/review/$dealId': {
       id: '/trust/review/$dealId'
       path: '/review/$dealId'
@@ -527,6 +620,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trust/disputes/$disputeId'
       preLoaderRoute: typeof TrustDisputesDisputeIdRouteImport
       parentRoute: typeof TrustDisputesRoute
+    }
+    '/payments/receipts/$txnId': {
+      id: '/payments/receipts/$txnId'
+      path: '/payments/receipts/$txnId'
+      fullPath: '/payments/receipts/$txnId'
+      preLoaderRoute: typeof PaymentsReceiptsTxnIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/corporate/requests/$requestId': {
       id: '/corporate/requests/$requestId'
@@ -633,8 +733,13 @@ const rootRouteChildren: RootRouteChildren = {
   RoleRoute: RoleRoute,
   TermsRoute: TermsRoute,
   TrustRoute: TrustRouteWithChildren,
+  PaymentsMethodsRoute: PaymentsMethodsRoute,
+  PaymentsPayoutsRoute: PaymentsPayoutsRoute,
   SignupCorporateRoute: SignupCorporateRoute,
   SignupHostRoute: SignupHostRoute,
+  PaymentsIndexRoute: PaymentsIndexRoute,
+  PaymentsReceiptsTxnIdRoute: PaymentsReceiptsTxnIdRoute,
+  PaymentsReceiptsIndexRoute: PaymentsReceiptsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

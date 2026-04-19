@@ -1,8 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDownToLine, Info, ShieldCheck } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowDownToLine, Info, ShieldCheck, Receipt } from "lucide-react";
 import { HostTopBar } from "@/components/host/HostTopBar";
 import { EarningsRow } from "@/components/host/EarningsRow";
 import { EarningsChart } from "@/components/host/EarningsChart";
+import { PayoutModal } from "@/components/payments/PayoutModal";
 import { hostMetrics, listEarnings } from "@/lib/host-data";
 import { formatNaira } from "@/lib/format";
 
@@ -28,10 +30,11 @@ const TREND = [
 function EarningsPage() {
   const m = hostMetrics();
   const entries = listEarnings();
+  const [payoutOpen, setPayoutOpen] = useState(false);
 
   return (
     <>
-      <HostTopBar title="Earnings" subtitle="Mock balances — wired to escrow in Phase 7" showAdd={false} />
+      <HostTopBar title="Earnings" subtitle="Escrow & payouts powered by FleetLink" showAdd={false} />
 
       <main className="mx-auto w-full max-w-md space-y-4 px-5 pt-4">
         {/* Balance hero */}
@@ -42,11 +45,19 @@ function EarningsPage() {
           <p className="mt-1 text-3xl font-bold">{formatNaira(m.availableBalance)}</p>
           <button
             type="button"
+            onClick={() => setPayoutOpen(true)}
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-accent py-2.5 text-sm font-semibold text-accent-foreground shadow-[var(--shadow-accent)]"
           >
             <ArrowDownToLine className="h-4 w-4" />
             Withdraw to bank
           </button>
+          <Link
+            to="/payments/payouts"
+            className="mt-2 flex items-center justify-center gap-1.5 rounded-full bg-white/10 py-1.5 text-[11px] font-semibold text-white hover:bg-white/15"
+          >
+            <Receipt className="h-3 w-3" />
+            Payout history
+          </Link>
         </section>
 
         {/* Sub-balances */}
@@ -76,18 +87,32 @@ function EarningsPage() {
         <div className="flex items-start gap-2 rounded-xl bg-muted/60 p-3 text-[11px] text-muted-foreground">
           <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            All values are mock. Real escrow and payouts will be powered by Paystack in Phase 7.
+            Mock balances. Live escrow & payouts wire up once a payments provider is enabled.
           </span>
         </div>
 
         {/* Transactions */}
         <section className="rounded-2xl border border-border bg-card p-3 shadow-[var(--shadow-card)]">
-          <h2 className="px-1 pb-1 text-sm font-bold text-foreground">Recent activity</h2>
+          <div className="mb-1 flex items-center justify-between px-1">
+            <h2 className="text-sm font-bold text-foreground">Recent activity</h2>
+            <Link
+              to="/payments/receipts"
+              className="text-[11px] font-semibold text-primary hover:underline"
+            >
+              All receipts
+            </Link>
+          </div>
           {entries.map((e) => (
             <EarningsRow key={e.id} entry={e} />
           ))}
         </section>
       </main>
+
+      <PayoutModal
+        open={payoutOpen}
+        onOpenChange={setPayoutOpen}
+        available={m.availableBalance}
+      />
     </>
   );
 }
