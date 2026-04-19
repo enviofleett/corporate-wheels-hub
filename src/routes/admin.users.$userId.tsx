@@ -41,7 +41,7 @@ export const Route = createFileRoute("/admin/users/$userId")({
 
 function UserDetail() {
   const user = Route.useLoaderData();
-  const [status, setStatus] = useState(user.status);
+  const [status, setStatus] = useState<typeof user.status>(user.status);
   const [confirm, setConfirm] = useState<null | "suspend" | "ban" | "reinstate">(null);
   const [showMessage, setShowMessage] = useState(false);
 
