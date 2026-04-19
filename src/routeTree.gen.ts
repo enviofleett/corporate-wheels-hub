@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrustRouteImport } from './routes/trust'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RoleRouteImport } from './routes/role'
 import { Route as OffersRouteImport } from './routes/offers'
@@ -17,6 +18,9 @@ import { Route as FeedRouteImport } from './routes/feed'
 import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HostIndexRouteImport } from './routes/host.index'
+import { Route as TrustReviewsRouteImport } from './routes/trust.reviews'
+import { Route as TrustKycRouteImport } from './routes/trust.kyc'
+import { Route as TrustDisputesRouteImport } from './routes/trust.disputes'
 import { Route as SignupHostRouteImport } from './routes/signup.host'
 import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
 import { Route as OffersNegotiationIdRouteImport } from './routes/offers.$negotiationId'
@@ -27,8 +31,16 @@ import { Route as HostEarningsRouteImport } from './routes/host.earnings'
 import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
 import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
 import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
+import { Route as TrustReviewDealIdRouteImport } from './routes/trust.review.$dealId'
+import { Route as TrustDisputesNewRouteImport } from './routes/trust.disputes.new'
+import { Route as TrustDisputesDisputeIdRouteImport } from './routes/trust.disputes.$disputeId'
 import { Route as CorporateRequestsRequestIdRouteImport } from './routes/corporate.requests.$requestId'
 
+const TrustRoute = TrustRouteImport.update({
+  id: '/trust',
+  path: '/trust',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -68,6 +80,21 @@ const HostIndexRoute = HostIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => HostRoute,
+} as any)
+const TrustReviewsRoute = TrustReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => TrustRoute,
+} as any)
+const TrustKycRoute = TrustKycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => TrustRoute,
+} as any)
+const TrustDisputesRoute = TrustDisputesRouteImport.update({
+  id: '/disputes',
+  path: '/disputes',
+  getParentRoute: () => TrustRoute,
 } as any)
 const SignupHostRoute = SignupHostRouteImport.update({
   id: '/signup/host',
@@ -119,6 +146,21 @@ const CorporateDealsRoute = CorporateDealsRouteImport.update({
   path: '/deals',
   getParentRoute: () => CorporateRoute,
 } as any)
+const TrustReviewDealIdRoute = TrustReviewDealIdRouteImport.update({
+  id: '/review/$dealId',
+  path: '/review/$dealId',
+  getParentRoute: () => TrustRoute,
+} as any)
+const TrustDisputesNewRoute = TrustDisputesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => TrustDisputesRoute,
+} as any)
+const TrustDisputesDisputeIdRoute = TrustDisputesDisputeIdRouteImport.update({
+  id: '/$disputeId',
+  path: '/$disputeId',
+  getParentRoute: () => TrustDisputesRoute,
+} as any)
 const CorporateRequestsRequestIdRoute =
   CorporateRequestsRequestIdRouteImport.update({
     id: '/$requestId',
@@ -134,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/trust': typeof TrustRouteWithChildren
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -144,8 +187,14 @@ export interface FileRoutesByFullPath {
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/trust/disputes': typeof TrustDisputesRouteWithChildren
+  '/trust/kyc': typeof TrustKycRoute
+  '/trust/reviews': typeof TrustReviewsRoute
   '/host/': typeof HostIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
+  '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
+  '/trust/disputes/new': typeof TrustDisputesNewRoute
+  '/trust/review/$dealId': typeof TrustReviewDealIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -154,6 +203,7 @@ export interface FileRoutesByTo {
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/trust': typeof TrustRouteWithChildren
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -164,8 +214,14 @@ export interface FileRoutesByTo {
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/trust/disputes': typeof TrustDisputesRouteWithChildren
+  '/trust/kyc': typeof TrustKycRoute
+  '/trust/reviews': typeof TrustReviewsRoute
   '/host': typeof HostIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
+  '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
+  '/trust/disputes/new': typeof TrustDisputesNewRoute
+  '/trust/review/$dealId': typeof TrustReviewDealIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -176,6 +232,7 @@ export interface FileRoutesById {
   '/offers': typeof OffersRouteWithChildren
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
+  '/trust': typeof TrustRouteWithChildren
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -186,8 +243,14 @@ export interface FileRoutesById {
   '/offers/$negotiationId': typeof OffersNegotiationIdRoute
   '/signup/corporate': typeof SignupCorporateRoute
   '/signup/host': typeof SignupHostRoute
+  '/trust/disputes': typeof TrustDisputesRouteWithChildren
+  '/trust/kyc': typeof TrustKycRoute
+  '/trust/reviews': typeof TrustReviewsRoute
   '/host/': typeof HostIndexRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
+  '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
+  '/trust/disputes/new': typeof TrustDisputesNewRoute
+  '/trust/review/$dealId': typeof TrustReviewDealIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -199,6 +262,7 @@ export interface FileRouteTypes {
     | '/offers'
     | '/role'
     | '/terms'
+    | '/trust'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -209,8 +273,14 @@ export interface FileRouteTypes {
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/trust/disputes'
+    | '/trust/kyc'
+    | '/trust/reviews'
     | '/host/'
     | '/corporate/requests/$requestId'
+    | '/trust/disputes/$disputeId'
+    | '/trust/disputes/new'
+    | '/trust/review/$dealId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -219,6 +289,7 @@ export interface FileRouteTypes {
     | '/offers'
     | '/role'
     | '/terms'
+    | '/trust'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -229,8 +300,14 @@ export interface FileRouteTypes {
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/trust/disputes'
+    | '/trust/kyc'
+    | '/trust/reviews'
     | '/host'
     | '/corporate/requests/$requestId'
+    | '/trust/disputes/$disputeId'
+    | '/trust/disputes/new'
+    | '/trust/review/$dealId'
   id:
     | '__root__'
     | '/'
@@ -240,6 +317,7 @@ export interface FileRouteTypes {
     | '/offers'
     | '/role'
     | '/terms'
+    | '/trust'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -250,8 +328,14 @@ export interface FileRouteTypes {
     | '/offers/$negotiationId'
     | '/signup/corporate'
     | '/signup/host'
+    | '/trust/disputes'
+    | '/trust/kyc'
+    | '/trust/reviews'
     | '/host/'
     | '/corporate/requests/$requestId'
+    | '/trust/disputes/$disputeId'
+    | '/trust/disputes/new'
+    | '/trust/review/$dealId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -262,12 +346,20 @@ export interface RootRouteChildren {
   OffersRoute: typeof OffersRouteWithChildren
   RoleRoute: typeof RoleRoute
   TermsRoute: typeof TermsRoute
+  TrustRoute: typeof TrustRouteWithChildren
   SignupCorporateRoute: typeof SignupCorporateRoute
   SignupHostRoute: typeof SignupHostRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/trust': {
+      id: '/trust'
+      path: '/trust'
+      fullPath: '/trust'
+      preLoaderRoute: typeof TrustRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -323,6 +415,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/host/'
       preLoaderRoute: typeof HostIndexRouteImport
       parentRoute: typeof HostRoute
+    }
+    '/trust/reviews': {
+      id: '/trust/reviews'
+      path: '/reviews'
+      fullPath: '/trust/reviews'
+      preLoaderRoute: typeof TrustReviewsRouteImport
+      parentRoute: typeof TrustRoute
+    }
+    '/trust/kyc': {
+      id: '/trust/kyc'
+      path: '/kyc'
+      fullPath: '/trust/kyc'
+      preLoaderRoute: typeof TrustKycRouteImport
+      parentRoute: typeof TrustRoute
+    }
+    '/trust/disputes': {
+      id: '/trust/disputes'
+      path: '/disputes'
+      fullPath: '/trust/disputes'
+      preLoaderRoute: typeof TrustDisputesRouteImport
+      parentRoute: typeof TrustRoute
     }
     '/signup/host': {
       id: '/signup/host'
@@ -394,6 +507,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorporateDealsRouteImport
       parentRoute: typeof CorporateRoute
     }
+    '/trust/review/$dealId': {
+      id: '/trust/review/$dealId'
+      path: '/review/$dealId'
+      fullPath: '/trust/review/$dealId'
+      preLoaderRoute: typeof TrustReviewDealIdRouteImport
+      parentRoute: typeof TrustRoute
+    }
+    '/trust/disputes/new': {
+      id: '/trust/disputes/new'
+      path: '/new'
+      fullPath: '/trust/disputes/new'
+      preLoaderRoute: typeof TrustDisputesNewRouteImport
+      parentRoute: typeof TrustDisputesRoute
+    }
+    '/trust/disputes/$disputeId': {
+      id: '/trust/disputes/$disputeId'
+      path: '/$disputeId'
+      fullPath: '/trust/disputes/$disputeId'
+      preLoaderRoute: typeof TrustDisputesDisputeIdRouteImport
+      parentRoute: typeof TrustDisputesRoute
+    }
     '/corporate/requests/$requestId': {
       id: '/corporate/requests/$requestId'
       path: '/$requestId'
@@ -460,6 +594,36 @@ const OffersRouteChildren: OffersRouteChildren = {
 const OffersRouteWithChildren =
   OffersRoute._addFileChildren(OffersRouteChildren)
 
+interface TrustDisputesRouteChildren {
+  TrustDisputesDisputeIdRoute: typeof TrustDisputesDisputeIdRoute
+  TrustDisputesNewRoute: typeof TrustDisputesNewRoute
+}
+
+const TrustDisputesRouteChildren: TrustDisputesRouteChildren = {
+  TrustDisputesDisputeIdRoute: TrustDisputesDisputeIdRoute,
+  TrustDisputesNewRoute: TrustDisputesNewRoute,
+}
+
+const TrustDisputesRouteWithChildren = TrustDisputesRoute._addFileChildren(
+  TrustDisputesRouteChildren,
+)
+
+interface TrustRouteChildren {
+  TrustDisputesRoute: typeof TrustDisputesRouteWithChildren
+  TrustKycRoute: typeof TrustKycRoute
+  TrustReviewsRoute: typeof TrustReviewsRoute
+  TrustReviewDealIdRoute: typeof TrustReviewDealIdRoute
+}
+
+const TrustRouteChildren: TrustRouteChildren = {
+  TrustDisputesRoute: TrustDisputesRouteWithChildren,
+  TrustKycRoute: TrustKycRoute,
+  TrustReviewsRoute: TrustReviewsRoute,
+  TrustReviewDealIdRoute: TrustReviewDealIdRoute,
+}
+
+const TrustRouteWithChildren = TrustRoute._addFileChildren(TrustRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CorporateRoute: CorporateRouteWithChildren,
@@ -468,6 +632,7 @@ const rootRouteChildren: RootRouteChildren = {
   OffersRoute: OffersRouteWithChildren,
   RoleRoute: RoleRoute,
   TermsRoute: TermsRoute,
+  TrustRoute: TrustRouteWithChildren,
   SignupCorporateRoute: SignupCorporateRoute,
   SignupHostRoute: SignupHostRoute,
 }
