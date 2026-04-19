@@ -36,16 +36,24 @@ import { Route as HostEarningsRouteImport } from './routes/host.earnings'
 import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
 import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
 import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminMoreRouteImport } from './routes/admin.more'
+import { Route as AdminModerationRouteImport } from './routes/admin.moderation'
 import { Route as AdminKycRouteImport } from './routes/admin.kyc'
 import { Route as AdminDisputesRouteImport } from './routes/admin.disputes'
+import { Route as AdminAuditRouteImport } from './routes/admin.audit'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
 import { Route as PaymentsReceiptsIndexRouteImport } from './routes/payments.receipts.index'
 import { Route as AdminUsersIndexRouteImport } from './routes/admin.users.index'
+import { Route as AdminFinanceIndexRouteImport } from './routes/admin.finance.index'
 import { Route as TrustReviewDealIdRouteImport } from './routes/trust.review.$dealId'
 import { Route as TrustDisputesNewRouteImport } from './routes/trust.disputes.new'
 import { Route as TrustDisputesDisputeIdRouteImport } from './routes/trust.disputes.$disputeId'
 import { Route as PaymentsReceiptsTxnIdRouteImport } from './routes/payments.receipts.$txnId'
 import { Route as CorporateRequestsRequestIdRouteImport } from './routes/corporate.requests.$requestId'
 import { Route as AdminUsersUserIdRouteImport } from './routes/admin.users.$userId'
+import { Route as AdminFinanceTransactionsRouteImport } from './routes/admin.finance.transactions'
+import { Route as AdminFinancePayoutsRouteImport } from './routes/admin.finance.payouts'
 
 const TrustRoute = TrustRouteImport.update({
   id: '/trust',
@@ -182,6 +190,21 @@ const CorporateDealsRoute = CorporateDealsRouteImport.update({
   path: '/deals',
   getParentRoute: () => CorporateRoute,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMoreRoute = AdminMoreRouteImport.update({
+  id: '/more',
+  path: '/more',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminModerationRoute = AdminModerationRouteImport.update({
+  id: '/moderation',
+  path: '/moderation',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminKycRoute = AdminKycRouteImport.update({
   id: '/kyc',
   path: '/kyc',
@@ -192,6 +215,16 @@ const AdminDisputesRoute = AdminDisputesRouteImport.update({
   path: '/disputes',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAuditRoute = AdminAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => AdminRoute,
+} as any)
 const PaymentsReceiptsIndexRoute = PaymentsReceiptsIndexRouteImport.update({
   id: '/payments/receipts/',
   path: '/payments/receipts/',
@@ -200,6 +233,11 @@ const PaymentsReceiptsIndexRoute = PaymentsReceiptsIndexRouteImport.update({
 const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFinanceIndexRoute = AdminFinanceIndexRouteImport.update({
+  id: '/finance/',
+  path: '/finance/',
   getParentRoute: () => AdminRoute,
 } as any)
 const TrustReviewDealIdRoute = TrustReviewDealIdRouteImport.update({
@@ -233,6 +271,17 @@ const AdminUsersUserIdRoute = AdminUsersUserIdRouteImport.update({
   path: '/users/$userId',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminFinanceTransactionsRoute =
+  AdminFinanceTransactionsRouteImport.update({
+    id: '/finance/transactions',
+    path: '/finance/transactions',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminFinancePayoutsRoute = AdminFinancePayoutsRouteImport.update({
+  id: '/finance/payouts',
+  path: '/finance/payouts',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -244,8 +293,13 @@ export interface FileRoutesByFullPath {
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRouteWithChildren
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/audit': typeof AdminAuditRoute
   '/admin/disputes': typeof AdminDisputesRoute
   '/admin/kyc': typeof AdminKycRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/more': typeof AdminMoreRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -264,12 +318,15 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/host/': typeof HostIndexRoute
   '/payments/': typeof PaymentsIndexRoute
+  '/admin/finance/payouts': typeof AdminFinancePayoutsRoute
+  '/admin/finance/transactions': typeof AdminFinanceTransactionsRoute
   '/admin/users/$userId': typeof AdminUsersUserIdRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
   '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
   '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
   '/trust/disputes/new': typeof TrustDisputesNewRoute
   '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/admin/finance/': typeof AdminFinanceIndexRoute
   '/admin/users/': typeof AdminUsersIndexRoute
   '/payments/receipts/': typeof PaymentsReceiptsIndexRoute
 }
@@ -281,8 +338,13 @@ export interface FileRoutesByTo {
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRouteWithChildren
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/audit': typeof AdminAuditRoute
   '/admin/disputes': typeof AdminDisputesRoute
   '/admin/kyc': typeof AdminKycRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/more': typeof AdminMoreRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -301,12 +363,15 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/host': typeof HostIndexRoute
   '/payments': typeof PaymentsIndexRoute
+  '/admin/finance/payouts': typeof AdminFinancePayoutsRoute
+  '/admin/finance/transactions': typeof AdminFinanceTransactionsRoute
   '/admin/users/$userId': typeof AdminUsersUserIdRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
   '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
   '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
   '/trust/disputes/new': typeof TrustDisputesNewRoute
   '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/admin/finance': typeof AdminFinanceIndexRoute
   '/admin/users': typeof AdminUsersIndexRoute
   '/payments/receipts': typeof PaymentsReceiptsIndexRoute
 }
@@ -321,8 +386,13 @@ export interface FileRoutesById {
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
   '/trust': typeof TrustRouteWithChildren
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/audit': typeof AdminAuditRoute
   '/admin/disputes': typeof AdminDisputesRoute
   '/admin/kyc': typeof AdminKycRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/more': typeof AdminMoreRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/corporate/deals': typeof CorporateDealsRoute
   '/corporate/offers': typeof CorporateOffersRoute
   '/corporate/requests': typeof CorporateRequestsRouteWithChildren
@@ -341,12 +411,15 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/host/': typeof HostIndexRoute
   '/payments/': typeof PaymentsIndexRoute
+  '/admin/finance/payouts': typeof AdminFinancePayoutsRoute
+  '/admin/finance/transactions': typeof AdminFinanceTransactionsRoute
   '/admin/users/$userId': typeof AdminUsersUserIdRoute
   '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
   '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
   '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
   '/trust/disputes/new': typeof TrustDisputesNewRoute
   '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/admin/finance/': typeof AdminFinanceIndexRoute
   '/admin/users/': typeof AdminUsersIndexRoute
   '/payments/receipts/': typeof PaymentsReceiptsIndexRoute
 }
@@ -362,8 +435,13 @@ export interface FileRouteTypes {
     | '/role'
     | '/terms'
     | '/trust'
+    | '/admin/announcements'
+    | '/admin/audit'
     | '/admin/disputes'
     | '/admin/kyc'
+    | '/admin/moderation'
+    | '/admin/more'
+    | '/admin/settings'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -382,12 +460,15 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/host/'
     | '/payments/'
+    | '/admin/finance/payouts'
+    | '/admin/finance/transactions'
     | '/admin/users/$userId'
     | '/corporate/requests/$requestId'
     | '/payments/receipts/$txnId'
     | '/trust/disputes/$disputeId'
     | '/trust/disputes/new'
     | '/trust/review/$dealId'
+    | '/admin/finance/'
     | '/admin/users/'
     | '/payments/receipts/'
   fileRoutesByTo: FileRoutesByTo
@@ -399,8 +480,13 @@ export interface FileRouteTypes {
     | '/role'
     | '/terms'
     | '/trust'
+    | '/admin/announcements'
+    | '/admin/audit'
     | '/admin/disputes'
     | '/admin/kyc'
+    | '/admin/moderation'
+    | '/admin/more'
+    | '/admin/settings'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -419,12 +505,15 @@ export interface FileRouteTypes {
     | '/admin'
     | '/host'
     | '/payments'
+    | '/admin/finance/payouts'
+    | '/admin/finance/transactions'
     | '/admin/users/$userId'
     | '/corporate/requests/$requestId'
     | '/payments/receipts/$txnId'
     | '/trust/disputes/$disputeId'
     | '/trust/disputes/new'
     | '/trust/review/$dealId'
+    | '/admin/finance'
     | '/admin/users'
     | '/payments/receipts'
   id:
@@ -438,8 +527,13 @@ export interface FileRouteTypes {
     | '/role'
     | '/terms'
     | '/trust'
+    | '/admin/announcements'
+    | '/admin/audit'
     | '/admin/disputes'
     | '/admin/kyc'
+    | '/admin/moderation'
+    | '/admin/more'
+    | '/admin/settings'
     | '/corporate/deals'
     | '/corporate/offers'
     | '/corporate/requests'
@@ -458,12 +552,15 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/host/'
     | '/payments/'
+    | '/admin/finance/payouts'
+    | '/admin/finance/transactions'
     | '/admin/users/$userId'
     | '/corporate/requests/$requestId'
     | '/payments/receipts/$txnId'
     | '/trust/disputes/$disputeId'
     | '/trust/disputes/new'
     | '/trust/review/$dealId'
+    | '/admin/finance/'
     | '/admin/users/'
     | '/payments/receipts/'
   fileRoutesById: FileRoutesById
@@ -678,6 +775,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorporateDealsRouteImport
       parentRoute: typeof CorporateRoute
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/more': {
+      id: '/admin/more'
+      path: '/more'
+      fullPath: '/admin/more'
+      preLoaderRoute: typeof AdminMoreRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/moderation': {
+      id: '/admin/moderation'
+      path: '/moderation'
+      fullPath: '/admin/moderation'
+      preLoaderRoute: typeof AdminModerationRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/kyc': {
       id: '/admin/kyc'
       path: '/kyc'
@@ -692,6 +810,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDisputesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/audit': {
+      id: '/admin/audit'
+      path: '/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AdminAuditRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/payments/receipts/': {
       id: '/payments/receipts/'
       path: '/payments/receipts'
@@ -704,6 +836,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/admin/users/'
       preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/finance/': {
+      id: '/admin/finance/'
+      path: '/finance'
+      fullPath: '/admin/finance/'
+      preLoaderRoute: typeof AdminFinanceIndexRouteImport
       parentRoute: typeof AdminRoute
     }
     '/trust/review/$dealId': {
@@ -748,22 +887,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersUserIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/finance/transactions': {
+      id: '/admin/finance/transactions'
+      path: '/finance/transactions'
+      fullPath: '/admin/finance/transactions'
+      preLoaderRoute: typeof AdminFinanceTransactionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/finance/payouts': {
+      id: '/admin/finance/payouts'
+      path: '/finance/payouts'
+      fullPath: '/admin/finance/payouts'
+      preLoaderRoute: typeof AdminFinancePayoutsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
+  AdminAuditRoute: typeof AdminAuditRoute
   AdminDisputesRoute: typeof AdminDisputesRoute
   AdminKycRoute: typeof AdminKycRoute
+  AdminModerationRoute: typeof AdminModerationRoute
+  AdminMoreRoute: typeof AdminMoreRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminFinancePayoutsRoute: typeof AdminFinancePayoutsRoute
+  AdminFinanceTransactionsRoute: typeof AdminFinanceTransactionsRoute
   AdminUsersUserIdRoute: typeof AdminUsersUserIdRoute
+  AdminFinanceIndexRoute: typeof AdminFinanceIndexRoute
   AdminUsersIndexRoute: typeof AdminUsersIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
+  AdminAuditRoute: AdminAuditRoute,
   AdminDisputesRoute: AdminDisputesRoute,
   AdminKycRoute: AdminKycRoute,
+  AdminModerationRoute: AdminModerationRoute,
+  AdminMoreRoute: AdminMoreRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminFinancePayoutsRoute: AdminFinancePayoutsRoute,
+  AdminFinanceTransactionsRoute: AdminFinanceTransactionsRoute,
   AdminUsersUserIdRoute: AdminUsersUserIdRoute,
+  AdminFinanceIndexRoute: AdminFinanceIndexRoute,
   AdminUsersIndexRoute: AdminUsersIndexRoute,
 }
 
