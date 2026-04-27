@@ -13,6 +13,7 @@ import { corporateMetrics } from "@/lib/corporate-data";
 import { hostMetrics } from "@/lib/host-data";
 import { formatNaira } from "@/lib/format";
 import { withRole } from "@/components/auth/withRole";
+import { useRole } from "@/lib/role-store";
 
 export const Route = createFileRoute("/payments/")({
   head: () => ({
@@ -25,6 +26,9 @@ export const Route = createFileRoute("/payments/")({
 });
 
 function PaymentsHome() {
+  const role = useRole();
+  const isCorporate = role === "corporate";
+  const isHost = role === "host";
   const corp = corporateMetrics();
   const host = hostMetrics();
   const txns = listTransactions().slice(0, 3);
@@ -33,8 +37,14 @@ function PaymentsHome() {
   return (
     <div className="min-h-screen bg-muted/30 pb-12">
       <PaymentsTopBar
-        title="Payments"
-        subtitle="Escrow, methods, receipts & payouts"
+        title={isHost ? "Earnings & wallet" : "Payments"}
+        subtitle={
+          isHost
+            ? "Payouts, methods & receipts"
+            : isCorporate
+              ? "Escrow, methods & receipts"
+              : "Escrow, methods, receipts & payouts"
+        }
         backTo="/"
       />
 
@@ -73,12 +83,14 @@ function PaymentsHome() {
             label="Receipts & history"
             hint={`${listTransactions().length} transactions`}
           />
-          <NavRow
-            to="/payments/payouts"
-            icon={<Wallet className="h-4 w-4" />}
-            label="Payouts"
-            hint={`${payouts.length} processed`}
-          />
+          {!isCorporate && (
+            <NavRow
+              to="/payments/payouts"
+              icon={<Wallet className="h-4 w-4" />}
+              label="Payouts"
+              hint={`${payouts.length} processed`}
+            />
+          )}
         </section>
 
         {/* Recent activity */}
