@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import type { FC } from "react";
 import { RequireRole } from "@/components/auth/RequireRole";
 import type { AppRole } from "@/lib/role-store";
 
@@ -8,9 +8,9 @@ import type { AppRole } from "@/lib/role-store";
  */
 export function withRole<P extends object>(
   allow: AppRole[],
-  Component: ComponentType<P>,
-): ComponentType<P> {
-  const Gated = (props: P) => (
+  Component: FC<P>,
+): FC<P> {
+  const Gated: FC<P> = (props) => (
     <RequireRole allow={allow}>
       <Component {...props} />
     </RequireRole>
