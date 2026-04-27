@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import {
+import { withRole } from "@/components/auth/withRole";
   getKycProfile,
   listDisputes,
   listReviewableDeals,
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/trust")({
       },
     ],
   }),
-  component: TrustHub,
+  component: withRole(["corporate", "host", "admin"], TrustHub),
 });
 
 function TrustHub() {

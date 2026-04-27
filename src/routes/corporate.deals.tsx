@@ -10,6 +10,7 @@ import { DealCard } from "@/components/corporate/DealCard";
 import { FundEscrowModal } from "@/components/payments/FundEscrowModal";
 import { formatNaira, formatDuration } from "@/lib/format";
 import { Wallet, ShieldCheck, Receipt } from "lucide-react";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/corporate/deals")({
   head: () => ({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/corporate/deals")({
       { name: "description", content: "Active rental deals and escrow status." },
     ],
   }),
-  component: DealsPage,
+  component: withRole(["corporate"], DealsPage),
 });
 
 function DealsPage() {

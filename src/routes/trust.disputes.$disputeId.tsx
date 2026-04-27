@@ -5,6 +5,7 @@ import { DisputeStatusBadge } from "@/components/trust/DisputeStatusBadge";
 import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
 import { getDispute, REASON_LABELS, type Dispute } from "@/lib/trust-data";
 import { formatNaira, formatRelativeTime } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust/disputes/$disputeId")({
   loader: ({ params }): { dispute: Dispute } => {
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/trust/disputes/$disputeId")({
       </Link>
     </div>
   ),
-  component: DisputeDetail,
+  component: withRole(["corporate", "host", "admin"], DisputeDetail),
 });
 
 function DisputeDetail() {

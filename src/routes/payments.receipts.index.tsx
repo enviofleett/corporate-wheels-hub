@@ -3,6 +3,7 @@ import { useState } from "react";
 import { PaymentsTopBar } from "@/components/payments/PaymentsTopBar";
 import { TransactionRow } from "@/components/payments/TransactionRow";
 import { listTransactions, type TxnKind } from "@/lib/payments-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/payments/receipts/")({
   head: () => ({
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/payments/receipts/")({
       { name: "description", content: "All escrow funding, releases, fees and payouts." },
     ],
   }),
-  component: ReceiptsPage,
+  component: withRole(["corporate", "host", "admin"], ReceiptsPage),
 });
 
 const FILTERS: Array<{ id: "all" | TxnKind; label: string }> = [

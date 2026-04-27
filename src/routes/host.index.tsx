@@ -15,6 +15,7 @@ import { MetricCard } from "@/components/corporate/MetricCard";
 import { HostOfferCard } from "@/components/host/HostOfferCard";
 import { hostMetrics, listHostOffers, listEngagedRequests } from "@/lib/host-data";
 import { formatNaira } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/host/")({
   head: () => ({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/host/")({
       { name: "description", content: "Manage your vehicles, offers, and earnings." },
     ],
   }),
-  component: HostHome,
+  component: withRole(["host"], HostHome),
 });
 
 function HostHome() {

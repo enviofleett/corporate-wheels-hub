@@ -10,6 +10,7 @@ import {
 import { CorporateTopBar } from "@/components/corporate/CorporateTopBar";
 import { CorporateBottomNav } from "@/components/corporate/CorporateBottomNav";
 import { IncomingOfferCard } from "@/components/corporate/IncomingOfferCard";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/corporate/offers")({
   head: () => ({
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/corporate/offers")({
       },
     ],
   }),
-  component: OffersInboxPage,
+  component: withRole(["corporate"], OffersInboxPage),
 });
 
 function OffersInboxPage() {

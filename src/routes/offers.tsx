@@ -7,6 +7,7 @@ import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
 import { StatusBadge } from "@/components/feed/StatusBadge";
 import { formatNaira, formatRelativeTime } from "@/lib/format";
 import { BottomNav } from "@/components/feed/BottomNav";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/offers")({
   head: () => ({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/offers")({
       },
     ],
   }),
-  component: OffersPage,
+  component: withRole(["corporate", "host", "admin"], OffersPage),
 });
 
 function OffersPage() {

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { HostTopBar } from "@/components/host/HostTopBar";
 import { HostOfferCard } from "@/components/host/HostOfferCard";
 import { listHostOffers, type HostOfferStatus } from "@/lib/host-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/host/offers")({
   head: () => ({
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/host/offers")({
       { name: "description", content: "Track offers you've sent to corporates." },
     ],
   }),
-  component: OffersPage,
+  component: withRole(["host"], OffersPage),
 });
 
 const TABS: { key: "all" | HostOfferStatus; label: string }[] = [

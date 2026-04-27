@@ -6,6 +6,7 @@ import { StarRating } from "@/components/trust/StarRating";
 import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
 import { getReviewableDeal } from "@/lib/trust-data";
 import { formatNaira, formatDuration } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust/review/$dealId")({
   loader: ({ params }) => {
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/trust/review/$dealId")({
       </Link>
     </div>
   ),
-  component: ReviewPage,
+  component: withRole(["corporate", "host", "admin"], ReviewPage),
 });
 
 const TAGS = [

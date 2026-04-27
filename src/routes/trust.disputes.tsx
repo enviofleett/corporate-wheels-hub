@@ -4,6 +4,7 @@ import { useState } from "react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import { DisputeCard } from "@/components/trust/DisputeCard";
 import { listDisputes, type DisputeStatus } from "@/lib/trust-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust/disputes")({
   head: () => ({
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/trust/disputes")({
       { name: "description", content: "Track and resolve rental disputes." },
     ],
   }),
-  component: DisputesPage,
+  component: withRole(["corporate", "host", "admin"], DisputesPage),
 });
 
 const FILTERS: { id: "all" | DisputeStatus; label: string }[] = [

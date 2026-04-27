@@ -4,6 +4,7 @@ import { PaymentsTopBar } from "@/components/payments/PaymentsTopBar";
 import { PaymentMethodRow } from "@/components/payments/PaymentMethodRow";
 import { listPaymentMethods, listBankAccounts } from "@/lib/payments-data";
 import { Button } from "@/components/ui/button";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/payments/methods")({
   head: () => ({
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/payments/methods")({
       { name: "description", content: "Manage cards, bank transfer, USSD and payout accounts." },
     ],
   }),
-  component: MethodsPage,
+  component: withRole(["corporate", "host", "admin"], MethodsPage),
 });
 
 function MethodsPage() {

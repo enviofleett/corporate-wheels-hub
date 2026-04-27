@@ -7,6 +7,7 @@ import { EarningsChart } from "@/components/host/EarningsChart";
 import { PayoutModal } from "@/components/payments/PayoutModal";
 import { hostMetrics, listEarnings } from "@/lib/host-data";
 import { formatNaira } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/host/earnings")({
   head: () => ({
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/host/earnings")({
       { name: "description", content: "Track your rental earnings and payouts." },
     ],
   }),
-  component: EarningsPage,
+  component: withRole(["host"], EarningsPage),
 });
 
 const TREND = [

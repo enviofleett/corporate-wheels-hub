@@ -3,6 +3,7 @@ import { Compass } from "lucide-react";
 import { HostTopBar } from "@/components/host/HostTopBar";
 import { EngagedCard } from "@/components/host/EngagedCard";
 import { listEngagedRequests } from "@/lib/host-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/host/engaged")({
   head: () => ({
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/host/engaged")({
       { name: "description", content: "Requests you've saved or are negotiating on." },
     ],
   }),
-  component: EngagedPage,
+  component: withRole(["host"], EngagedPage),
 });
 
 function EngagedPage() {

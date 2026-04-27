@@ -7,6 +7,7 @@ import { listCorpRequests, type CorpRequestSummary } from "@/lib/corporate-data"
 import { CorporateTopBar } from "@/components/corporate/CorporateTopBar";
 import { CorporateBottomNav } from "@/components/corporate/CorporateBottomNav";
 import { RequestSummaryCard } from "@/components/corporate/RequestSummaryCard";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/corporate/requests")({
   head: () => ({
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/corporate/requests")({
       { name: "description", content: "All vehicle requests posted by your organization." },
     ],
   }),
-  component: RequestsListPage,
+  component: withRole(["corporate"], RequestsListPage),
 });
 
 const TABS: { id: "all" | CorpRequestSummary["status"]; label: string }[] = [

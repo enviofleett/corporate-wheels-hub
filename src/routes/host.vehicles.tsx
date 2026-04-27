@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { HostTopBar } from "@/components/host/HostTopBar";
 import { VehicleCard } from "@/components/host/VehicleCard";
 import { listVehicles, type VehicleStatus } from "@/lib/host-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/host/vehicles")({
   head: () => ({
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/host/vehicles")({
       { name: "description", content: "Manage your fleet of rental vehicles." },
     ],
   }),
-  component: VehiclesPage,
+  component: withRole(["host"], VehiclesPage),
 });
 
 const TABS: { key: "all" | VehicleStatus; label: string }[] = [
