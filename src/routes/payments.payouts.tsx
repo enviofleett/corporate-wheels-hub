@@ -17,7 +17,7 @@ export const Route = createFileRoute("/payments/payouts")({
       { name: "description", content: "Withdraw earnings to your bank account." },
     ],
   }),
-  component: withRole(["corporate", "host", "admin"], PayoutsPage),
+  component: withRole(["host", "admin"], PayoutsPage),
 });
 
 function PayoutsPage() {

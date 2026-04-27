@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useLocation } from "@tanstack/react-router";
 import { getRole, type AppRole } from "@/lib/role-store";
 
 interface RequireRoleProps {
@@ -13,11 +13,13 @@ interface RequireRoleProps {
 
 /**
  * UI-only route guard. Reads role from localStorage; if the current role
- * isn't allowed, redirects to /role to pick one. Renders nothing while
- * resolving to avoid a flash of protected content.
+ * isn't allowed, redirects to /role with `?from=<path>` so the role screen
+ * can explain what was blocked. Renders nothing while resolving to avoid a
+ * flash of protected content.
  */
 export function RequireRole({ allow, children }: RequireRoleProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [ready, setReady] = useState(false);
   const [authorized, setAuthorized] = useState(false);
 
@@ -26,10 +28,13 @@ export function RequireRole({ allow, children }: RequireRoleProps) {
     if (role && allow.includes(role)) {
       setAuthorized(true);
     } else {
-      navigate({ to: "/role" });
+      navigate({
+        to: "/role",
+        search: { from: location.pathname },
+      });
     }
     setReady(true);
-  }, [allow, navigate]);
+  }, [allow, navigate, location.pathname]);
 
   if (!ready || !authorized) return null;
   return <>{children}</>;
