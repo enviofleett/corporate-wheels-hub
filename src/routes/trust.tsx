@@ -8,11 +8,11 @@ import {
 } from "lucide-react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import {
-import { withRole } from "@/components/auth/withRole";
   getKycProfile,
   listDisputes,
   listReviewableDeals,
 } from "@/lib/trust-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust")({
   head: () => ({
