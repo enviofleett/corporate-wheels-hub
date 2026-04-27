@@ -4,9 +4,10 @@ import { OnboardingShell } from "@/components/onboarding/OnboardingShell";
 import { setRole, useRole, type AppRole } from "@/lib/role-store";
 
 export const Route = createFileRoute("/role")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    from: typeof search.from === "string" ? search.from : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { from?: string } => {
+    const from = typeof search.from === "string" ? search.from : undefined;
+    return from ? { from } : {};
+  },
   head: () => ({
     meta: [
       { title: "Choose your role — FleetLink" },
