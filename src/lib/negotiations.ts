@@ -155,8 +155,16 @@ const SEED: Negotiation[] = [
 
 const store: Negotiation[] = [...SEED];
 
-export function listNegotiations(): Negotiation[] {
-  return [...store].sort(
+export function listNegotiations(role?: "corporate" | "host" | "admin"): Negotiation[] {
+  const filtered =
+    role === "host"
+      ? // Hosts only see threads they initiated (their offers).
+        store.filter((n) => n.timeline[0]?.party === "host")
+      : role === "corporate"
+        ? // Corporates only see threads on their requests.
+          store.filter((n) => n.timeline.some((t) => t.party === "corporate"))
+        : store;
+  return [...filtered].sort(
     (a, b) => new Date(b.lastActivityAt).getTime() - new Date(a.lastActivityAt).getTime(),
   );
 }
@@ -216,6 +224,6 @@ export function markRead(negotiationId: string): void {
   if (neg) neg.unread = false;
 }
 
-export function unreadCount(): number {
-  return store.filter((n) => n.unread).length;
+export function unreadCount(role?: "corporate" | "host" | "admin"): number {
+  return listNegotiations(role).filter((n) => n.unread).length;
 }

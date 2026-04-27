@@ -1,4 +1,4 @@
-// Offers inbox — lists all active negotiations.
+// Offers inbox — lists negotiations relevant to the active role.
 
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, Inbox } from "lucide-react";
@@ -8,6 +8,7 @@ import { StatusBadge } from "@/components/feed/StatusBadge";
 import { formatNaira, formatRelativeTime } from "@/lib/format";
 import { BottomNav } from "@/components/feed/BottomNav";
 import { withRole } from "@/components/auth/withRole";
+import { useRole } from "@/lib/role-store";
 
 export const Route = createFileRoute("/offers")({
   head: () => ({
@@ -23,7 +24,8 @@ export const Route = createFileRoute("/offers")({
 });
 
 function OffersPage() {
-  const negotiations = listNegotiations();
+  const role = useRole();
+  const negotiations = listNegotiations(role ?? undefined);
 
   return (
     <div className="min-h-screen bg-muted/30 pb-24">
