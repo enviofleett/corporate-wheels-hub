@@ -21,6 +21,7 @@ import { MetricCard } from "@/components/corporate/MetricCard";
 import { RequestSummaryCard } from "@/components/corporate/RequestSummaryCard";
 import { IncomingOfferCard } from "@/components/corporate/IncomingOfferCard";
 import { formatNaira } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/corporate")({
   head: () => ({
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/corporate")({
       },
     ],
   }),
-  component: CorporateHome,
+  component: withRole(["corporate"], CorporateHome),
 });
 
 function CorporateHome() {
