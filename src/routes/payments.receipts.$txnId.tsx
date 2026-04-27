@@ -4,6 +4,7 @@ import { PaymentsTopBar } from "@/components/payments/PaymentsTopBar";
 import { ReceiptCard } from "@/components/payments/ReceiptCard";
 import { Button } from "@/components/ui/button";
 import { getTransaction } from "@/lib/payments-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/payments/receipts/$txnId")({
   head: ({ params }) => ({
@@ -36,7 +37,7 @@ export const Route = createFileRoute("/payments/receipts/$txnId")({
       </Link>
     </div>
   ),
-  component: ReceiptDetail,
+  component: withRole(["corporate", "host", "admin"], ReceiptDetail),
 });
 
 function ReceiptDetail() {

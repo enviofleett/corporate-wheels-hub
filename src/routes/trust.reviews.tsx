@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import { ReviewableDealCard } from "@/components/trust/ReviewableDealCard";
 import { listReviewableDeals } from "@/lib/trust-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust/reviews")({
   head: () => ({
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/trust/reviews")({
       },
     ],
   }),
-  component: ReviewsPage,
+  component: withRole(["corporate", "host", "admin"], ReviewsPage),
 });
 
 const TABS = [

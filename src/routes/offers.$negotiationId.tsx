@@ -15,6 +15,7 @@ import { StatusBadge } from "@/components/feed/StatusBadge";
 import { NegotiationTimeline } from "@/components/feed/NegotiationTimeline";
 import { NegotiationActions } from "@/components/feed/NegotiationActions";
 import { formatNaira, formatDuration } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/offers/$negotiationId")({
   loader: ({ params }) => {
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/offers/$negotiationId")({
       },
     ],
   }),
-  component: NegotiationDetailPage,
+  component: withRole(["corporate", "host", "admin"], NegotiationDetailPage),
   notFoundComponent: () => (
     <div className="mx-auto max-w-md px-5 py-16 text-center">
       <h1 className="text-base font-semibold">Negotiation not found</h1>

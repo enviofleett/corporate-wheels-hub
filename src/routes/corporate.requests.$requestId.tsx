@@ -14,6 +14,7 @@ import { CorporateBottomNav } from "@/components/corporate/CorporateBottomNav";
 import { OfferComparison } from "@/components/corporate/OfferComparison";
 import { IncomingOfferCard } from "@/components/corporate/IncomingOfferCard";
 import { formatNaira, formatDuration, formatRelativeTime } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/corporate/requests/$requestId")({
   loader: ({ params }) => {
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/corporate/requests/$requestId")({
       },
     ],
   }),
-  component: RequestDetailPage,
+  component: withRole(["corporate"], RequestDetailPage),
   notFoundComponent: () => (
     <div className="mx-auto max-w-md px-5 py-16 text-center">
       <h1 className="text-base font-semibold">Request not found</h1>

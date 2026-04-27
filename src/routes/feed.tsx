@@ -9,6 +9,7 @@ import { FeedComposer } from "@/components/feed/FeedComposer";
 import { OfferSheet } from "@/components/feed/OfferSheet";
 import { ProfileSheet } from "@/components/feed/ProfileSheet";
 import { BottomNav } from "@/components/feed/BottomNav";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/feed")({
   head: () => ({
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/feed")({
       },
     ],
   }),
-  component: FeedPage,
+  component: withRole(["corporate", "host", "admin"], FeedPage),
 });
 
 type SheetState =

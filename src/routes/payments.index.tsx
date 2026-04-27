@@ -12,6 +12,7 @@ import { listTransactions, listPayouts } from "@/lib/payments-data";
 import { corporateMetrics } from "@/lib/corporate-data";
 import { hostMetrics } from "@/lib/host-data";
 import { formatNaira } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/payments/")({
   head: () => ({
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/payments/")({
       { name: "description", content: "Manage escrow, payment methods, receipts and payouts." },
     ],
   }),
-  component: PaymentsHome,
+  component: withRole(["corporate", "host", "admin"], PaymentsHome),
 });
 
 function PaymentsHome() {

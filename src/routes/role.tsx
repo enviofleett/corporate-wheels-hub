@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Building2, Car, ChevronRight, ShieldCheck } from "lucide-react";
 import { OnboardingShell } from "@/components/onboarding/OnboardingShell";
+import { setRole, type AppRole } from "@/lib/role-store";
 
 export const Route = createFileRoute("/role")({
   head: () => ({
@@ -13,6 +14,13 @@ export const Route = createFileRoute("/role")({
 });
 
 function RoleScreen() {
+  const navigate = useNavigate();
+
+  const choose = (role: AppRole, to: string) => {
+    setRole(role);
+    navigate({ to });
+  };
+
   return (
     <OnboardingShell
       title="How will you use FleetLink?"
@@ -21,14 +29,14 @@ function RoleScreen() {
     >
       <div className="space-y-3">
         <RoleCard
-          to="/signup/corporate"
+          onClick={() => choose("corporate", "/signup/corporate")}
           icon={<Building2 className="h-6 w-6" />}
           title="Corporate"
           description="Post rental requests, receive offers from vetted hosts."
           tags={["Post requests", "Compare offers", "Escrow"]}
         />
         <RoleCard
-          to="/signup/host"
+          onClick={() => choose("host", "/signup/host")}
           icon={<Car className="h-6 w-6" />}
           title="Host"
           description="List your vehicles and respond to corporate requests."
@@ -36,7 +44,7 @@ function RoleScreen() {
           accent
         />
         <RoleCard
-          to="/admin"
+          onClick={() => choose("admin", "/admin")}
           icon={<ShieldCheck className="h-6 w-6" />}
           title="Admin"
           description="Internal tools — manage users, KYC, disputes, finance, and more."
@@ -52,7 +60,7 @@ function RoleScreen() {
 }
 
 interface RoleCardProps {
-  to: string;
+  onClick: () => void;
   icon: React.ReactNode;
   title: string;
   description: string;
@@ -60,11 +68,12 @@ interface RoleCardProps {
   accent?: boolean;
 }
 
-function RoleCard({ to, icon, title, description, tags, accent }: RoleCardProps) {
+function RoleCard({ onClick, icon, title, description, tags, accent }: RoleCardProps) {
   return (
-    <Link
-      to={to}
-      className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)] transition-all hover:border-accent hover:shadow-[var(--shadow-elevated)]"
+    <button
+      type="button"
+      onClick={onClick}
+      className="group flex w-full items-start gap-4 rounded-2xl border border-border bg-card p-5 text-left shadow-[var(--shadow-card)] transition-all hover:border-accent hover:shadow-[var(--shadow-elevated)]"
     >
       <div
         className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${
@@ -90,6 +99,6 @@ function RoleCard({ to, icon, title, description, tags, accent }: RoleCardProps)
           ))}
         </div>
       </div>
-    </Link>
+    </button>
   );
 }

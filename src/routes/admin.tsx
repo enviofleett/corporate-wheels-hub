@@ -1,9 +1,10 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AdminBottomNav } from "@/components/admin/AdminBottomNav";
 import { adminMetrics } from "@/lib/admin-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/admin")({
-  component: AdminLayout,
+  component: withRole(["admin"], AdminLayout),
 });
 
 function AdminLayout() {

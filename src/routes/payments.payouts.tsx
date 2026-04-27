@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { listPayouts } from "@/lib/payments-data";
 import { hostMetrics } from "@/lib/host-data";
 import { formatNaira } from "@/lib/format";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/payments/payouts")({
   head: () => ({
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/payments/payouts")({
       { name: "description", content: "Withdraw earnings to your bank account." },
     ],
   }),
-  component: PayoutsPage,
+  component: withRole(["corporate", "host", "admin"], PayoutsPage),
 });
 
 function PayoutsPage() {

@@ -12,6 +12,7 @@ import {
   listDisputes,
   listReviewableDeals,
 } from "@/lib/trust-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust")({
   head: () => ({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/trust")({
       },
     ],
   }),
-  component: TrustHub,
+  component: withRole(["corporate", "host", "admin"], TrustHub),
 });
 
 function TrustHub() {

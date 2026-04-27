@@ -3,6 +3,7 @@ import { ShieldCheck } from "lucide-react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import { KycStepRow } from "@/components/trust/KycStepRow";
 import { getKycProfile } from "@/lib/trust-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust/kyc")({
   head: () => ({
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/trust/kyc")({
       },
     ],
   }),
-  component: KycPage,
+  component: withRole(["corporate", "host", "admin"], KycPage),
 });
 
 function KycPage() {

@@ -3,6 +3,7 @@ import { CheckCircle2, Paperclip, X } from "lucide-react";
 import { useState } from "react";
 import { TrustTopBar } from "@/components/trust/TrustTopBar";
 import { REASON_LABELS, type DisputeReason } from "@/lib/trust-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/trust/disputes/new")({
   head: () => ({
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/trust/disputes/new")({
       { name: "description", content: "Open a formal dispute on a rental deal." },
     ],
   }),
-  component: NewDisputePage,
+  component: withRole(["corporate", "host", "admin"], NewDisputePage),
 });
 
 const DEALS = [

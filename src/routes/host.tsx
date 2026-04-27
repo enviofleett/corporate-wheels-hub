@@ -1,9 +1,10 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { HostBottomNav } from "@/components/host/HostBottomNav";
 import { hostMetrics } from "@/lib/host-data";
+import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/host")({
-  component: HostLayout,
+  component: withRole(["host"], HostLayout),
 });
 
 function HostLayout() {
