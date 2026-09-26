@@ -4,7 +4,7 @@ import { adminMetrics } from "@/lib/admin-data";
 import { withRole } from "@/components/auth/withRole";
 
 export const Route = createFileRoute("/admin")({
-  component: withRole(["admin"], AdminLayout),
+  component: withRole(["platform_admin"], AdminLayout),
 });
 
 function AdminLayout() {
