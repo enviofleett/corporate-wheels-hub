@@ -5,16 +5,16 @@ import heroImage from "@/assets/welcome-hero.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FleetLink — Corporate Vehicle Rental Marketplace" },
+      { title: "Community Rides — Event Carpooling" },
       {
         name: "description",
         content:
-          "Connect corporates with trusted vehicle hosts. Post requests, receive offers, and rent securely with escrow.",
+          "Find trusted community rides to events, share empty seats, and travel together.",
       },
-      { property: "og:title", content: "FleetLink — Corporate Vehicle Rental Marketplace" },
+      { property: "og:title", content: "Community Rides — Event Carpooling" },
       {
         property: "og:description",
-        content: "Anonymous, escrow-protected vehicle rentals between corporates and hosts.",
+        content: "Community carpooling for events, organizations, churches, schools, and conferences.",
       },
     ],
   }),
@@ -46,20 +46,20 @@ function WelcomeScreen() {
         <div className="relative z-10 mx-auto flex h-full min-h-[60vh] w-full max-w-md flex-col px-6 pb-10 pt-16">
           <div className="mb-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Corporate vehicle marketplace
+            Community event carpooling
           </div>
           <h1 className="mt-4 text-4xl font-bold leading-tight text-white">
-            Fleet rentals, <span className="text-accent">simplified.</span>
+            Travel together, <span className="text-accent">arrive together.</span>
           </h1>
           <p className="mt-3 text-base text-white/80">
-            Post requests. Receive offers. Rent vehicles securely — protected by escrow.
+            Find a ride to your event or share your empty seats with verified community members.
           </p>
 
           <div className="mt-auto space-y-2.5 pt-10">
             {[
-              { icon: Users, label: "Anonymous matching until agreement" },
-              { icon: ShieldCheck, label: "Escrow-protected payments" },
-              { icon: Zap, label: "Telematics for full transparency" },
+              { icon: Users, label: "Pickup details protected until accepted" },
+              { icon: ShieldCheck, label: "Verified community profiles" },
+              { icon: Zap, label: "Built for organized event travel" },
             ].map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-3 text-sm text-white/90">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
@@ -75,10 +75,10 @@ function WelcomeScreen() {
       {/* CTA */}
       <div className="mx-auto w-full max-w-md space-y-3 px-6 py-6">
         <Link
-          to="/role"
+          to="/community"
           className="flex h-12 w-full items-center justify-center rounded-xl bg-accent text-base font-semibold text-accent-foreground shadow-[var(--shadow-accent)] transition-transform active:scale-[0.98]"
         >
-          Get started
+          Explore General Assembly rides
         </Link>
         <button
           type="button"
