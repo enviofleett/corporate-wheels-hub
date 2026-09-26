@@ -1,117 +1,108 @@
+# Multi-Tenant Church Event Carpooling SaaS — Product & Architecture Contract
 
-## Current problem
+## Product
+A white-label carpooling SaaS for churches and other membership organizations. The platform is not Koinonia-specific. Koinonia Global is Tenant #1 and General Assembly 2026 is one event.
 
-Right now `/feed`, `/offers`, `/payments/*`, and `/trust/*` are gated to **all three roles** (`["corporate","host","admin"]`). That's why a Corporate user can wander into Host-only screens (and vice versa) — only the four `/host/*` and `/corporate/*` and `/admin/*` shells are strictly role-locked. The `/role` screen also doesn't tell the user what they'll get, and it links Admins straight to `/admin` with no warning.
+## Hierarchy
+Platform → Organization → optional Campus → Event → Ride → Participants.
 
-## Proposed roles → pages mapping
+## Experiences
+1. Member Portal — organization-branded event discovery, find/offer rides, requests, trips, profile and verification.
+2. Organization Console — events, rides, members, verification, safety, analytics, branding, domains, staff and settings.
+3. Platform Admin — organizations, subscriptions, domains, events, users, safety, billing, analytics, audit and platform settings.
 
-This is the contract I'll enforce in `withRole(...)` and surface on the `/role` screen.
+## Identity & roles
+Permanent roles: member, organization_staff, organization_admin, platform_admin.
+Driver and passenger are per-ride participation modes, never permanent account roles.
+A person may drive outbound and ride as a passenger on the return journey.
 
-### Corporate (books vehicles)
-- `/corporate` — dashboard home
-- `/corporate/requests` — my posted requests (list)
-- `/corporate/requests/$requestId` — request detail + offers
-- `/corporate/offers` — incoming offers inbox
-- `/corporate/deals` — active/selected deals
-- `/feed` — browse host vehicles / post a request *(shared, but corporate-flavored CTA)*
-- `/offers` + `/offers/$negotiationId` — negotiation threads on requests they posted
-- `/payments` — wallet home (corporate sees: fund escrow, methods, receipts)
-- `/payments/methods` — cards & bank accounts
-- `/payments/receipts` + `/payments/receipts/$txnId` — payment receipts
-- `/trust` — trust hub
-- `/trust/kyc` — corporate KYC
-- `/trust/disputes`, `/trust/disputes/new`, `/trust/disputes/$id` — file/track disputes
-- `/trust/reviews`, `/trust/review/$dealId` — leave reviews on hosts
+## Multi-tenancy
+Every tenant-owned record MUST carry organization_id. Event-owned operational records MUST also carry event_id. Campus is optional.
+Organization users MUST never read/write another organization's records. Backend enforcement must use database RLS; frontend hiding is insufficient. Platform admins use separately authorized cross-tenant access.
 
-**Corporate does NOT see:** `/payments/payouts` (payouts are a host concept), any `/host/*`, any `/admin/*`.
+Core entities:
+- organizations
+- organization_branding
+- organization_domains
+- organization_policies
+- campuses
+- organization_memberships
+- organization_staff_permissions
+- events
+- event_memberships
+- vehicles
+- member_verifications
+- vehicle_verifications
+- rides
+- seat_requests
+- ride_participants
+- waitlist_entries
+- incidents
+- notifications
+- subscriptions
+- audit_logs
 
-### Host (lists vehicles, earns)
-- `/host` — dashboard home
-- `/host/vehicles` — manage fleet
-- `/host/offers` — offers I've sent
-- `/host/engaged` — requests I'm engaged on
-- `/host/earnings` — earnings + payout history
-- `/feed` — browse open corporate requests *(shared, host-flavored CTA)*
-- `/offers` + `/offers/$negotiationId` — negotiation threads on offers they sent
-- `/payments` — wallet home (host sees: payouts, methods, receipts)
-- `/payments/methods` — payout bank accounts
-- `/payments/payouts` — request/track payouts
-- `/payments/receipts` + `/payments/receipts/$txnId` — earnings receipts
-- `/trust` — trust hub
-- `/trust/kyc` — host KYC (driver license, vehicle docs)
-- `/trust/disputes`, `/trust/disputes/new`, `/trust/disputes/$id`
-- `/trust/reviews`, `/trust/review/$dealId` — leave reviews on corporates
+## Tenant resolution
+Resolve request hostname → organization_domains → organization. Load tenant branding/policy before rendering.
+Each organization receives a default platform subdomain and may connect custom domains.
+Unknown/inactive domains must not fall back to another tenant.
 
-**Host does NOT see:** any `/corporate/*`, any `/admin/*`.
+## White label
+Tenant theme controls logo, favicon, portal name, primary/accent colors, welcome copy and support details. UI must use semantic tokens via a TenantProvider, not hard-coded Koinonia styling.
 
-### Admin (internal staff)
-- All `/admin/*` routes (already locked)
-- Read-only access to `/feed`, `/offers/*`, `/payments/*`, `/trust/*` so they can inspect what users see when investigating tickets.
+## Organization onboarding
+Create account → create organization → optional campuses → branding → domain → verification rules → carpool policies → first event → invite staff/members → publish.
 
-**Admin does NOT see:** `/corporate/*` or `/host/*` user dashboards (those are role-specific UIs, not admin tools).
+## Events
+Fields: organization_id, optional campus_id, name, description, image, venue, location, dates, arrival/departure windows, expected attendance, carpool open/close, status.
+Lifecycle: draft → published → carpool_open → live → completed → archived.
+Organizations can configure approved pickup hubs.
 
-## Changes
+## Member journey
+Join organization portal → lightweight member profile → browse event → Find a Ride or Offer a Ride.
+Progressive verification: browsing can be lighter; requesting/offering follows organization policy.
+Member verification may include phone/email, organization membership, identity, emergency contact. Driver verification may add driver licence and vehicle verification.
 
-### 1. Re-gate the "shared" routes more strictly
+## Ride journey
+Offer ride with event, direction (outbound/return), broad origin, optional approved meeting point, departure time, vehicle, seats, free/contribution.
+Passenger searches by origin/landmark, time window, seats and direction.
+Request states: pending → accepted/declined/cancelled/expired/waitlisted.
+Acceptance must transactionally reserve a seat.
+Ride lifecycle: draft → open → full → boarding → active → completed/cancelled.
+Passenger lifecycle includes accepted, at_meeting_point, boarded, arrived, no_show, cancelled.
+Return journeys are independent rides.
 
-| Route | New `withRole` allow-list |
-|---|---|
-| `/feed` | `["corporate","host","admin"]` (unchanged — both sides browse) |
-| `/offers`, `/offers/$negotiationId` | `["corporate","host","admin"]` (unchanged — negotiations are mutual) |
-| `/payments`, `/payments/methods`, `/payments/receipts`, `/payments/receipts/$txnId` | `["corporate","host","admin"]` (unchanged) |
-| `/payments/payouts` | **`["host","admin"]`** (was all three — corporates don't get paid out) |
-| `/trust`, `/trust/kyc`, `/trust/disputes*`, `/trust/reviews`, `/trust/review/$dealId` | `["corporate","host","admin"]` (unchanged — both sides need trust) |
+## Changes & cancellations
+Material driver edits (time, origin/meeting point, vehicle/date) notify accepted passengers and may require reconfirmation.
+Passenger cancellation reopens inventory. Driver cancellation notifies all participants and offers alternatives/waitlist matching.
 
-Most "shared" stays shared because feed/offers/trust are inherently cross-role surfaces. The one real leak is `/payments/payouts`, which is host-only.
+## Waitlist & matching
+Match by organization, event, direction, broad area/approved hub, departure window, seat availability and policy/verification eligibility. Exact residential addresses are not required.
 
-### 2. Make `/payments` render role-aware tiles
+## Safety
+Emergency contact, incident reporting, member/driver suspension, vehicle blocking, organization-level moderation and platform escalation. Organizations only see their own incidents.
 
-`src/routes/payments.index.tsx` currently shows a "Payouts" tile to everyone. Hide that tile for `corporate` (read role from `useRole()`), and swap the headline copy ("Wallet" for corporate, "Earnings & wallet" for host).
+## Notifications
+Design for in-app plus configurable email, WhatsApp, SMS and push. Events include request/accept/decline, changes, cancellation, driver arrival, ride start, waitlist match and event reminders.
 
-### 3. Redesign `/role` screen
+## Organization staff
+Support organization owner/admin/staff with granular permissions: events, members, verification, rides, safety, analytics, branding/domain, billing and staff administration.
 
-Update `src/routes/role.tsx` so each role card lists the dashboards it unlocks (a small bullet list under the description), e.g.:
+## SaaS billing
+Subscription states: trial, active, past_due, suspended, cancelled. Plan/limits are platform-configurable. Suspension must preserve historical tenant data.
 
-```text
-Corporate
-  Post requests · Compare offers · Wallet · Trust hub
-  → /corporate, /feed, /offers, /payments, /trust
+## Analytics
+Organization: drivers, passengers, seats offered/used, utilization, unmatched demand, waitlist, cancellations, no-shows, completed rides, popular origins.
+Platform: organizations, active tenants, events, members, rides, cities, retention, subscription usage/revenue.
 
-Host
-  Vehicles · Offers · Engaged · Earnings · Payouts
-  → /host, /feed, /offers, /payments, /trust
+## Audit
+Log sensitive administrative actions including verification overrides, suspensions, event publication/closure, manual ride cancellation, domain/branding changes and staff permission changes.
 
-Admin
-  Users · KYC · Disputes · Finance · Audit
-  → /admin (internal only)
-```
+## Current implementation rule
+Frontend may use mock data until backend integration begins, but mock structures MUST reflect this architecture. Do not introduce new Corporate/Host/FleetLink concepts.
 
-Add a small "Currently signed in as: X · Switch" indicator at the top when a role is already set, so testers always know which role is active.
+## Backend phase
+Supabase integration must implement Auth, normalized tenant schema, RLS, transactional seat inventory, storage policies, audit logging and tenant-safe RPCs. External providers (identity/NIN, payments, maps, WhatsApp/SMS/email, custom-domain provisioning, live GPS) remain adapter interfaces until selected.
 
-### 4. Remove cross-role link leaks
-
-- `src/components/feed/BottomNav.tsx` is the generic feed nav with disabled "Vehicles"/"Profile" stubs and a "Post" button that goes nowhere meaningful. Make it role-aware: when role is `host`, the home/profile slots link to `/host`; when role is `corporate`, they link to `/corporate`. The "Post" button only shows for corporates (only they post requests).
-- `src/routes/offers.tsx` shows a single inbox to both sides today. Keep the route shared, but filter the listed negotiations by role: corporates see negotiations on their requests, hosts see negotiations on their offers. (Data lives in `src/lib/negotiations.ts` — add a `forRole` filter.)
-- `src/routes/host.index.tsx` "Browse requests" links to `/feed` — fine. No change.
-- `src/routes/corporate.tsx` links to `/trust` — fine.
-
-### 5. Friendlier blocked-access UX
-
-`RequireRole` currently silently redirects to `/role`. Pass the attempted path as a search param (`?from=/host/vehicles`) and show a small banner on `/role`: *"You tried to open /host/vehicles — that page is for Hosts. Pick the matching role to continue."* This stops the "I clicked a link and got bounced with no explanation" confusion.
-
-## Files to edit
-
-- `src/routes/role.tsx` — redesigned cards with route lists + "from" banner + active-role indicator.
-- `src/components/auth/RequireRole.tsx` — append `?from=<pathname>` when redirecting.
-- `src/routes/payments.payouts.tsx` — change `withRole` to `["host","admin"]`.
-- `src/routes/payments.index.tsx` — hide Payouts tile for corporate; tweak copy via `useRole()`.
-- `src/components/feed/BottomNav.tsx` — role-aware home/profile/post slots.
-- `src/routes/offers.tsx` + `src/lib/negotiations.ts` — filter listed negotiations by current role.
-
-## Files NOT changing
-
-All `/corporate/*`, `/host/*`, `/admin/*` routes already have correct strict gating — leaving them as-is.
-
-## Out of scope
-
-Real auth, server-side role enforcement, and a persistent in-app role switcher in the top bars (you previously chose "switch only via /role" — keeping that).
+## Release proof
+Before production, test at least three tenants concurrently. Tenant A cannot access B/C data; tenant members cannot discover cross-tenant rides/events; platform admin can access authorized cross-tenant administration; each hostname renders only its resolved tenant branding/data.
