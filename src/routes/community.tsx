@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { ArrowRight, CalendarDays, MapPinned, Search, Plus, UsersRound, CarFront, Armchair } from "lucide-react";
 import { activeTenant, activeEvent } from "@/lib/tenant-data";
 import { rideStats, useRideState } from "@/lib/rides-data";
@@ -44,6 +45,6 @@ function CommunityHome() {
   </div>
 }
 
-function Stat({icon,value,label}:{icon:React.ReactNode;value:number;label:string}) {
+function Stat({icon,value,label}:{icon:ReactNode;value:number;label:string}) {
   return <div className="rounded-2xl border border-border bg-card p-3 shadow-[var(--shadow-card)]"><div className="text-primary">{icon}</div><p className="mt-2 text-xl font-black">{value}</p><p className="text-[10px] text-muted-foreground">{label}</p></div>
 }
