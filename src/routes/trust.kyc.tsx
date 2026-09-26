@@ -12,7 +12,7 @@ export const Route = createFileRoute("/trust/kyc")({
       {
         name: "description",
         content:
-          "Track your KYC progress and unlock verified status on FleetLink.",
+          "Track identity, driver and vehicle verification for community rides.",
       },
     ],
   }),
@@ -28,7 +28,7 @@ function KycPage() {
 
   return (
     <>
-      <TrustTopBar title="Verification" subtitle="Complete every step to become Premium." />
+      <TrustTopBar title="Verification" subtitle="Complete the checks required to offer or join community rides." />
 
       <main className="mx-auto w-full max-w-md space-y-4 px-5 pt-4 pb-24">
         {/* Progress card */}
@@ -57,7 +57,7 @@ function KycPage() {
             />
           </div>
           <p className="mt-2 text-[11px] text-muted-foreground">
-            {requiredDone}/{required.length} required steps complete.
+            {requiredDone}/{required.length} required safety checks complete.
           </p>
         </section>
 
@@ -73,7 +73,7 @@ function KycPage() {
         {optional.length > 0 && (
           <section className="space-y-2">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Optional · boost trust score
+              Optional
             </h2>
             {optional.map((step) => (
               <KycStepRow key={step.id} step={step} />
