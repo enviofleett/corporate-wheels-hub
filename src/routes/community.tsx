@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { ArrowRight, CalendarDays, MapPinned, Search, Plus, UsersRound, CarFront, Armchair } from "lucide-react";
-import { activeTenant, activeEvent } from "@/lib/tenant-data";
+import { activeTenant } from "@/lib/tenant-data";
+import { useActiveEvent } from "@/lib/community-events";
 import { rideStats, useRideState } from "@/lib/rides-data";
 import { RideCard } from "@/components/rides/RideCard";
 import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
@@ -10,6 +11,8 @@ export const Route = createFileRoute("/community")({ component: CommunityHome })
 
 function CommunityHome() {
   const {rides}=useRideState();
+  const activeEvent=useActiveEvent();
+  const eventRides=rides.filter(r=>r.organizationId===activeTenant.id&&r.eventId===activeEvent.id);
   return <div className="min-h-screen bg-muted/30 pb-24">
     <header className="bg-primary px-5 pb-7 pt-8 text-primary-foreground">
       <div className="mx-auto max-w-md">
@@ -17,9 +20,9 @@ function CommunityHome() {
           <div><p className="text-[11px] font-bold uppercase tracking-[.16em] text-white/60">{activeTenant.name}</p><h1 className="mt-1 text-2xl font-bold">{activeTenant.tagline}</h1></div>
           <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-sm font-black">KG</div>
         </div>
-        <div className="mt-6 rounded-2xl bg-white/10 p-4 backdrop-blur">
+        <Link to="/events" className="mt-6 block rounded-2xl bg-white/10 p-4 backdrop-blur transition hover:bg-white/15">
           <div className="flex items-start gap-3"><CalendarDays className="mt-0.5 h-5 w-5 text-accent"/><div><p className="font-bold">{activeEvent.name}</p><p className="mt-1 text-xs text-white/70">{activeEvent.dateLabel}</p><p className="mt-1 flex items-center gap-1 text-xs text-white/70"><MapPinned className="h-3.5 w-3.5"/>{activeEvent.venue}</p></div></div>
-        </div>
+        <p className="mt-3 flex items-center gap-1 text-[11px] font-bold text-accent">Switch event <ArrowRight className="h-3 w-3"/></p></Link>
       </div>
     </header>
     <main className="mx-auto max-w-md space-y-5 px-5 pt-5">
@@ -38,7 +41,7 @@ function CommunityHome() {
       </section>
       <section>
         <div className="mb-3 flex items-center justify-between"><h2 className="text-sm font-bold">Rides near you</h2><Link to="/find" className="flex items-center gap-1 text-xs font-bold text-primary">View all <ArrowRight className="h-3 w-3"/></Link></div>
-        <div className="space-y-3">{rides.slice(0,2).map(r => <RideCard key={r.id} ride={r}/>)}</div>
+        <div className="space-y-3">{eventRides.slice(0,2).map(r => <RideCard key={r.id} ride={r}/>)}</div>
       </section>
     </main>
     <CommunityBottomNav/>
