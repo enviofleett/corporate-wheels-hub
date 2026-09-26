@@ -1,12 +1,12 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, Search, PlusCircle, CarFront, UserRound } from "lucide-react";
+import { Home, CalendarDays, Search, PlusCircle, CarFront } from "lucide-react";
 
 const items = [
   { to: "/community", label: "Home", icon: Home },
+  { to: "/events", label: "Events", icon: CalendarDays },
   { to: "/find", label: "Find", icon: Search },
   { to: "/offer", label: "Offer", icon: PlusCircle },
   { to: "/rides", label: "My Rides", icon: CarFront },
-  { to: "/trust", label: "Profile", icon: UserRound },
 ] as const;
 
 export function CommunityBottomNav() {
