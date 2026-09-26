@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, MapPinned, Search, Plus, UsersRound, CarFront, Armchair } from "lucide-react";
 import { activeTenant, activeEvent } from "@/lib/tenant-data";
-import { rideStats, rides } from "@/lib/rides-data";
+import { rideStats, useRideState } from "@/lib/rides-data";
 import { RideCard } from "@/components/rides/RideCard";
 import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
 
 export const Route = createFileRoute("/community")({ component: CommunityHome });
 
 function CommunityHome() {
+  const {rides}=useRideState();
   return <div className="min-h-screen bg-muted/30 pb-24">
     <header className="bg-primary px-5 pb-7 pt-8 text-primary-foreground">
       <div className="mx-auto max-w-md">
