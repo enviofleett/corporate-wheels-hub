@@ -272,9 +272,7 @@ export const rideEngine = {
             ...r,
             status: (accept ? "accepted" : "declined") as RequestStatus,
             paymentStatus:
-              accept && ride.contribution === 0
-                ? ("waived" as PaymentStatus)
-                : r.paymentStatus,
+              accept && ride.contribution === 0 ? ("waived" as PaymentStatus) : r.paymentStatus,
           }
         : r,
     );
@@ -295,14 +293,16 @@ export const rideEngine = {
     const accepted = req.status === "accepted";
     set({
       ...state,
-      requests: state.requests.map((r) => (r.id === requestId
+      requests: state.requests.map((r) =>
+        r.id === requestId
           ? {
               ...r,
               status: "cancelled",
               paymentStatus:
                 r.paymentStatus === "paid" ? ("refunded" as PaymentStatus) : r.paymentStatus,
             }
-          : r)),
+          : r,
+      ),
       rides: state.rides.map((r) =>
         r.id === req.rideId && accepted
           ? {
