@@ -1,17 +1,108 @@
-import {createFileRoute,Link} from "@tanstack/react-router";
-import {Globe2,Palette,ShieldCheck,SlidersHorizontal,UsersRound,MapPin,Building2,CarFront,Percent,type LucideIcon} from "lucide-react";
-export const Route=createFileRoute("/org/settings")({component:Settings});
-type SettingsRoute="/org/staff"|"/org/pickup-hubs"|"/org/campuses"|"/org/branding"|"/org/domain"|"/org/driver-applications"|"/org/policies";
-type Card={icon:LucideIcon;title:string;desc:string;to:SettingsRoute};
-const cards:Card[]=[
-{icon:UsersRound,title:"Staff & permissions",desc:"Invite your operations team",to:"/org/staff"},
-{icon:MapPin,title:"Pickup hubs",desc:"Manage approved public meeting points",to:"/org/pickup-hubs"},
-{icon:Building2,title:"Campuses",desc:"Manage optional branches and campuses",to:"/org/campuses"},
-{icon:Palette,title:"Homepage & branding",desc:"Logo, colours and public portal literature",to:"/org/branding"},
-{icon:Globe2,title:"Custom domain",desc:"Connect your organization's own domain",to:"/org/domain"},
-{icon:CarFront,title:"Driver & vehicle approvals",desc:"Review people requesting permission to list vehicles",to:"/org/driver-applications"},
-{icon:Percent,title:"Carpool policies & commission",desc:"Set verification, contributions and organization commission",to:"/org/policies"},
-{icon:ShieldCheck,title:"Verification rules",desc:"Member, driver and vehicle requirements",to:"/org/policies"},
-{icon:SlidersHorizontal,title:"Ride experience",desc:"Waitlist, chat and safety defaults",to:"/org/policies"}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Globe2,
+  Palette,
+  ShieldCheck,
+  SlidersHorizontal,
+  UsersRound,
+  MapPin,
+  Building2,
+  CarFront,
+  Percent,
+  type LucideIcon,
+} from "lucide-react";
+export const Route = createFileRoute("/org/settings")({ component: Settings });
+type SettingsRoute =
+  | "/org/staff"
+  | "/org/pickup-hubs"
+  | "/org/campuses"
+  | "/org/branding"
+  | "/org/domain"
+  | "/org/driver-applications"
+  | "/org/policies";
+type Card = { icon: LucideIcon; title: string; desc: string; to: SettingsRoute };
+const cards: Card[] = [
+  {
+    icon: UsersRound,
+    title: "Staff & permissions",
+    desc: "Invite your operations team",
+    to: "/org/staff",
+  },
+  {
+    icon: MapPin,
+    title: "Pickup hubs",
+    desc: "Manage approved public meeting points",
+    to: "/org/pickup-hubs",
+  },
+  {
+    icon: Building2,
+    title: "Campuses",
+    desc: "Manage optional branches and campuses",
+    to: "/org/campuses",
+  },
+  {
+    icon: Palette,
+    title: "Homepage & branding",
+    desc: "Logo, colours and public portal literature",
+    to: "/org/branding",
+  },
+  {
+    icon: Globe2,
+    title: "Custom domain",
+    desc: "Connect your organization's own domain",
+    to: "/org/domain",
+  },
+  {
+    icon: CarFront,
+    title: "Driver & vehicle approvals",
+    desc: "Review people requesting permission to list vehicles",
+    to: "/org/driver-applications",
+  },
+  {
+    icon: Percent,
+    title: "Carpool policies & commission",
+    desc: "Set verification, contributions and organization commission",
+    to: "/org/policies",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Verification rules",
+    desc: "Member, driver and vehicle requirements",
+    to: "/org/policies",
+  },
+  {
+    icon: SlidersHorizontal,
+    title: "Ride experience",
+    desc: "Waitlist, chat and safety defaults",
+    to: "/org/policies",
+  },
 ];
-function Settings(){return <><header className="border-b bg-background px-5 py-6"><div className="mx-auto max-w-md"><p className="text-[11px] font-bold uppercase text-muted-foreground">Organization</p><h1 className="text-2xl font-black">Settings</h1></div></header><main className="mx-auto max-w-md space-y-3 px-5 pt-4">{cards.map(({icon:Icon,title,desc,to})=><Link key={title} to={to} className="flex w-full items-center gap-3 rounded-2xl border bg-card p-4 text-left transition hover:border-primary"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary"><Icon className="h-5 w-5"/></span><span className="flex-1"><span className="block text-sm font-bold">{title}</span><span className="mt-0.5 block text-xs text-muted-foreground">{desc}</span></span></Link>)}</main></>}
+function Settings() {
+  return (
+    <>
+      <header className="border-b bg-background px-5 py-6">
+        <div className="mx-auto max-w-md">
+          <p className="text-[11px] font-bold uppercase text-muted-foreground">Organization</p>
+          <h1 className="text-2xl font-black">Settings</h1>
+        </div>
+      </header>
+      <main className="mx-auto max-w-md space-y-3 px-5 pt-4">
+        {cards.map(({ icon: Icon, title, desc, to }) => (
+          <Link
+            key={title}
+            to={to}
+            className="flex w-full items-center gap-3 rounded-2xl border bg-card p-4 text-left transition hover:border-primary"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary">
+              <Icon className="h-5 w-5" />
+            </span>
+            <span className="flex-1">
+              <span className="block text-sm font-bold">{title}</span>
+              <span className="mt-0.5 block text-xs text-muted-foreground">{desc}</span>
+            </span>
+          </Link>
+        ))}
+      </main>
+    </>
+  );
+}

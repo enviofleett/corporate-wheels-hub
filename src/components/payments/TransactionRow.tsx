@@ -48,19 +48,13 @@ export function TransactionRow({ txn }: { txn: Transaction }) {
         {isOutflow ? <ArrowUpRight className="h-4 w-4" /> : <Icon className="h-4 w-4" />}
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-foreground">
-          {TXN_KIND_LABEL[txn.kind]}
-        </p>
+        <p className="truncate text-sm font-semibold text-foreground">{TXN_KIND_LABEL[txn.kind]}</p>
         <p className="truncate text-[11px] text-muted-foreground">
           {txn.counterparty} · {formatRelativeTime(txn.date)} ago
         </p>
       </div>
       <div className="text-right">
-        <p
-          className={`text-sm font-bold ${
-            isOutflow ? "text-foreground" : "text-success"
-          }`}
-        >
+        <p className={`text-sm font-bold ${isOutflow ? "text-foreground" : "text-success"}`}>
           {sign}
           {formatNaira(Math.abs(txn.amount))}
         </p>

@@ -1,6 +1,80 @@
-import {createFileRoute,Link} from "@tanstack/react-router";
-import {useMemo,useState} from "react";
-import {BadgeCheck,Search,ShieldAlert,CarFront} from "lucide-react";
-export const Route=createFileRoute("/org/members")({component:Members});
-const rows=[["Emmanuel A.","Driver","Verified"],["Sarah O.","Driver","Verified"],["David O.","Passenger","Pending"],["Grace A.","Passenger","Verified"],["Daniel M.","Driver","Review"]] as const;
-function Members(){const [q,setQ]=useState("");const filtered=useMemo(()=>rows.filter(([name,type,status])=>[name,type,status].join(" ").toLowerCase().includes(q.toLowerCase())),[q]);return <><header className="border-b bg-background px-5 py-6"><div className="mx-auto max-w-md"><p className="text-[11px] font-bold uppercase text-muted-foreground">Organization</p><h1 className="text-2xl font-black">Members</h1><p className="mt-1 text-xs text-muted-foreground">Search members and review driver access separately.</p></div></header><main className="mx-auto max-w-md px-5 pt-4"><div className="flex h-11 items-center gap-2 rounded-xl border bg-background px-3"><Search className="h-4 w-4 text-muted-foreground"/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search members" className="min-w-0 flex-1 bg-transparent text-sm outline-none"/></div><Link to="/org/driver-applications" className="mt-3 flex items-center gap-3 rounded-xl border bg-card p-3 text-xs font-bold text-primary"><CarFront className="h-4 w-4"/>Review driver & vehicle applications</Link><div className="mt-4 space-y-2">{filtered.map(([name,type,status])=><div key={name} className="flex items-center gap-3 rounded-2xl border bg-card p-3"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-soft text-sm font-black text-primary">{name[0]}</div><div className="flex-1"><p className="text-sm font-bold">{name}</p><p className="text-[11px] text-muted-foreground">{type}</p></div><span className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-bold ${status==="Verified"?"bg-success/10 text-success":"bg-warning/10 text-warning"}`}>{status==="Verified"?<BadgeCheck className="h-3 w-3"/>:<ShieldAlert className="h-3 w-3"/>}{status}</span></div>)}{filtered.length===0&&<div className="rounded-2xl border border-dashed bg-card p-6 text-center text-xs text-muted-foreground">No members match your search.</div>}</div></main></>}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
+import { BadgeCheck, Search, ShieldAlert, CarFront } from "lucide-react";
+export const Route = createFileRoute("/org/members")({ component: Members });
+const rows = [
+  ["Emmanuel A.", "Driver", "Verified"],
+  ["Sarah O.", "Driver", "Verified"],
+  ["David O.", "Passenger", "Pending"],
+  ["Grace A.", "Passenger", "Verified"],
+  ["Daniel M.", "Driver", "Review"],
+] as const;
+function Members() {
+  const [q, setQ] = useState("");
+  const filtered = useMemo(
+    () =>
+      rows.filter(([name, type, status]) =>
+        [name, type, status].join(" ").toLowerCase().includes(q.toLowerCase()),
+      ),
+    [q],
+  );
+  return (
+    <>
+      <header className="border-b bg-background px-5 py-6">
+        <div className="mx-auto max-w-md">
+          <p className="text-[11px] font-bold uppercase text-muted-foreground">Organization</p>
+          <h1 className="text-2xl font-black">Members</h1>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Search members and review driver access separately.
+          </p>
+        </div>
+      </header>
+      <main className="mx-auto max-w-md px-5 pt-4">
+        <div className="flex h-11 items-center gap-2 rounded-xl border bg-background px-3">
+          <Search className="h-4 w-4 text-muted-foreground" />
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search members"
+            className="min-w-0 flex-1 bg-transparent text-sm outline-none"
+          />
+        </div>
+        <Link
+          to="/org/driver-applications"
+          className="mt-3 flex items-center gap-3 rounded-xl border bg-card p-3 text-xs font-bold text-primary"
+        >
+          <CarFront className="h-4 w-4" />
+          Review driver & vehicle applications
+        </Link>
+        <div className="mt-4 space-y-2">
+          {filtered.map(([name, type, status]) => (
+            <div key={name} className="flex items-center gap-3 rounded-2xl border bg-card p-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-soft text-sm font-black text-primary">
+                {name[0]}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-bold">{name}</p>
+                <p className="text-[11px] text-muted-foreground">{type}</p>
+              </div>
+              <span
+                className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-bold ${status === "Verified" ? "bg-success/10 text-success" : "bg-warning/10 text-warning"}`}
+              >
+                {status === "Verified" ? (
+                  <BadgeCheck className="h-3 w-3" />
+                ) : (
+                  <ShieldAlert className="h-3 w-3" />
+                )}
+                {status}
+              </span>
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div className="rounded-2xl border border-dashed bg-card p-6 text-center text-xs text-muted-foreground">
+              No members match your search.
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
+}

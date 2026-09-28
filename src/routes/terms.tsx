@@ -99,7 +99,9 @@ function TermCard({ icon, title, description, checked, onChange }: TermCardProps
   return (
     <label
       className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 bg-card p-4 transition-all ${
-        checked ? "border-accent bg-accent-soft/40" : "border-border hover:border-muted-foreground/30"
+        checked
+          ? "border-accent bg-accent-soft/40"
+          : "border-border hover:border-muted-foreground/30"
       }`}
     >
       <div

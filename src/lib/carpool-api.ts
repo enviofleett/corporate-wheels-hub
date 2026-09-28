@@ -1,9 +1,57 @@
-import {supabase} from "@/lib/supabase";
-export type DbRide={id:string;organization_id:string;event_id:string;driver_id:string;direction:"outbound"|"return";origin_area:string;departure_at:string;seats_total:number;seats_available:number;contribution:number;status:string;vehicle_id?:string|null;pickup_hub_id?:string|null};
-export async function getMyMemberships(){return supabase.from("organization_memberships").select("*","&status=eq.active")}
-export async function listEventRides(organizationId:string,eventId:string,direction:"outbound"|"return",area?:string){let f=`&organization_id=eq.${encodeURIComponent(organizationId)}&event_id=eq.${encodeURIComponent(eventId)}&direction=eq.${direction}&status=in.(open,full)`;if(area)f+=`&origin_area=ilike.*${encodeURIComponent(area)}*`;return supabase.from<DbRide>("rides").select("*",f)}
-export async function createRide(input:Omit<DbRide,"id"|"driver_id"|"status">){return supabase.rpc<DbRide>("create_ride",{p_organization_id:input.organization_id,p_event_id:input.event_id,p_direction:input.direction,p_origin_area:input.origin_area,p_departure_at:input.departure_at,p_seats_total:input.seats_total,p_contribution:input.contribution,p_vehicle_id:input.vehicle_id??null,p_pickup_hub_id:input.pickup_hub_id??null})}
-export async function requestSeat(rideId:string){return supabase.rpc("request_ride_seat",{p_ride_id:rideId})}
-export async function decideSeatRequest(requestId:string,accept:boolean){return supabase.rpc("decide_ride_seat_request",{p_request_id:requestId,p_accept:accept})}
-export async function cancelSeatRequest(requestId:string){return supabase.rpc("cancel_ride_seat_request",{p_request_id:requestId})}
-export async function transitionRide(rideId:string,status:"boarding"|"active"|"completed"|"cancelled"){return supabase.rpc("transition_ride",{p_ride_id:rideId,p_status:status})}
+import { supabase } from "@/lib/supabase";
+export type DbRide = {
+  id: string;
+  organization_id: string;
+  event_id: string;
+  driver_id: string;
+  direction: "outbound" | "return";
+  origin_area: string;
+  departure_at: string;
+  seats_total: number;
+  seats_available: number;
+  contribution: number;
+  status: string;
+  vehicle_id?: string | null;
+  pickup_hub_id?: string | null;
+};
+export async function getMyMemberships() {
+  return supabase.from("organization_memberships").select("*", "&status=eq.active");
+}
+export async function listEventRides(
+  organizationId: string,
+  eventId: string,
+  direction: "outbound" | "return",
+  area?: string,
+) {
+  let f = `&organization_id=eq.${encodeURIComponent(organizationId)}&event_id=eq.${encodeURIComponent(eventId)}&direction=eq.${direction}&status=in.(open,full)`;
+  if (area) f += `&origin_area=ilike.*${encodeURIComponent(area)}*`;
+  return supabase.from<DbRide>("rides").select("*", f);
+}
+export async function createRide(input: Omit<DbRide, "id" | "driver_id" | "status">) {
+  return supabase.rpc<DbRide>("create_ride", {
+    p_organization_id: input.organization_id,
+    p_event_id: input.event_id,
+    p_direction: input.direction,
+    p_origin_area: input.origin_area,
+    p_departure_at: input.departure_at,
+    p_seats_total: input.seats_total,
+    p_contribution: input.contribution,
+    p_vehicle_id: input.vehicle_id ?? null,
+    p_pickup_hub_id: input.pickup_hub_id ?? null,
+  });
+}
+export async function requestSeat(rideId: string) {
+  return supabase.rpc("request_ride_seat", { p_ride_id: rideId });
+}
+export async function decideSeatRequest(requestId: string, accept: boolean) {
+  return supabase.rpc("decide_ride_seat_request", { p_request_id: requestId, p_accept: accept });
+}
+export async function cancelSeatRequest(requestId: string) {
+  return supabase.rpc("cancel_ride_seat_request", { p_request_id: requestId });
+}
+export async function transitionRide(
+  rideId: string,
+  status: "boarding" | "active" | "completed" | "cancelled",
+) {
+  return supabase.rpc("transition_ride", { p_ride_id: rideId, p_status: status });
+}

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import type {ReactNode} from "react";
+import type { ReactNode } from "react";
 import { ArrowLeft, Bell, ShieldCheck, Sparkles } from "lucide-react";
 
 type Props = {

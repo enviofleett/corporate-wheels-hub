@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Landmark, Loader2, CheckCircle2, ArrowDownToLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { listBankAccounts, defaultBankAccount } from "@/lib/payments-data";
@@ -47,21 +42,15 @@ export function PayoutModal({ open, onOpenChange, available }: Props) {
             </span>
             <DialogTitle className="text-base">Withdraw to bank</DialogTitle>
           </div>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Payouts arrive in 1–2 business days.
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">Payouts arrive in 1–2 business days.</p>
         </DialogHeader>
 
         {stage === "form" && (
           <div className="space-y-4 px-5 py-4">
             {/* Available */}
             <section className="rounded-xl bg-muted/40 p-3 text-center">
-              <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                Available
-              </p>
-              <p className="mt-0.5 text-2xl font-bold text-foreground">
-                {formatNaira(available)}
-              </p>
+              <p className="text-[11px] uppercase tracking-wide text-muted-foreground">Available</p>
+              <p className="mt-0.5 text-2xl font-bold text-foreground">{formatNaira(available)}</p>
             </section>
 
             {/* Amount input */}
@@ -114,9 +103,7 @@ export function PayoutModal({ open, onOpenChange, available }: Props) {
                   >
                     <span
                       className={`flex h-9 w-9 items-center justify-center rounded-xl ${
-                        selected
-                          ? "bg-accent text-accent-foreground"
-                          : "bg-muted text-foreground"
+                        selected ? "bg-accent text-accent-foreground" : "bg-muted text-foreground"
                       }`}
                     >
                       <Landmark className="h-4 w-4" />
@@ -125,9 +112,7 @@ export function PayoutModal({ open, onOpenChange, available }: Props) {
                       <p className="truncate text-sm font-semibold text-foreground">
                         {b.bankName} {b.accountNumber}
                       </p>
-                      <p className="truncate text-[11px] text-muted-foreground">
-                        {b.accountName}
-                      </p>
+                      <p className="truncate text-[11px] text-muted-foreground">{b.accountName}</p>
                     </div>
                     {selected && (
                       <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-accent-foreground">
@@ -153,9 +138,7 @@ export function PayoutModal({ open, onOpenChange, available }: Props) {
         {stage === "processing" && (
           <div className="flex flex-col items-center justify-center px-5 py-12 text-center">
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
-            <p className="mt-4 text-sm font-semibold text-foreground">
-              Initiating payout…
-            </p>
+            <p className="mt-4 text-sm font-semibold text-foreground">Initiating payout…</p>
           </div>
         )}
 

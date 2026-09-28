@@ -1,10 +1,7 @@
 import { AlertTriangle, Clock, CheckCircle2, XCircle } from "lucide-react";
 import type { DisputeStatus } from "@/lib/trust-data";
 
-const META: Record<
-  DisputeStatus,
-  { label: string; icon: React.ReactNode; cls: string }
-> = {
+const META: Record<DisputeStatus, { label: string; icon: React.ReactNode; cls: string }> = {
   open: {
     label: "Open",
     icon: <AlertTriangle className="h-3 w-3" />,

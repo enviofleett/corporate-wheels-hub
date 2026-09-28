@@ -38,7 +38,6 @@ export const Route = createRootRoute({
       { property: "og:description", content: "White-label community event carpooling." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      
     ],
     links: [
       {
@@ -67,5 +66,9 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  return <TenantProvider><Outlet /></TenantProvider>;
+  return (
+    <TenantProvider>
+      <Outlet />
+    </TenantProvider>
+  );
 }

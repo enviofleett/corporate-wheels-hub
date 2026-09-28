@@ -1,14 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  Car,
-  Check,
-  FileText,
-  MessageSquareWarning,
-  Star,
-  Truck,
-  X,
-} from "lucide-react";
+import { Car, Check, FileText, MessageSquareWarning, Star, Truck, X } from "lucide-react";
 import { AdminTopBar } from "@/components/admin/AdminTopBar";
 import { listModeration, type ModerationKind } from "@/lib/admin-data";
 import { formatRelativeTime } from "@/lib/format";
@@ -126,18 +118,14 @@ function ModerationScreen() {
                   <div className="mt-3 grid grid-cols-2 gap-2">
                     <button
                       type="button"
-                      onClick={() =>
-                        setDecisions((d) => ({ ...d, [m.id]: "rejected" }))
-                      }
+                      onClick={() => setDecisions((d) => ({ ...d, [m.id]: "rejected" }))}
                       className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-destructive/40 text-xs font-semibold text-destructive"
                     >
                       <X className="h-3.5 w-3.5" /> Remove
                     </button>
                     <button
                       type="button"
-                      onClick={() =>
-                        setDecisions((d) => ({ ...d, [m.id]: "approved" }))
-                      }
+                      onClick={() => setDecisions((d) => ({ ...d, [m.id]: "approved" }))}
                       className="flex h-9 items-center justify-center gap-1.5 rounded-lg bg-success text-xs font-semibold text-success-foreground"
                     >
                       <Check className="h-3.5 w-3.5" /> Keep

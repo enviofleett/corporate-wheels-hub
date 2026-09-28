@@ -1,4 +1,148 @@
-import {createFileRoute,Link,useNavigate} from "@tanstack/react-router";import type {ReactNode} from "react";import {ArrowLeft,BadgeCheck,CarFront,Clock3,MapPin,ShieldCheck,UsersRound} from "lucide-react";import {rideEngine,useRideState} from "@/lib/rides-data";import {getRole} from "@/lib/role-store";import {CommunityBottomNav} from "@/components/community/CommunityBottomNav";
-export const Route=createFileRoute("/rides/$rideId")({component:RideDetail});
-function RideDetail(){const {rideId}=Route.useParams(),nav=useNavigate(),s=useRideState(),ride=s.rides.find(r=>r.id===rideId);if(!ride)return <main className="mx-auto max-w-md p-6"><p className="font-black">Ride not found.</p><Link to="/find" className="mt-3 inline-block text-sm font-bold text-primary">Back to ride search</Link></main>;const mine=s.requests.find(r=>r.rideId===ride.id&&r.passengerId==="current-member"&&["pending","accepted"].includes(r.status));const ownRide=ride.driverId==="current-member";const request=()=>{const role=getRole();if(!role||role==="platform_admin"){nav({to:"/role"});return}try{rideEngine.requestSeat(ride.id)}catch(e){alert((e as Error).message)}};return <div className="min-h-screen bg-muted/30 pb-24"><header className="bg-primary px-5 pb-7 pt-5 text-primary-foreground"><div className="mx-auto max-w-md"><Link to="/find" className="mb-5 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10"><ArrowLeft className="h-4 w-4"/></Link><p className="text-xs opacity-70">{ride.date} · {ride.direction==="return"?"Return":"To event"}</p><h1 className="mt-2 text-2xl font-black">{ride.from} → {ride.to}</h1><p className="mt-2 flex items-center gap-2 text-sm opacity-75"><Clock3 className="h-4 w-4"/>{ride.time}</p></div></header><main className="mx-auto max-w-md space-y-4 px-5 pt-5"><section className="rounded-2xl border bg-card p-4"><p className="text-[10px] font-bold uppercase text-muted-foreground">Driver</p><p className="mt-3 flex items-center gap-1 font-bold">{ride.driver}<BadgeCheck className="h-4 w-4 text-success"/></p></section><section className="grid grid-cols-2 gap-3"><Info icon={<CarFront/>} label="Vehicle" value={ride.vehicle}/><Info icon={<UsersRound/>} label="Availability" value={ride.status==="full"?"Full":`${ride.seats} seats left`}/></section><section className="rounded-2xl border bg-card p-4"><p className="flex items-center gap-2 text-sm font-bold"><MapPin className="h-4 w-4 text-primary"/>Pickup area: {ride.from}</p><p className="mt-1 text-xs text-muted-foreground">{mine?.status==="accepted"&&ride.meetingPoint?ride.meetingPoint:"Exact meeting point is shared after acceptance."}</p></section><section className="rounded-2xl bg-primary-soft p-4"><p className="flex gap-2 text-sm font-bold text-primary"><ShieldCheck className="h-4 w-4"/>Verified community ride</p></section><div className="flex items-center justify-between rounded-2xl border bg-card p-4"><div><p className="text-[10px] font-bold uppercase text-muted-foreground">Contribution</p><p className="text-xl font-black">{ride.contribution?`₦${ride.contribution.toLocaleString()}`:"Free"}</p></div><button disabled={ownRide||!!mine||ride.status!=="open"} onClick={request} className="h-12 rounded-xl bg-accent px-5 text-sm font-bold text-accent-foreground disabled:opacity-50">{ownRide?"Your ride":mine?.status==="accepted"?"Seat confirmed":mine?"Request pending":ride.status==="full"?"Ride full":"Request Seat"}</button></div>{mine&&<button onClick={()=>rideEngine.cancelRequest(mine.id)} className="w-full rounded-xl border border-destructive/30 py-3 text-xs font-bold text-destructive">Cancel seat request</button>}</main><CommunityBottomNav/></div>}
-function Info({icon,label,value}:{icon:ReactNode;label:string;value:string}){return <div className="rounded-2xl border bg-card p-4"><div className="text-primary [&>svg]:h-4 [&>svg]:w-4">{icon}</div><p className="mt-3 text-[10px] font-bold uppercase text-muted-foreground">{label}</p><p className="mt-1 text-xs font-bold">{value}</p></div>}
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import {
+  ArrowLeft,
+  BadgeCheck,
+  CarFront,
+  Clock3,
+  MapPin,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
+import { rideEngine, useRideState } from "@/lib/rides-data";
+import { getRole } from "@/lib/role-store";
+import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
+export const Route = createFileRoute("/rides/$rideId")({ component: RideDetail });
+function RideDetail() {
+  const { rideId } = Route.useParams(),
+    nav = useNavigate(),
+    s = useRideState(),
+    ride = s.rides.find((r) => r.id === rideId);
+  if (!ride)
+    return (
+      <main className="mx-auto max-w-md p-6">
+        <p className="font-black">Ride not found.</p>
+        <Link to="/find" className="mt-3 inline-block text-sm font-bold text-primary">
+          Back to ride search
+        </Link>
+      </main>
+    );
+  const mine = s.requests.find(
+    (r) =>
+      r.rideId === ride.id &&
+      r.passengerId === "current-member" &&
+      ["pending", "accepted"].includes(r.status),
+  );
+  const ownRide = ride.driverId === "current-member";
+  const request = () => {
+    const role = getRole();
+    if (!role || role === "platform_admin") {
+      nav({ to: "/role" });
+      return;
+    }
+    try {
+      rideEngine.requestSeat(ride.id);
+    } catch (e) {
+      alert((e as Error).message);
+    }
+  };
+  return (
+    <div className="min-h-screen bg-muted/30 pb-24">
+      <header className="bg-primary px-5 pb-7 pt-5 text-primary-foreground">
+        <div className="mx-auto max-w-md">
+          <Link
+            to="/find"
+            className="mb-5 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <p className="text-xs opacity-70">
+            {ride.date} · {ride.direction === "return" ? "Return" : "To event"}
+          </p>
+          <h1 className="mt-2 text-2xl font-black">
+            {ride.from} → {ride.to}
+          </h1>
+          <p className="mt-2 flex items-center gap-2 text-sm opacity-75">
+            <Clock3 className="h-4 w-4" />
+            {ride.time}
+          </p>
+        </div>
+      </header>
+      <main className="mx-auto max-w-md space-y-4 px-5 pt-5">
+        <section className="rounded-2xl border bg-card p-4">
+          <p className="text-[10px] font-bold uppercase text-muted-foreground">Driver</p>
+          <p className="mt-3 flex items-center gap-1 font-bold">
+            {ride.driver}
+            <BadgeCheck className="h-4 w-4 text-success" />
+          </p>
+        </section>
+        <section className="grid grid-cols-2 gap-3">
+          <Info icon={<CarFront />} label="Vehicle" value={ride.vehicle} />
+          <Info
+            icon={<UsersRound />}
+            label="Availability"
+            value={ride.status === "full" ? "Full" : `${ride.seats} seats left`}
+          />
+        </section>
+        <section className="rounded-2xl border bg-card p-4">
+          <p className="flex items-center gap-2 text-sm font-bold">
+            <MapPin className="h-4 w-4 text-primary" />
+            Pickup area: {ride.from}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {mine?.status === "accepted" && ride.meetingPoint
+              ? ride.meetingPoint
+              : "Exact meeting point is shared after acceptance."}
+          </p>
+        </section>
+        <section className="rounded-2xl bg-primary-soft p-4">
+          <p className="flex gap-2 text-sm font-bold text-primary">
+            <ShieldCheck className="h-4 w-4" />
+            Verified community ride
+          </p>
+        </section>
+        <div className="flex items-center justify-between rounded-2xl border bg-card p-4">
+          <div>
+            <p className="text-[10px] font-bold uppercase text-muted-foreground">Contribution</p>
+            <p className="text-xl font-black">
+              {ride.contribution ? `₦${ride.contribution.toLocaleString()}` : "Free"}
+            </p>
+          </div>
+          <button
+            disabled={ownRide || !!mine || ride.status !== "open"}
+            onClick={request}
+            className="h-12 rounded-xl bg-accent px-5 text-sm font-bold text-accent-foreground disabled:opacity-50"
+          >
+            {ownRide
+              ? "Your ride"
+              : mine?.status === "accepted"
+                ? "Seat confirmed"
+                : mine
+                  ? "Request pending"
+                  : ride.status === "full"
+                    ? "Ride full"
+                    : "Request Seat"}
+          </button>
+        </div>
+        {mine && (
+          <button
+            onClick={() => rideEngine.cancelRequest(mine.id)}
+            className="w-full rounded-xl border border-destructive/30 py-3 text-xs font-bold text-destructive"
+          >
+            Cancel seat request
+          </button>
+        )}
+      </main>
+      <CommunityBottomNav />
+    </div>
+  );
+}
+function Info({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border bg-card p-4">
+      <div className="text-primary [&>svg]:h-4 [&>svg]:w-4">{icon}</div>
+      <p className="mt-3 text-[10px] font-bold uppercase text-muted-foreground">{label}</p>
+      <p className="mt-1 text-xs font-bold">{value}</p>
+    </div>
+  );
+}

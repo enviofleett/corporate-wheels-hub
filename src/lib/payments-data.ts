@@ -22,20 +22,9 @@ export type BankAccount = {
   isDefault: boolean;
 };
 
-export type TxnKind =
-  | "escrow_funding"
-  | "escrow_release"
-  | "refund"
-  | "payout"
-  | "fee"
-  | "bonus";
+export type TxnKind = "escrow_funding" | "escrow_release" | "refund" | "payout" | "fee" | "bonus";
 
-export type TxnStatus =
-  | "pending"
-  | "processing"
-  | "successful"
-  | "failed"
-  | "refunded";
+export type TxnStatus = "pending" | "processing" | "successful" | "failed" | "refunded";
 
 export type Transaction = {
   id: string;
@@ -224,9 +213,7 @@ export function defaultBankAccount(): BankAccount {
 }
 
 export function listTransactions(): Transaction[] {
-  return [...TRANSACTIONS].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  return [...TRANSACTIONS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getTransaction(id: string): Transaction | undefined {

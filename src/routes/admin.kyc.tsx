@@ -3,11 +3,7 @@ import { useMemo, useState } from "react";
 import { Check, FileText, X } from "lucide-react";
 import { AdminTopBar } from "@/components/admin/AdminTopBar";
 import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
-import {
-  KYC_QUEUE_LABEL,
-  listKycQueue,
-  type KycQueueStatus,
-} from "@/lib/admin-data";
+import { KYC_QUEUE_LABEL, listKycQueue, type KycQueueStatus } from "@/lib/admin-data";
 import { formatRelativeTime } from "@/lib/format";
 
 export const Route = createFileRoute("/admin/kyc")({
@@ -129,18 +125,14 @@ function KycQueue() {
                   <div className="mt-3 grid grid-cols-2 gap-2">
                     <button
                       type="button"
-                      onClick={() =>
-                        setDecisions((p) => ({ ...p, [k.id]: "rejected" }))
-                      }
+                      onClick={() => setDecisions((p) => ({ ...p, [k.id]: "rejected" }))}
                       className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-destructive/40 text-xs font-semibold text-destructive"
                     >
                       <X className="h-3.5 w-3.5" /> Reject
                     </button>
                     <button
                       type="button"
-                      onClick={() =>
-                        setDecisions((p) => ({ ...p, [k.id]: "approved" }))
-                      }
+                      onClick={() => setDecisions((p) => ({ ...p, [k.id]: "approved" }))}
                       className="flex h-9 items-center justify-center gap-1.5 rounded-lg bg-success text-xs font-semibold text-success-foreground"
                     >
                       <Check className="h-3.5 w-3.5" /> Approve

@@ -73,9 +73,7 @@ function TransactionsScreen() {
           >
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
-                <p className="truncate text-[11px] font-mono text-muted-foreground">
-                  {t.ref}
-                </p>
+                <p className="truncate text-[11px] font-mono text-muted-foreground">{t.ref}</p>
                 <p className="truncate text-sm font-semibold text-foreground capitalize">
                   {t.kind.replace("_", " ")}
                 </p>

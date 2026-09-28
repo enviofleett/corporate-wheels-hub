@@ -1,13 +1,104 @@
-import {createFileRoute,Link} from "@tanstack/react-router";
-import {Building2,ChevronRight,Cog,LogOut,Megaphone,ScrollText,ShieldAlert,Banknote} from "lucide-react";
-import {AdminTopBar} from "@/components/admin/AdminTopBar";
-export const Route=createFileRoute("/admin/more")({component:MoreScreen});
-const items=[
-{to:"/admin/organizations" as const,icon:Building2,label:"Organizations",hint:"Tenant accounts, domains and status"},
-{to:"/admin/safety" as const,icon:ShieldAlert,label:"Safety",hint:"Escalations, verification and incidents"},
-{to:"/admin/billing" as const,icon:Banknote,label:"Billing",hint:"Subscriptions and organization billing"},
-{to:"/admin/audit" as const,icon:ScrollText,label:"Audit log",hint:"Platform administrative activity"},
-{to:"/admin/announcements" as const,icon:Megaphone,label:"Announcements",hint:"Platform notices to organizations"},
-{to:"/admin/settings" as const,icon:Cog,label:"Platform settings",hint:"Feature flags and platform defaults"}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Building2,
+  ChevronRight,
+  Cog,
+  LogOut,
+  Megaphone,
+  ScrollText,
+  ShieldAlert,
+  Banknote,
+} from "lucide-react";
+import { AdminTopBar } from "@/components/admin/AdminTopBar";
+export const Route = createFileRoute("/admin/more")({ component: MoreScreen });
+const items = [
+  {
+    to: "/admin/organizations" as const,
+    icon: Building2,
+    label: "Organizations",
+    hint: "Tenant accounts, domains and status",
+  },
+  {
+    to: "/admin/safety" as const,
+    icon: ShieldAlert,
+    label: "Safety",
+    hint: "Escalations, verification and incidents",
+  },
+  {
+    to: "/admin/billing" as const,
+    icon: Banknote,
+    label: "Billing",
+    hint: "Subscriptions and organization billing",
+  },
+  {
+    to: "/admin/audit" as const,
+    icon: ScrollText,
+    label: "Audit log",
+    hint: "Platform administrative activity",
+  },
+  {
+    to: "/admin/announcements" as const,
+    icon: Megaphone,
+    label: "Announcements",
+    hint: "Platform notices to organizations",
+  },
+  {
+    to: "/admin/settings" as const,
+    icon: Cog,
+    label: "Platform settings",
+    hint: "Feature flags and platform defaults",
+  },
 ];
-function MoreScreen(){return <><AdminTopBar title="Platform tools" subtitle="SaaS administration"/><main className="mx-auto w-full max-w-md space-y-5 px-5 pt-4"><section><h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Operations</h2><div className="space-y-2">{items.map(it=><Link key={it.to} to={it.to} className="flex items-center gap-3 rounded-xl border bg-card p-3"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-soft text-primary"><it.icon className="h-4 w-4"/></span><span className="min-w-0 flex-1"><span className="block text-sm font-semibold">{it.label}</span><span className="block truncate text-[11px] text-muted-foreground">{it.hint}</span></span><ChevronRight className="h-4 w-4 text-muted-foreground"/></Link>)}</div></section><section><h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Session</h2><div className="rounded-xl border bg-card p-3"><p className="text-sm font-semibold">Platform administrator</p><p className="text-[11px] text-muted-foreground">Cross-tenant SaaS administration</p></div><Link to="/role" className="mt-2 flex w-full items-center gap-3 rounded-xl border bg-card p-3"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground"><LogOut className="h-4 w-4"/></span><span className="flex-1 text-sm font-semibold">Switch workspace</span><ChevronRight className="h-4 w-4 text-muted-foreground"/></Link></section></main></>}
+function MoreScreen() {
+  return (
+    <>
+      <AdminTopBar title="Platform tools" subtitle="SaaS administration" />
+      <main className="mx-auto w-full max-w-md space-y-5 px-5 pt-4">
+        <section>
+          <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Operations
+          </h2>
+          <div className="space-y-2">
+            {items.map((it) => (
+              <Link
+                key={it.to}
+                to={it.to}
+                className="flex items-center gap-3 rounded-xl border bg-card p-3"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-soft text-primary">
+                  <it.icon className="h-4 w-4" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold">{it.label}</span>
+                  <span className="block truncate text-[11px] text-muted-foreground">
+                    {it.hint}
+                  </span>
+                </span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section>
+          <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Session
+          </h2>
+          <div className="rounded-xl border bg-card p-3">
+            <p className="text-sm font-semibold">Platform administrator</p>
+            <p className="text-[11px] text-muted-foreground">Cross-tenant SaaS administration</p>
+          </div>
+          <Link
+            to="/role"
+            className="mt-2 flex w-full items-center gap-3 rounded-xl border bg-card p-3"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+              <LogOut className="h-4 w-4" />
+            </span>
+            <span className="flex-1 text-sm font-semibold">Switch workspace</span>
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          </Link>
+        </section>
+      </main>
+    </>
+  );
+}

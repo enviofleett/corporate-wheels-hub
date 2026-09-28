@@ -1,2 +1,13 @@
-import { useEffect,useState,type ReactNode } from "react";import { useNavigate } from "@tanstack/react-router";import { getRole,type AppRole } from "@/lib/role-store";
-export function RequireRole({allow,children}:{allow:AppRole[];children:ReactNode}){const navigate=useNavigate();const [ok,setOk]=useState(false);useEffect(()=>{const r=getRole();if(r&&allow.includes(r))setOk(true);else navigate({to:"/role"})},[allow,navigate]);return ok?<>{children}</>:null}
+import { useEffect, useState, type ReactNode } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { getRole, type AppRole } from "@/lib/role-store";
+export function RequireRole({ allow, children }: { allow: AppRole[]; children: ReactNode }) {
+  const navigate = useNavigate();
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    const r = getRole();
+    if (r && allow.includes(r)) setOk(true);
+    else navigate({ to: "/role" });
+  }, [allow, navigate]);
+  return ok ? <>{children}</> : null;
+}

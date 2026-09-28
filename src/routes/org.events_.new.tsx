@@ -1,8 +1,162 @@
-import {createFileRoute,useNavigate} from "@tanstack/react-router";
-import {useState,type ReactNode} from "react";
-import {CalendarDays,MapPin,ShieldCheck,UsersRound,Image} from "lucide-react";
-import {orgAdminStore,type OrgEventRecord} from "@/lib/org-admin-store";
-export const Route=createFileRoute("/org/events/new")({component:CreateEvent});
-function CreateEvent(){const nav=useNavigate();const [form,setForm]=useState<OrgEventRecord>({id:"",name:"",date:"",venue:"",city:"Abuja",status:"Draft",rides:0,booked:0,description:"",bannerUrl:""});const set=<K extends keyof OrgEventRecord>(k:K,v:OrgEventRecord[K])=>setForm(x=>({...x,[k]:v}));const create=()=>{const id=(form.id||form.name).toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");orgAdminStore.createEvent({...form,id:id||`event-${Date.now()}`});nav({to:"/org/events"})};return <div className="min-h-screen bg-muted/20"><header className="border-b bg-background px-5 py-6"><div className="mx-auto max-w-2xl"><p className="text-[11px] font-bold uppercase text-muted-foreground">Organization Console</p><h1 className="text-2xl font-black">Create Event</h1><p className="mt-1 text-xs text-muted-foreground">Set up the event, public information and carpooling rules.</p></div></header><main className="mx-auto max-w-2xl space-y-4 px-5 py-4"><Block icon={<CalendarDays/>} title="Event details"><Field label="Event name" value={form.name} onChange={v=>set("name",v)} placeholder="General Assembly 2027"/><div className="grid grid-cols-1 gap-2 sm:grid-cols-2"><Field label="Date / date range" value={form.date} onChange={v=>set("date",v)} placeholder="12–13 Dec 2027"/><label className="block"><span className="text-[10px] font-bold uppercase text-muted-foreground">Status</span><select value={form.status} onChange={e=>set("status",e.target.value as OrgEventRecord["status"])} className="mt-1 h-11 w-full rounded-xl border bg-background px-3 text-sm"><option>Draft</option><option>Published</option><option>Live</option><option>Completed</option></select></label></div><label className="block"><span className="text-[10px] font-bold uppercase text-muted-foreground">Description</span><textarea rows={4} value={form.description} onChange={e=>set("description",e.target.value)} className="mt-1 w-full rounded-xl border bg-background px-3 py-2 text-sm"/></label></Block><Block icon={<MapPin/>} title="Venue"><Field label="Venue name" value={form.venue} onChange={v=>set("venue",v)} placeholder="Koinonia Global"/><Field label="City / area" value={form.city} onChange={v=>set("city",v)}/></Block><Block icon={<Image/>} title="Event banner"><Field label="Banner image URL" value={form.bannerUrl} onChange={v=>set("bannerUrl",v)} placeholder="https://..."/><p className="text-[11px] text-muted-foreground">File upload will connect to backend storage later; this field proves the UI contract now.</p></Block><Block icon={<UsersRound/>} title="Carpool window"><p className="text-xs text-muted-foreground">The organization-wide rules below apply by default. Event-specific overrides can be added during backend integration.</p></Block><Block icon={<ShieldCheck/>} title="Publishing"><p className="text-xs text-muted-foreground">Draft events remain internal. Published and Live events are eligible to appear on the public tenant homepage.</p></Block><button disabled={!form.name||!form.date||!form.venue} onClick={create} className="h-12 w-full rounded-2xl bg-primary text-sm font-bold text-primary-foreground disabled:opacity-50">Create Event</button></main></div>}
-function Block({icon,title,children}:{icon:ReactNode;title:string;children:ReactNode}){return <section className="rounded-2xl border bg-card p-4"><div className="mb-3 flex items-center gap-2 text-sm font-bold text-primary"><span className="[&>svg]:h-4 [&>svg]:w-4">{icon}</span><span className="text-foreground">{title}</span></div><div className="space-y-2">{children}</div></section>}
-function Field({label,value,onChange,placeholder}:{label:string;value:string;onChange:(v:string)=>void;placeholder?:string}){return <label className="block"><span className="text-[10px] font-bold uppercase text-muted-foreground">{label}</span><input value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} className="mt-1 h-11 w-full rounded-xl border bg-background px-3 text-sm"/></label>}
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState, type ReactNode } from "react";
+import { CalendarDays, MapPin, ShieldCheck, UsersRound, Image } from "lucide-react";
+import { orgAdminStore, type OrgEventRecord } from "@/lib/org-admin-store";
+export const Route = createFileRoute("/org/events/new")({ component: CreateEvent });
+function CreateEvent() {
+  const nav = useNavigate();
+  const [form, setForm] = useState<OrgEventRecord>({
+    id: "",
+    name: "",
+    date: "",
+    venue: "",
+    city: "Abuja",
+    status: "Draft",
+    rides: 0,
+    booked: 0,
+    description: "",
+    bannerUrl: "",
+  });
+  const set = <K extends keyof OrgEventRecord>(k: K, v: OrgEventRecord[K]) =>
+    setForm((x) => ({ ...x, [k]: v }));
+  const create = () => {
+    const id = (form.id || form.name)
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+    orgAdminStore.createEvent({ ...form, id: id || `event-${Date.now()}` });
+    nav({ to: "/org/events" });
+  };
+  return (
+    <div className="min-h-screen bg-muted/20">
+      <header className="border-b bg-background px-5 py-6">
+        <div className="mx-auto max-w-2xl">
+          <p className="text-[11px] font-bold uppercase text-muted-foreground">
+            Organization Console
+          </p>
+          <h1 className="text-2xl font-black">Create Event</h1>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Set up the event, public information and carpooling rules.
+          </p>
+        </div>
+      </header>
+      <main className="mx-auto max-w-2xl space-y-4 px-5 py-4">
+        <Block icon={<CalendarDays />} title="Event details">
+          <Field
+            label="Event name"
+            value={form.name}
+            onChange={(v) => set("name", v)}
+            placeholder="General Assembly 2027"
+          />
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <Field
+              label="Date / date range"
+              value={form.date}
+              onChange={(v) => set("date", v)}
+              placeholder="12–13 Dec 2027"
+            />
+            <label className="block">
+              <span className="text-[10px] font-bold uppercase text-muted-foreground">Status</span>
+              <select
+                value={form.status}
+                onChange={(e) => set("status", e.target.value as OrgEventRecord["status"])}
+                className="mt-1 h-11 w-full rounded-xl border bg-background px-3 text-sm"
+              >
+                <option>Draft</option>
+                <option>Published</option>
+                <option>Live</option>
+                <option>Completed</option>
+              </select>
+            </label>
+          </div>
+          <label className="block">
+            <span className="text-[10px] font-bold uppercase text-muted-foreground">
+              Description
+            </span>
+            <textarea
+              rows={4}
+              value={form.description}
+              onChange={(e) => set("description", e.target.value)}
+              className="mt-1 w-full rounded-xl border bg-background px-3 py-2 text-sm"
+            />
+          </label>
+        </Block>
+        <Block icon={<MapPin />} title="Venue">
+          <Field
+            label="Venue name"
+            value={form.venue}
+            onChange={(v) => set("venue", v)}
+            placeholder="Koinonia Global"
+          />
+          <Field label="City / area" value={form.city} onChange={(v) => set("city", v)} />
+        </Block>
+        <Block icon={<Image />} title="Event banner">
+          <Field
+            label="Banner image URL"
+            value={form.bannerUrl}
+            onChange={(v) => set("bannerUrl", v)}
+            placeholder="https://..."
+          />
+          <p className="text-[11px] text-muted-foreground">
+            File upload will connect to backend storage later; this field proves the UI contract
+            now.
+          </p>
+        </Block>
+        <Block icon={<UsersRound />} title="Carpool window">
+          <p className="text-xs text-muted-foreground">
+            The organization-wide rules below apply by default. Event-specific overrides can be
+            added during backend integration.
+          </p>
+        </Block>
+        <Block icon={<ShieldCheck />} title="Publishing">
+          <p className="text-xs text-muted-foreground">
+            Draft events remain internal. Published and Live events are eligible to appear on the
+            public tenant homepage.
+          </p>
+        </Block>
+        <button
+          disabled={!form.name || !form.date || !form.venue}
+          onClick={create}
+          className="h-12 w-full rounded-2xl bg-primary text-sm font-bold text-primary-foreground disabled:opacity-50"
+        >
+          Create Event
+        </button>
+      </main>
+    </div>
+  );
+}
+function Block({ icon, title, children }: { icon: ReactNode; title: string; children: ReactNode }) {
+  return (
+    <section className="rounded-2xl border bg-card p-4">
+      <div className="mb-3 flex items-center gap-2 text-sm font-bold text-primary">
+        <span className="[&>svg]:h-4 [&>svg]:w-4">{icon}</span>
+        <span className="text-foreground">{title}</span>
+      </div>
+      <div className="space-y-2">{children}</div>
+    </section>
+  );
+}
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[10px] font-bold uppercase text-muted-foreground">{label}</span>
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="mt-1 h-11 w-full rounded-xl border bg-background px-3 text-sm"
+      />
+    </label>
+  );
+}

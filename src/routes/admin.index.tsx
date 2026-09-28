@@ -2,6 +2,69 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Building2, CalendarDays, Globe2, ShieldAlert, UsersRound, CarFront } from "lucide-react";
 import { platformStats as s, tenants } from "@/lib/platform-data";
 import type { ReactNode } from "react";
-export const Route=createFileRoute("/admin/")({component:PlatformAdmin});
-function PlatformAdmin(){return <><header className="bg-primary px-5 pb-7 pt-8 text-primary-foreground"><div className="mx-auto max-w-md"><p className="text-[11px] font-bold uppercase tracking-[.16em] text-white/60">SaaS Platform</p><h1 className="mt-1 text-2xl font-black">Platform Admin</h1><p className="mt-1 text-xs text-white/65">Organizations, events and platform health</p></div></header><main className="mx-auto max-w-md space-y-5 px-5 pt-5"><section className="grid grid-cols-2 gap-3"><M i={<Building2/>} n={s.organizations} l="Organizations"/><M i={<CalendarDays/>} n={s.liveEvents} l="Live events"/><M i={<UsersRound/>} n={s.members} l="Members"/><M i={<CarFront/>} n={s.rides} l="Rides"/></section><section className="grid grid-cols-2 gap-3"><div className="rounded-2xl bg-warning/10 p-4"><Globe2 className="h-5 w-5 text-warning"/><p className="mt-2 text-xl font-black">{s.pendingDomains}</p><p className="text-[10px] text-muted-foreground">Domains pending</p></div><div className="rounded-2xl bg-destructive/10 p-4"><ShieldAlert className="h-5 w-5 text-destructive"/><p className="mt-2 text-xl font-black">{s.safetyReviews}</p><p className="text-[10px] text-muted-foreground">Safety reviews</p></div></section><section><h2 className="mb-3 text-sm font-bold">Organizations</h2>{tenants.map(t=><div key={t.name} className="mb-2 rounded-2xl border border-border bg-card p-4"><div className="flex items-start justify-between"><div><p className="text-sm font-bold">{t.name}</p><p className="text-[11px] text-muted-foreground">{t.type} · {t.domain}</p></div><span className="rounded-full bg-success/10 px-2 py-1 text-[10px] font-bold text-success">{t.status}</span></div><p className="mt-3 text-[11px] font-semibold text-muted-foreground">{t.events} events · {t.members.toLocaleString()} members</p></div>)}</section></main></>};
-function M({i,n,l}:{i:ReactNode;n:number;l:string}){return <div className="rounded-2xl border border-border bg-card p-4"><span className="text-primary [&>svg]:h-5 [&>svg]:w-5">{i}</span><p className="mt-3 text-2xl font-black">{n.toLocaleString()}</p><p className="text-[10px] text-muted-foreground">{l}</p></div>}
+export const Route = createFileRoute("/admin/")({ component: PlatformAdmin });
+function PlatformAdmin() {
+  return (
+    <>
+      <header className="bg-primary px-5 pb-7 pt-8 text-primary-foreground">
+        <div className="mx-auto max-w-md">
+          <p className="text-[11px] font-bold uppercase tracking-[.16em] text-white/60">
+            SaaS Platform
+          </p>
+          <h1 className="mt-1 text-2xl font-black">Platform Admin</h1>
+          <p className="mt-1 text-xs text-white/65">Organizations, events and platform health</p>
+        </div>
+      </header>
+      <main className="mx-auto max-w-md space-y-5 px-5 pt-5">
+        <section className="grid grid-cols-2 gap-3">
+          <M i={<Building2 />} n={s.organizations} l="Organizations" />
+          <M i={<CalendarDays />} n={s.liveEvents} l="Live events" />
+          <M i={<UsersRound />} n={s.members} l="Members" />
+          <M i={<CarFront />} n={s.rides} l="Rides" />
+        </section>
+        <section className="grid grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-warning/10 p-4">
+            <Globe2 className="h-5 w-5 text-warning" />
+            <p className="mt-2 text-xl font-black">{s.pendingDomains}</p>
+            <p className="text-[10px] text-muted-foreground">Domains pending</p>
+          </div>
+          <div className="rounded-2xl bg-destructive/10 p-4">
+            <ShieldAlert className="h-5 w-5 text-destructive" />
+            <p className="mt-2 text-xl font-black">{s.safetyReviews}</p>
+            <p className="text-[10px] text-muted-foreground">Safety reviews</p>
+          </div>
+        </section>
+        <section>
+          <h2 className="mb-3 text-sm font-bold">Organizations</h2>
+          {tenants.map((t) => (
+            <div key={t.name} className="mb-2 rounded-2xl border border-border bg-card p-4">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-sm font-bold">{t.name}</p>
+                  <p className="text-[11px] text-muted-foreground">
+                    {t.type} · {t.domain}
+                  </p>
+                </div>
+                <span className="rounded-full bg-success/10 px-2 py-1 text-[10px] font-bold text-success">
+                  {t.status}
+                </span>
+              </div>
+              <p className="mt-3 text-[11px] font-semibold text-muted-foreground">
+                {t.events} events · {t.members.toLocaleString()} members
+              </p>
+            </div>
+          ))}
+        </section>
+      </main>
+    </>
+  );
+}
+function M({ i, n, l }: { i: ReactNode; n: number; l: string }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4">
+      <span className="text-primary [&>svg]:h-5 [&>svg]:w-5">{i}</span>
+      <p className="mt-3 text-2xl font-black">{n.toLocaleString()}</p>
+      <p className="text-[10px] text-muted-foreground">{l}</p>
+    </div>
+  );
+}

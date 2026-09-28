@@ -1,6 +1,92 @@
-import {createFileRoute,Link,useNavigate} from "@tanstack/react-router";
-import {useState} from "react";
-import {Building2,UsersRound} from "lucide-react";
-import {setRole} from "@/lib/role-store";
-export const Route=createFileRoute("/login")({component:Login});
-function Login(){const n=useNavigate();const [mode,setMode]=useState<"member"|"organization">("member");const [email,setEmail]=useState(""),[password,setPassword]=useState("");const submit=()=>{if(mode==="member"){setRole("member");n({to:"/events"})}else{setRole("organization_admin");n({to:"/org"})}};return <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-10"><p className="text-[11px] font-bold uppercase tracking-[.14em] text-primary">Community Rides</p><h1 className="mt-2 text-3xl font-black">Sign in</h1><p className="mt-2 text-sm text-muted-foreground">Use the frontend test login now; backend authentication will replace this handoff later.</p><div className="mt-6 grid grid-cols-2 rounded-xl bg-muted p-1 text-xs font-bold"><button onClick={()=>setMode("member")} className={mode==="member"?"flex items-center justify-center gap-2 rounded-lg bg-background py-2.5 shadow-sm":"flex items-center justify-center gap-2 py-2.5 text-muted-foreground"}><UsersRound className="h-4 w-4"/>Member</button><button onClick={()=>setMode("organization")} className={mode==="organization"?"flex items-center justify-center gap-2 rounded-lg bg-background py-2.5 shadow-sm":"flex items-center justify-center gap-2 py-2.5 text-muted-foreground"}><Building2 className="h-4 w-4"/>Organization</button></div><div className="mt-5 space-y-3"><input value={email} onChange={e=>setEmail(e.target.value)} type="email" placeholder="Email" className="h-12 w-full rounded-xl border bg-background px-3"/><input value={password} onChange={e=>setPassword(e.target.value)} type="password" placeholder="Password" className="h-12 w-full rounded-xl border bg-background px-3"/><button disabled={!email||!password} onClick={submit} className="h-12 w-full rounded-xl bg-primary text-sm font-bold text-primary-foreground disabled:opacity-50">Sign in</button></div>{mode==="organization"&&<div className="mt-5 rounded-2xl border bg-muted/30 p-4 text-center"><p className="text-xs font-bold">New organization?</p><Link to="/onboarding/organization" className="mt-2 inline-block text-xs font-bold text-primary">Register your organization →</Link></div>}<p className="mt-5 text-center text-[11px] text-muted-foreground">Frontend-only authentication for QA. No Supabase connection is used.</p></main>}
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { Building2, UsersRound } from "lucide-react";
+import { setRole } from "@/lib/role-store";
+export const Route = createFileRoute("/login")({ component: Login });
+function Login() {
+  const n = useNavigate();
+  const [mode, setMode] = useState<"member" | "organization">("member");
+  const [email, setEmail] = useState(""),
+    [password, setPassword] = useState("");
+  const submit = () => {
+    if (mode === "member") {
+      setRole("member");
+      n({ to: "/events" });
+    } else {
+      setRole("organization_admin");
+      n({ to: "/org" });
+    }
+  };
+  return (
+    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-10">
+      <p className="text-[11px] font-bold uppercase tracking-[.14em] text-primary">
+        Community Rides
+      </p>
+      <h1 className="mt-2 text-3xl font-black">Sign in</h1>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Use the frontend test login now; backend authentication will replace this handoff later.
+      </p>
+      <div className="mt-6 grid grid-cols-2 rounded-xl bg-muted p-1 text-xs font-bold">
+        <button
+          onClick={() => setMode("member")}
+          className={
+            mode === "member"
+              ? "flex items-center justify-center gap-2 rounded-lg bg-background py-2.5 shadow-sm"
+              : "flex items-center justify-center gap-2 py-2.5 text-muted-foreground"
+          }
+        >
+          <UsersRound className="h-4 w-4" />
+          Member
+        </button>
+        <button
+          onClick={() => setMode("organization")}
+          className={
+            mode === "organization"
+              ? "flex items-center justify-center gap-2 rounded-lg bg-background py-2.5 shadow-sm"
+              : "flex items-center justify-center gap-2 py-2.5 text-muted-foreground"
+          }
+        >
+          <Building2 className="h-4 w-4" />
+          Organization
+        </button>
+      </div>
+      <div className="mt-5 space-y-3">
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="Email"
+          className="h-12 w-full rounded-xl border bg-background px-3"
+        />
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="Password"
+          className="h-12 w-full rounded-xl border bg-background px-3"
+        />
+        <button
+          disabled={!email || !password}
+          onClick={submit}
+          className="h-12 w-full rounded-xl bg-primary text-sm font-bold text-primary-foreground disabled:opacity-50"
+        >
+          Sign in
+        </button>
+      </div>
+      {mode === "organization" && (
+        <div className="mt-5 rounded-2xl border bg-muted/30 p-4 text-center">
+          <p className="text-xs font-bold">New organization?</p>
+          <Link
+            to="/onboarding/organization"
+            className="mt-2 inline-block text-xs font-bold text-primary"
+          >
+            Register your organization →
+          </Link>
+        </div>
+      )}
+      <p className="mt-5 text-center text-[11px] text-muted-foreground">
+        Frontend-only authentication for QA. No Supabase connection is used.
+      </p>
+    </main>
+  );
+}
