@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Check, FileText, X } from "lucide-react";
 import { AdminTopBar } from "@/components/admin/AdminTopBar";
-import { CompanyAvatar } from "@/components/feed/CompanyAvatar";
 import { KYC_QUEUE_LABEL, listKycQueue, type KycQueueStatus } from "@/lib/admin-data";
 import { formatRelativeTime } from "@/lib/format";
 
@@ -62,7 +61,7 @@ function KycQueue() {
                 className="rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)]"
               >
                 <header className="flex items-start gap-3">
-                  <CompanyAvatar hue={k.hue} size="sm" />
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-xs font-black text-primary">{k.userHandle.slice(0,2).toUpperCase()}</span>
                   <div className="min-w-0 flex-1">
                     <Link
                       to="/admin/users/$userId"
