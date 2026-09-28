@@ -21,6 +21,7 @@ export type Ride = {
   status: RideStatus;
   meetingPoint?: string;
 };
+export type PaymentStatus = "pending" | "paid" | "waived" | "refunded";
 export type SeatRequest = {
   id: string;
   rideId: string;
@@ -28,6 +29,8 @@ export type SeatRequest = {
   name: string;
   area: string;
   status: RequestStatus;
+  paymentStatus?: PaymentStatus;
+  requestedAt?: string;
 };
 export type WaitlistEntry = {
   id: string;
@@ -149,6 +152,8 @@ const initial: State = {
       name: "David O.",
       area: "Gwarinpa",
       status: "pending",
+      paymentStatus: "pending",
+      requestedAt: "10 Dec 2026 · 6:42 PM",
     },
     {
       id: "req-2",
@@ -157,6 +162,8 @@ const initial: State = {
       name: "You",
       area: "Life Camp",
       status: "accepted",
+      paymentStatus: "paid",
+      requestedAt: "10 Dec 2026 · 7:15 PM",
     },
     {
       id: "req-3",
@@ -165,6 +172,38 @@ const initial: State = {
       name: "John E.",
       area: "Gwarinpa",
       status: "pending",
+      paymentStatus: "pending",
+      requestedAt: "11 Dec 2026 · 8:05 AM",
+    },
+    {
+      id: "req-4",
+      rideId: "ride-4",
+      passengerId: "passenger-4",
+      name: "Ruth K.",
+      area: "Jabi",
+      status: "accepted",
+      paymentStatus: "paid",
+      requestedAt: "18 Dec 2026 · 2:18 PM",
+    },
+    {
+      id: "req-5",
+      rideId: "ride-4",
+      passengerId: "passenger-5",
+      name: "Michael T.",
+      area: "Utako",
+      status: "pending",
+      paymentStatus: "pending",
+      requestedAt: "18 Dec 2026 · 3:02 PM",
+    },
+    {
+      id: "req-6",
+      rideId: "ride-5",
+      passengerId: "passenger-6",
+      name: "Esther B.",
+      area: "Gwarinpa",
+      status: "accepted",
+      paymentStatus: "waived",
+      requestedAt: "19 Dec 2026 · 9:40 AM",
     },
   ],
   waitlist: [],
@@ -215,6 +254,8 @@ export const rideEngine = {
           name: passenger.name,
           area: passenger.area,
           status: "pending",
+          paymentStatus: ride.contribution > 0 ? "pending" : "waived",
+          requestedAt: new Date().toLocaleString(),
         },
       ],
     });
@@ -227,7 +268,14 @@ export const rideEngine = {
     if (accept && ride.seats < 1) throw new Error("No seats remain.");
     const requests = state.requests.map((r) =>
       r.id === requestId
-        ? { ...r, status: (accept ? "accepted" : "declined") as RequestStatus }
+        ? {
+            ...r,
+            status: (accept ? "accepted" : "declined") as RequestStatus,
+            paymentStatus:
+              accept && ride.contribution === 0
+                ? ("waived" as PaymentStatus)
+                : r.paymentStatus,
+          }
         : r,
     );
     const rides = state.rides.map((r) =>
@@ -247,7 +295,14 @@ export const rideEngine = {
     const accepted = req.status === "accepted";
     set({
       ...state,
-      requests: state.requests.map((r) => (r.id === requestId ? { ...r, status: "cancelled" } : r)),
+      requests: state.requests.map((r) => (r.id === requestId
+          ? {
+              ...r,
+              status: "cancelled",
+              paymentStatus:
+                r.paymentStatus === "paid" ? ("refunded" as PaymentStatus) : r.paymentStatus,
+            }
+          : r)),
       rides: state.rides.map((r) =>
         r.id === req.rideId && accepted
           ? {
