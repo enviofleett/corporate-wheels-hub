@@ -1,4 +1,5 @@
 import {createFileRoute,Link,useNavigate} from "@tanstack/react-router";
+import type {ReactNode} from "react";
 import {ArrowRight,CalendarDays,CarFront,MapPin,Search,ShieldCheck,Sparkles,UsersRound} from "lucide-react";
 import {useTenant} from "@/components/tenant/TenantProvider";
 import {communityEvents,eventStore} from "@/lib/community-events";
@@ -92,4 +93,4 @@ function OrganizationHome(){
  </div>
 }
 function Stat({n,label}:{n:number;label:string}){return <div className="rounded-2xl border bg-card p-3"><p className="text-xl font-black">{n}</p><p className="mt-1 text-[10px] text-muted-foreground">{label}</p></div>}
-function Feature({icon,title,text}:{icon:React.ReactNode;title:string;text:string}){return <div className="rounded-3xl border bg-background p-5"><span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary [&>svg]:h-5 [&>svg]:w-5">{icon}</span><h3 className="mt-4 text-sm font-black">{title}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground">{text}</p></div>}
+function Feature({icon,title,text}:{icon:ReactNode;title:string;text:string}){return <div className="rounded-3xl border bg-background p-5"><span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-soft text-primary [&>svg]:h-5 [&>svg]:w-5">{icon}</span><h3 className="mt-4 text-sm font-black">{title}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground">{text}</p></div>}
