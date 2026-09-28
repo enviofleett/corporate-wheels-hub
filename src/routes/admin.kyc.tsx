@@ -61,7 +61,9 @@ function KycQueue() {
                 className="rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)]"
               >
                 <header className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-xs font-black text-primary">{k.userHandle.slice(0,2).toUpperCase()}</span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-xs font-black text-primary">
+                    {k.userHandle.slice(0, 2).toUpperCase()}
+                  </span>
                   <div className="min-w-0 flex-1">
                     <Link
                       to="/admin/users/$userId"
