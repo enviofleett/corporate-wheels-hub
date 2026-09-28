@@ -28,7 +28,7 @@ function OrgRides() {
           (eventId === "all" || r.eventId === eventId) &&
           (status === "all" || r.status === status),
       ),
-    [s.rides, eventId, status],
+    [s.rides, eventId, status, tenant.id],
   );
   const totalSeats = rides.reduce((n, r) => n + r.seats, 0);
   const interested = rides.reduce(
