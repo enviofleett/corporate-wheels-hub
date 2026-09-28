@@ -82,9 +82,7 @@ function EventDashboard() {
               <p className="mt-2 text-sm text-white/70">
                 {event.date} · {event.venue}, {event.city}
               </p>
-              <p className="mt-2 max-w-2xl text-xs leading-5 text-white/60">
-                {event.description}
-              </p>
+              <p className="mt-2 max-w-2xl text-xs leading-5 text-white/60">{event.description}</p>
             </div>
             <span className="w-fit rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-bold">
               Event operations
@@ -230,7 +228,9 @@ function EventDashboard() {
               </p>
               <h2 className="text-lg font-black">Customers and booking status</h2>
             </div>
-            <span className="text-xs font-bold text-muted-foreground">{bookings.length} requests</span>
+            <span className="text-xs font-bold text-muted-foreground">
+              {bookings.length} requests
+            </span>
           </div>
 
           <div className="hidden overflow-hidden rounded-2xl border bg-card md:block">
@@ -313,7 +313,11 @@ function EventDashboard() {
                   </div>
                   <div className="mt-3 flex items-center justify-between border-t pt-3 text-[11px] text-muted-foreground">
                     <span>{booking.requestedAt ?? "Request time unavailable"}</span>
-                    <span className={state.checkins[booking.passengerId] ? "font-bold text-success" : ""}>
+                    <span
+                      className={
+                        state.checkins[booking.passengerId] ? "font-bold text-success" : ""
+                      }
+                    >
                       {state.checkins[booking.passengerId] ? "Checked in" : "Not checked in"}
                     </span>
                   </div>
@@ -343,15 +347,7 @@ function EventDashboard() {
   );
 }
 
-function Metric({
-  icon,
-  value,
-  label,
-}: {
-  icon: ReactNode;
-  value: ReactNode;
-  label: string;
-}) {
+function Metric({ icon, value, label }: { icon: ReactNode; value: ReactNode; label: string }) {
   return (
     <div className="rounded-2xl border bg-card p-4">
       <span className="text-primary [&>svg]:h-5 [&>svg]:w-5">{icon}</span>
@@ -361,15 +357,7 @@ function Metric({
   );
 }
 
-function MoneyMetric({
-  label,
-  value,
-  detail,
-}: {
-  label: string;
-  value: number;
-  detail: string;
-}) {
+function MoneyMetric({ label, value, detail }: { label: string; value: number; detail: string }) {
   return (
     <div className="rounded-2xl border bg-card p-4">
       <Banknote className="h-5 w-5 text-primary" />
