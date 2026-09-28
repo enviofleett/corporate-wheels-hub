@@ -3,6 +3,7 @@ import type {ReactNode} from "react";
 import {ArrowRight,CalendarDays,CarFront,MapPin,Search,ShieldCheck,Sparkles,UsersRound} from "lucide-react";
 import {useTenant} from "@/components/tenant/TenantProvider";
 import {communityEvents,eventStore} from "@/lib/community-events";
+import {useOrgHomepageConfig} from "@/lib/org-homepage-store";
 
 export const Route=createFileRoute("/")({
  head:()=>({meta:[{title:"Community Rides — Organization Event Carpooling"},{name:"description",content:"Discover upcoming community events, find trusted rides and share empty seats."}]}),
@@ -10,7 +11,7 @@ export const Route=createFileRoute("/")({
 });
 
 function OrganizationHome(){
- const tenant=useTenant();const nav=useNavigate();
+ const tenant=useTenant();const config=useOrgHomepageConfig(tenant.id);const nav=useNavigate();
  const events=communityEvents.filter(e=>e.organizationId===tenant.id&&e.status!=="completed");
  const featured=events[0];
  const openCount=events.filter(e=>e.status==="carpool_open").length;
@@ -20,8 +21,8 @@ function OrganizationHome(){
    <header className="sticky top-0 z-30 border-b border-white/10 bg-primary/95 text-primary-foreground backdrop-blur">
     <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
       <Link to="/" className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-sm font-black">{tenant.branding.logoText}</span>
-        <span><span className="block text-sm font-black">{tenant.branding.portalName}</span><span className="block text-[10px] text-white/60">{tenant.name}</span></span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/10 text-sm font-black">{config.logoUrl?<img src={config.logoUrl} alt="" className="h-full w-full rounded-2xl object-cover"/>:config.logoText}</span>
+        <span><span className="block text-sm font-black">{config.portalName}</span><span className="block text-[10px] text-white/60">{tenant.name}</span></span>
       </Link>
       <Link to="/login" className="rounded-full border border-white/20 px-4 py-2 text-xs font-bold text-white transition hover:bg-white/10">Sign in</Link>
     </div>
@@ -33,8 +34,8 @@ function OrganizationHome(){
       <div className="relative mx-auto grid max-w-6xl gap-8 px-4 pb-10 pt-10 sm:px-6 md:pb-14 md:pt-14 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:px-8 lg:py-16">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-white/85"><Sparkles className="h-3.5 w-3.5 text-accent"/>Community event rides</div>
-          <h1 className="mt-5 max-w-2xl text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl">{tenant.tagline}</h1>
-          <p className="mt-4 max-w-xl text-sm leading-6 text-white/75 sm:text-base">Discover upcoming {tenant.shortName} events, find members travelling from your area, or share your empty seats with your community.</p>
+          <h1 className="mt-5 max-w-2xl text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl">{config.tagline}</h1>
+          <p className="mt-4 max-w-xl text-sm leading-6 text-white/75 sm:text-base">{config.heroCopy}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link to="/events" className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-accent px-5 text-sm font-black text-accent-foreground shadow-lg transition active:scale-[.98]"><CalendarDays className="h-4 w-4"/>Explore upcoming events</Link>
             <Link to="/rides" className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-5 text-sm font-bold text-white transition hover:bg-white/15"><CarFront className="h-4 w-4"/>My rides</Link>
