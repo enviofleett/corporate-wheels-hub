@@ -1,0 +1,8 @@
+import {createFileRoute} from "@tanstack/react-router";
+import type {ReactNode} from "react";
+import {ShieldAlert,UserCheck,Flag,CarFront} from "lucide-react";
+import {AdminTopBar} from "@/components/admin/AdminTopBar";
+import {platformStats} from "@/lib/platform-data";
+export const Route=createFileRoute("/admin/safety")({component:Safety});
+function Safety(){return <><AdminTopBar title="Safety" subtitle="Cross-tenant verification and incident review"/><main className="mx-auto max-w-3xl space-y-4 px-5 pt-4"><section className="grid grid-cols-2 gap-3"><Card icon={<ShieldAlert/>} n={platformStats.safetyReviews} l="Safety reviews"/><Card icon={<UserCheck/>} n={12} l="Verification reviews"/><Card icon={<CarFront/>} n={9} l="Vehicle reviews"/><Card icon={<Flag/>} n={4} l="Open incidents"/></section><section className="rounded-2xl border bg-card p-4"><h2 className="text-sm font-black">Platform safety queue</h2><p className="mt-2 text-xs leading-5 text-muted-foreground">Organization-level driver approvals stay with each tenant. Platform admins review escalated identity, safety and abuse cases across all organizations.</p></section></main></>}
+function Card({icon,n,l}:{icon:ReactNode;n:number;l:string}){return <div className="rounded-2xl border bg-card p-4"><span className="text-primary [&>svg]:h-5 [&>svg]:w-5">{icon}</span><p className="mt-3 text-2xl font-black">{n}</p><p className="text-[10px] text-muted-foreground">{l}</p></div>}
