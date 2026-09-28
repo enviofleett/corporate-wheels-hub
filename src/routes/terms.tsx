@@ -24,8 +24,8 @@ function Terms() {
       <h1 className="mt-2 text-3xl font-black">Terms & participation rules</h1>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">
         These are the frontend contract for member and organization participation.
-        Organization-specific ride rules can add requirements but should not override platform safety
-        or privacy controls.
+        Organization-specific ride rules can add requirements but should not override platform
+        safety or privacy controls.
       </p>
 
       <div className="mt-6 space-y-3">
