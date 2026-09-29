@@ -86,5 +86,10 @@
   },
   "engines": {
     "node": ">=22.12.0"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "sharp": true,
+    "workerd": true
   }
 }
