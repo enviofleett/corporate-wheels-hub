@@ -3,7 +3,7 @@ import { ArrowLeft, BadgeCheck, Check, MapPin, X } from "lucide-react";
 import { withRole } from "@/components/auth/withRole";
 import { rideEngine, useRideState } from "@/lib/rides-data";
 import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
-export const Route = createFileRoute("/ride-requests/$rideId")({
+export const Route = createFileRoute("/ride-requests_/$rideId")({
   component: withRole(["member", "organization_staff", "organization_admin"], Requests),
 });
 function Requests() {

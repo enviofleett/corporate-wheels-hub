@@ -21,7 +21,7 @@ import {
   type RideStatus,
 } from "@/lib/rides-data";
 
-export const Route = createFileRoute("/org/events/$eventId")({
+export const Route = createFileRoute("/org/events_/$eventId")({
   component: EventDashboard,
 });
 

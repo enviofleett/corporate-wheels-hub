@@ -3,7 +3,7 @@ import { CheckCircle2, Clock3, MapPin, ShieldAlert, ArrowLeft } from "lucide-rea
 import { withRole } from "@/components/auth/withRole";
 import { rideEngine, useRideState, type RideStatus } from "@/lib/rides-data";
 import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
-export const Route = createFileRoute("/trip/$rideId")({
+export const Route = createFileRoute("/trip_/$rideId")({
   component: withRole(["member", "organization_staff", "organization_admin"], Trip),
 });
 function Trip() {

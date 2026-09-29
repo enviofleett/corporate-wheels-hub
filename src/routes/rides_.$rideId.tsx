@@ -12,7 +12,7 @@ import {
 import { rideEngine, useRideState } from "@/lib/rides-data";
 import { getRole } from "@/lib/role-store";
 import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
-export const Route = createFileRoute("/rides/$rideId")({ component: RideDetail });
+export const Route = createFileRoute("/rides_/$rideId")({ component: RideDetail });
 function RideDetail() {
   const { rideId } = Route.useParams(),
     nav = useNavigate(),

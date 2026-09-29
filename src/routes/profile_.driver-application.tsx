@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowLeft, CarFront, CheckCircle2 } from "lucide-react";
 import { withRole } from "@/components/auth/withRole";
 import { orgAdminStore } from "@/lib/org-admin-store";
-export const Route = createFileRoute("/profile/driver-application")({
+export const Route = createFileRoute("/profile_/driver-application")({
   component: withRole(["member", "organization_staff", "organization_admin"], DriverApplication),
 });
 function DriverApplication() {

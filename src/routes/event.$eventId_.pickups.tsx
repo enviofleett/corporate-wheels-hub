@@ -12,7 +12,7 @@ import { communityEvents } from "@/lib/community-events";
 import { useRideState, type Ride } from "@/lib/rides-data";
 import { useTenant } from "@/components/tenant/TenantProvider";
 import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
-export const Route = createFileRoute("/event/$eventId/pickups")({ component: PickupOffers });
+export const Route = createFileRoute("/event/$eventId_/pickups")({ component: PickupOffers });
 function PickupOffers() {
   const { eventId } = Route.useParams();
   const s = useRideState(),

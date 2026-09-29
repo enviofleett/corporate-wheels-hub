@@ -524,15 +524,7 @@ Focus entirely on:
 
 Build phase-by-phase and ensure each phase is complete before moving to the next.
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/201f4f5e-22fe-4b6f-be5d-3603f09b193f).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+This project was built phase-by-phase following the requirements.
 
 ## Development
 

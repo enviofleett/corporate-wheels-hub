@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { CalendarDays, MapPin, ShieldCheck, UsersRound, Image } from "lucide-react";
 import { orgAdminStore, type OrgEventRecord } from "@/lib/org-admin-store";
-export const Route = createFileRoute("/org/events/new")({ component: CreateEvent });
+export const Route = createFileRoute("/org/events_/new")({ component: CreateEvent });
 function CreateEvent() {
   const nav = useNavigate();
   const [form, setForm] = useState<OrgEventRecord>({

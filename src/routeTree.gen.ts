@@ -9,55 +9,67 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TrustRouteImport } from './routes/trust'
+import { Route as WaitlistRouteImport } from './routes/waitlist'
+import { Route as TripRouteImport } from './routes/trip'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RoleRouteImport } from './routes/role'
-import { Route as OffersRouteImport } from './routes/offers'
-import { Route as HostRouteImport } from './routes/host'
-import { Route as FeedRouteImport } from './routes/feed'
-import { Route as CorporateRouteImport } from './routes/corporate'
+import { Route as RidesRouteImport } from './routes/rides'
+import { Route as RideRequestsRouteImport } from './routes/ride-requests'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as OrgRouteImport } from './routes/org'
+import { Route as OfferRouteImport } from './routes/offer'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as FindRouteImport } from './routes/find'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PaymentsIndexRouteImport } from './routes/payments.index'
-import { Route as HostIndexRouteImport } from './routes/host.index'
+import { Route as OrgIndexRouteImport } from './routes/org.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as TrustReviewsRouteImport } from './routes/trust.reviews'
-import { Route as TrustKycRouteImport } from './routes/trust.kyc'
-import { Route as TrustDisputesRouteImport } from './routes/trust.disputes'
-import { Route as SignupHostRouteImport } from './routes/signup.host'
-import { Route as SignupCorporateRouteImport } from './routes/signup.corporate'
-import { Route as PaymentsPayoutsRouteImport } from './routes/payments.payouts'
-import { Route as PaymentsMethodsRouteImport } from './routes/payments.methods'
-import { Route as OffersNegotiationIdRouteImport } from './routes/offers.$negotiationId'
-import { Route as HostVehiclesRouteImport } from './routes/host.vehicles'
-import { Route as HostOffersRouteImport } from './routes/host.offers'
-import { Route as HostEngagedRouteImport } from './routes/host.engaged'
-import { Route as HostEarningsRouteImport } from './routes/host.earnings'
-import { Route as CorporateRequestsRouteImport } from './routes/corporate.requests'
-import { Route as CorporateOffersRouteImport } from './routes/corporate.offers'
-import { Route as CorporateDealsRouteImport } from './routes/corporate.deals'
+import { Route as TripRideIdRouteImport } from './routes/trip_.$rideId'
+import { Route as RidesRideIdRouteImport } from './routes/rides_.$rideId'
+import { Route as RideRequestsRideIdRouteImport } from './routes/ride-requests_.$rideId'
+import { Route as ProfileDriverApplicationRouteImport } from './routes/profile_.driver-application'
+import { Route as OrgStaffRouteImport } from './routes/org.staff'
+import { Route as OrgSettingsRouteImport } from './routes/org.settings'
+import { Route as OrgRidesRouteImport } from './routes/org.rides'
+import { Route as OrgPoliciesRouteImport } from './routes/org.policies'
+import { Route as OrgPickupHubsRouteImport } from './routes/org.pickup-hubs'
+import { Route as OrgMembersRouteImport } from './routes/org.members'
+import { Route as OrgEventsRouteImport } from './routes/org.events'
+import { Route as OrgDriverApplicationsRouteImport } from './routes/org.driver-applications'
+import { Route as OrgDomainRouteImport } from './routes/org.domain'
+import { Route as OrgCampusesRouteImport } from './routes/org.campuses'
+import { Route as OrgBrandingRouteImport } from './routes/org.branding'
+import { Route as OnboardingOrganizationRouteImport } from './routes/onboarding.organization'
+import { Route as EventEventIdRouteImport } from './routes/event.$eventId'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSafetyRouteImport } from './routes/admin.safety'
+import { Route as AdminOrganizationsRouteImport } from './routes/admin.organizations'
 import { Route as AdminMoreRouteImport } from './routes/admin.more'
 import { Route as AdminModerationRouteImport } from './routes/admin.moderation'
 import { Route as AdminKycRouteImport } from './routes/admin.kyc'
 import { Route as AdminDisputesRouteImport } from './routes/admin.disputes'
+import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as AdminAuditRouteImport } from './routes/admin.audit'
 import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
-import { Route as PaymentsReceiptsIndexRouteImport } from './routes/payments.receipts.index'
 import { Route as AdminUsersIndexRouteImport } from './routes/admin.users.index'
 import { Route as AdminFinanceIndexRouteImport } from './routes/admin.finance.index'
-import { Route as TrustReviewDealIdRouteImport } from './routes/trust.review.$dealId'
-import { Route as TrustDisputesNewRouteImport } from './routes/trust.disputes.new'
-import { Route as TrustDisputesDisputeIdRouteImport } from './routes/trust.disputes.$disputeId'
-import { Route as PaymentsReceiptsTxnIdRouteImport } from './routes/payments.receipts.$txnId'
-import { Route as CorporateRequestsRequestIdRouteImport } from './routes/corporate.requests.$requestId'
+import { Route as OrgEventsNewRouteImport } from './routes/org.events_.new'
+import { Route as OrgEventsEventIdRouteImport } from './routes/org.events_.$eventId'
+import { Route as EventEventIdPickupsRouteImport } from './routes/event.$eventId_.pickups'
 import { Route as AdminUsersUserIdRouteImport } from './routes/admin.users.$userId'
 import { Route as AdminFinanceTransactionsRouteImport } from './routes/admin.finance.transactions'
 import { Route as AdminFinancePayoutsRouteImport } from './routes/admin.finance.payouts'
 
-const TrustRoute = TrustRouteImport.update({
-  id: '/trust',
-  path: '/trust',
+const WaitlistRoute = WaitlistRouteImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripRoute = TripRouteImport.update({
+  id: '/trip',
+  path: '/trip',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -70,24 +82,49 @@ const RoleRoute = RoleRouteImport.update({
   path: '/role',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OffersRoute = OffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
+const RidesRoute = RidesRouteImport.update({
+  id: '/rides',
+  path: '/rides',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HostRoute = HostRouteImport.update({
-  id: '/host',
-  path: '/host',
+const RideRequestsRoute = RideRequestsRouteImport.update({
+  id: '/ride-requests',
+  path: '/ride-requests',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FeedRoute = FeedRouteImport.update({
-  id: '/feed',
-  path: '/feed',
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CorporateRoute = CorporateRouteImport.update({
-  id: '/corporate',
-  path: '/corporate',
+const OrgRoute = OrgRouteImport.update({
+  id: '/org',
+  path: '/org',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfferRoute = OfferRouteImport.update({
+  id: '/offer',
+  path: '/offer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindRoute = FindRouteImport.update({
+  id: '/find',
+  path: '/find',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -100,99 +137,115 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PaymentsIndexRoute = PaymentsIndexRouteImport.update({
-  id: '/payments/',
-  path: '/payments/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HostIndexRoute = HostIndexRouteImport.update({
+const OrgIndexRoute = OrgIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => HostRoute,
+  getParentRoute: () => OrgRoute,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const TrustReviewsRoute = TrustReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => TrustRoute,
-} as any)
-const TrustKycRoute = TrustKycRouteImport.update({
-  id: '/kyc',
-  path: '/kyc',
-  getParentRoute: () => TrustRoute,
-} as any)
-const TrustDisputesRoute = TrustDisputesRouteImport.update({
-  id: '/disputes',
-  path: '/disputes',
-  getParentRoute: () => TrustRoute,
-} as any)
-const SignupHostRoute = SignupHostRouteImport.update({
-  id: '/signup/host',
-  path: '/signup/host',
+const TripRideIdRoute = TripRideIdRouteImport.update({
+  id: '/trip_/$rideId',
+  path: '/trip/$rideId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupCorporateRoute = SignupCorporateRouteImport.update({
-  id: '/signup/corporate',
-  path: '/signup/corporate',
+const RidesRideIdRoute = RidesRideIdRouteImport.update({
+  id: '/rides_/$rideId',
+  path: '/rides/$rideId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PaymentsPayoutsRoute = PaymentsPayoutsRouteImport.update({
-  id: '/payments/payouts',
-  path: '/payments/payouts',
+const RideRequestsRideIdRoute = RideRequestsRideIdRouteImport.update({
+  id: '/ride-requests_/$rideId',
+  path: '/ride-requests/$rideId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PaymentsMethodsRoute = PaymentsMethodsRouteImport.update({
-  id: '/payments/methods',
-  path: '/payments/methods',
+const ProfileDriverApplicationRoute =
+  ProfileDriverApplicationRouteImport.update({
+    id: '/profile_/driver-application',
+    path: '/profile/driver-application',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OrgStaffRoute = OrgStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgSettingsRoute = OrgSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgRidesRoute = OrgRidesRouteImport.update({
+  id: '/rides',
+  path: '/rides',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgPoliciesRoute = OrgPoliciesRouteImport.update({
+  id: '/policies',
+  path: '/policies',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgPickupHubsRoute = OrgPickupHubsRouteImport.update({
+  id: '/pickup-hubs',
+  path: '/pickup-hubs',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgMembersRoute = OrgMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgEventsRoute = OrgEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgDriverApplicationsRoute = OrgDriverApplicationsRouteImport.update({
+  id: '/driver-applications',
+  path: '/driver-applications',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgDomainRoute = OrgDomainRouteImport.update({
+  id: '/domain',
+  path: '/domain',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgCampusesRoute = OrgCampusesRouteImport.update({
+  id: '/campuses',
+  path: '/campuses',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OrgBrandingRoute = OrgBrandingRouteImport.update({
+  id: '/branding',
+  path: '/branding',
+  getParentRoute: () => OrgRoute,
+} as any)
+const OnboardingOrganizationRoute = OnboardingOrganizationRouteImport.update({
+  id: '/onboarding/organization',
+  path: '/onboarding/organization',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OffersNegotiationIdRoute = OffersNegotiationIdRouteImport.update({
-  id: '/$negotiationId',
-  path: '/$negotiationId',
-  getParentRoute: () => OffersRoute,
-} as any)
-const HostVehiclesRoute = HostVehiclesRouteImport.update({
-  id: '/vehicles',
-  path: '/vehicles',
-  getParentRoute: () => HostRoute,
-} as any)
-const HostOffersRoute = HostOffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => HostRoute,
-} as any)
-const HostEngagedRoute = HostEngagedRouteImport.update({
-  id: '/engaged',
-  path: '/engaged',
-  getParentRoute: () => HostRoute,
-} as any)
-const HostEarningsRoute = HostEarningsRouteImport.update({
-  id: '/earnings',
-  path: '/earnings',
-  getParentRoute: () => HostRoute,
-} as any)
-const CorporateRequestsRoute = CorporateRequestsRouteImport.update({
-  id: '/requests',
-  path: '/requests',
-  getParentRoute: () => CorporateRoute,
-} as any)
-const CorporateOffersRoute = CorporateOffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => CorporateRoute,
-} as any)
-const CorporateDealsRoute = CorporateDealsRouteImport.update({
-  id: '/deals',
-  path: '/deals',
-  getParentRoute: () => CorporateRoute,
+const EventEventIdRoute = EventEventIdRouteImport.update({
+  id: '/event/$eventId',
+  path: '/event/$eventId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSafetyRoute = AdminSafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminOrganizationsRoute = AdminOrganizationsRouteImport.update({
+  id: '/organizations',
+  path: '/organizations',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminMoreRoute = AdminMoreRouteImport.update({
@@ -215,6 +268,11 @@ const AdminDisputesRoute = AdminDisputesRouteImport.update({
   path: '/disputes',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBillingRoute = AdminBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAuditRoute = AdminAuditRouteImport.update({
   id: '/audit',
   path: '/audit',
@@ -224,11 +282,6 @@ const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
   id: '/announcements',
   path: '/announcements',
   getParentRoute: () => AdminRoute,
-} as any)
-const PaymentsReceiptsIndexRoute = PaymentsReceiptsIndexRouteImport.update({
-  id: '/payments/receipts/',
-  path: '/payments/receipts/',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
   id: '/users/',
@@ -240,32 +293,21 @@ const AdminFinanceIndexRoute = AdminFinanceIndexRouteImport.update({
   path: '/finance/',
   getParentRoute: () => AdminRoute,
 } as any)
-const TrustReviewDealIdRoute = TrustReviewDealIdRouteImport.update({
-  id: '/review/$dealId',
-  path: '/review/$dealId',
-  getParentRoute: () => TrustRoute,
+const OrgEventsNewRoute = OrgEventsNewRouteImport.update({
+  id: '/events_/new',
+  path: '/events/new',
+  getParentRoute: () => OrgRoute,
 } as any)
-const TrustDisputesNewRoute = TrustDisputesNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => TrustDisputesRoute,
+const OrgEventsEventIdRoute = OrgEventsEventIdRouteImport.update({
+  id: '/events_/$eventId',
+  path: '/events/$eventId',
+  getParentRoute: () => OrgRoute,
 } as any)
-const TrustDisputesDisputeIdRoute = TrustDisputesDisputeIdRouteImport.update({
-  id: '/$disputeId',
-  path: '/$disputeId',
-  getParentRoute: () => TrustDisputesRoute,
-} as any)
-const PaymentsReceiptsTxnIdRoute = PaymentsReceiptsTxnIdRouteImport.update({
-  id: '/payments/receipts/$txnId',
-  path: '/payments/receipts/$txnId',
+const EventEventIdPickupsRoute = EventEventIdPickupsRouteImport.update({
+  id: '/event/$eventId_/pickups',
+  path: '/event/$eventId/pickups',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CorporateRequestsRequestIdRoute =
-  CorporateRequestsRequestIdRouteImport.update({
-    id: '/$requestId',
-    path: '/$requestId',
-    getParentRoute: () => CorporateRequestsRoute,
-  } as any)
 const AdminUsersUserIdRoute = AdminUsersUserIdRouteImport.update({
   id: '/users/$userId',
   path: '/users/$userId',
@@ -286,311 +328,366 @@ const AdminFinancePayoutsRoute = AdminFinancePayoutsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/corporate': typeof CorporateRouteWithChildren
-  '/feed': typeof FeedRoute
-  '/host': typeof HostRouteWithChildren
-  '/offers': typeof OffersRouteWithChildren
+  '/community': typeof CommunityRoute
+  '/events': typeof EventsRoute
+  '/find': typeof FindRoute
+  '/login': typeof LoginRoute
+  '/offer': typeof OfferRoute
+  '/org': typeof OrgRouteWithChildren
+  '/profile': typeof ProfileRoute
+  '/ride-requests': typeof RideRequestsRoute
+  '/rides': typeof RidesRoute
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
-  '/trust': typeof TrustRouteWithChildren
+  '/trip': typeof TripRoute
+  '/waitlist': typeof WaitlistRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/audit': typeof AdminAuditRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/disputes': typeof AdminDisputesRoute
   '/admin/kyc': typeof AdminKycRoute
   '/admin/moderation': typeof AdminModerationRoute
   '/admin/more': typeof AdminMoreRoute
+  '/admin/organizations': typeof AdminOrganizationsRoute
+  '/admin/safety': typeof AdminSafetyRoute
   '/admin/settings': typeof AdminSettingsRoute
-  '/corporate/deals': typeof CorporateDealsRoute
-  '/corporate/offers': typeof CorporateOffersRoute
-  '/corporate/requests': typeof CorporateRequestsRouteWithChildren
-  '/host/earnings': typeof HostEarningsRoute
-  '/host/engaged': typeof HostEngagedRoute
-  '/host/offers': typeof HostOffersRoute
-  '/host/vehicles': typeof HostVehiclesRoute
-  '/offers/$negotiationId': typeof OffersNegotiationIdRoute
-  '/payments/methods': typeof PaymentsMethodsRoute
-  '/payments/payouts': typeof PaymentsPayoutsRoute
-  '/signup/corporate': typeof SignupCorporateRoute
-  '/signup/host': typeof SignupHostRoute
-  '/trust/disputes': typeof TrustDisputesRouteWithChildren
-  '/trust/kyc': typeof TrustKycRoute
-  '/trust/reviews': typeof TrustReviewsRoute
+  '/event/$eventId': typeof EventEventIdRoute
+  '/onboarding/organization': typeof OnboardingOrganizationRoute
+  '/org/branding': typeof OrgBrandingRoute
+  '/org/campuses': typeof OrgCampusesRoute
+  '/org/domain': typeof OrgDomainRoute
+  '/org/driver-applications': typeof OrgDriverApplicationsRoute
+  '/org/events': typeof OrgEventsRoute
+  '/org/members': typeof OrgMembersRoute
+  '/org/pickup-hubs': typeof OrgPickupHubsRoute
+  '/org/policies': typeof OrgPoliciesRoute
+  '/org/rides': typeof OrgRidesRoute
+  '/org/settings': typeof OrgSettingsRoute
+  '/org/staff': typeof OrgStaffRoute
+  '/profile/driver-application': typeof ProfileDriverApplicationRoute
+  '/ride-requests/$rideId': typeof RideRequestsRideIdRoute
+  '/rides/$rideId': typeof RidesRideIdRoute
+  '/trip/$rideId': typeof TripRideIdRoute
   '/admin/': typeof AdminIndexRoute
-  '/host/': typeof HostIndexRoute
-  '/payments/': typeof PaymentsIndexRoute
+  '/org/': typeof OrgIndexRoute
   '/admin/finance/payouts': typeof AdminFinancePayoutsRoute
   '/admin/finance/transactions': typeof AdminFinanceTransactionsRoute
   '/admin/users/$userId': typeof AdminUsersUserIdRoute
-  '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
-  '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
-  '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
-  '/trust/disputes/new': typeof TrustDisputesNewRoute
-  '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/event/$eventId/pickups': typeof EventEventIdPickupsRoute
+  '/org/events/$eventId': typeof OrgEventsEventIdRoute
+  '/org/events/new': typeof OrgEventsNewRoute
   '/admin/finance/': typeof AdminFinanceIndexRoute
   '/admin/users/': typeof AdminUsersIndexRoute
-  '/payments/receipts/': typeof PaymentsReceiptsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/corporate': typeof CorporateRouteWithChildren
-  '/feed': typeof FeedRoute
-  '/offers': typeof OffersRouteWithChildren
+  '/community': typeof CommunityRoute
+  '/events': typeof EventsRoute
+  '/find': typeof FindRoute
+  '/login': typeof LoginRoute
+  '/offer': typeof OfferRoute
+  '/profile': typeof ProfileRoute
+  '/ride-requests': typeof RideRequestsRoute
+  '/rides': typeof RidesRoute
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
-  '/trust': typeof TrustRouteWithChildren
+  '/trip': typeof TripRoute
+  '/waitlist': typeof WaitlistRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/audit': typeof AdminAuditRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/disputes': typeof AdminDisputesRoute
   '/admin/kyc': typeof AdminKycRoute
   '/admin/moderation': typeof AdminModerationRoute
   '/admin/more': typeof AdminMoreRoute
+  '/admin/organizations': typeof AdminOrganizationsRoute
+  '/admin/safety': typeof AdminSafetyRoute
   '/admin/settings': typeof AdminSettingsRoute
-  '/corporate/deals': typeof CorporateDealsRoute
-  '/corporate/offers': typeof CorporateOffersRoute
-  '/corporate/requests': typeof CorporateRequestsRouteWithChildren
-  '/host/earnings': typeof HostEarningsRoute
-  '/host/engaged': typeof HostEngagedRoute
-  '/host/offers': typeof HostOffersRoute
-  '/host/vehicles': typeof HostVehiclesRoute
-  '/offers/$negotiationId': typeof OffersNegotiationIdRoute
-  '/payments/methods': typeof PaymentsMethodsRoute
-  '/payments/payouts': typeof PaymentsPayoutsRoute
-  '/signup/corporate': typeof SignupCorporateRoute
-  '/signup/host': typeof SignupHostRoute
-  '/trust/disputes': typeof TrustDisputesRouteWithChildren
-  '/trust/kyc': typeof TrustKycRoute
-  '/trust/reviews': typeof TrustReviewsRoute
+  '/event/$eventId': typeof EventEventIdRoute
+  '/onboarding/organization': typeof OnboardingOrganizationRoute
+  '/org/branding': typeof OrgBrandingRoute
+  '/org/campuses': typeof OrgCampusesRoute
+  '/org/domain': typeof OrgDomainRoute
+  '/org/driver-applications': typeof OrgDriverApplicationsRoute
+  '/org/events': typeof OrgEventsRoute
+  '/org/members': typeof OrgMembersRoute
+  '/org/pickup-hubs': typeof OrgPickupHubsRoute
+  '/org/policies': typeof OrgPoliciesRoute
+  '/org/rides': typeof OrgRidesRoute
+  '/org/settings': typeof OrgSettingsRoute
+  '/org/staff': typeof OrgStaffRoute
+  '/profile/driver-application': typeof ProfileDriverApplicationRoute
+  '/ride-requests/$rideId': typeof RideRequestsRideIdRoute
+  '/rides/$rideId': typeof RidesRideIdRoute
+  '/trip/$rideId': typeof TripRideIdRoute
   '/admin': typeof AdminIndexRoute
-  '/host': typeof HostIndexRoute
-  '/payments': typeof PaymentsIndexRoute
+  '/org': typeof OrgIndexRoute
   '/admin/finance/payouts': typeof AdminFinancePayoutsRoute
   '/admin/finance/transactions': typeof AdminFinanceTransactionsRoute
   '/admin/users/$userId': typeof AdminUsersUserIdRoute
-  '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
-  '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
-  '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
-  '/trust/disputes/new': typeof TrustDisputesNewRoute
-  '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/event/$eventId/pickups': typeof EventEventIdPickupsRoute
+  '/org/events/$eventId': typeof OrgEventsEventIdRoute
+  '/org/events/new': typeof OrgEventsNewRoute
   '/admin/finance': typeof AdminFinanceIndexRoute
   '/admin/users': typeof AdminUsersIndexRoute
-  '/payments/receipts': typeof PaymentsReceiptsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/corporate': typeof CorporateRouteWithChildren
-  '/feed': typeof FeedRoute
-  '/host': typeof HostRouteWithChildren
-  '/offers': typeof OffersRouteWithChildren
+  '/community': typeof CommunityRoute
+  '/events': typeof EventsRoute
+  '/find': typeof FindRoute
+  '/login': typeof LoginRoute
+  '/offer': typeof OfferRoute
+  '/org': typeof OrgRouteWithChildren
+  '/profile': typeof ProfileRoute
+  '/ride-requests': typeof RideRequestsRoute
+  '/rides': typeof RidesRoute
   '/role': typeof RoleRoute
   '/terms': typeof TermsRoute
-  '/trust': typeof TrustRouteWithChildren
+  '/trip': typeof TripRoute
+  '/waitlist': typeof WaitlistRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/audit': typeof AdminAuditRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/disputes': typeof AdminDisputesRoute
   '/admin/kyc': typeof AdminKycRoute
   '/admin/moderation': typeof AdminModerationRoute
   '/admin/more': typeof AdminMoreRoute
+  '/admin/organizations': typeof AdminOrganizationsRoute
+  '/admin/safety': typeof AdminSafetyRoute
   '/admin/settings': typeof AdminSettingsRoute
-  '/corporate/deals': typeof CorporateDealsRoute
-  '/corporate/offers': typeof CorporateOffersRoute
-  '/corporate/requests': typeof CorporateRequestsRouteWithChildren
-  '/host/earnings': typeof HostEarningsRoute
-  '/host/engaged': typeof HostEngagedRoute
-  '/host/offers': typeof HostOffersRoute
-  '/host/vehicles': typeof HostVehiclesRoute
-  '/offers/$negotiationId': typeof OffersNegotiationIdRoute
-  '/payments/methods': typeof PaymentsMethodsRoute
-  '/payments/payouts': typeof PaymentsPayoutsRoute
-  '/signup/corporate': typeof SignupCorporateRoute
-  '/signup/host': typeof SignupHostRoute
-  '/trust/disputes': typeof TrustDisputesRouteWithChildren
-  '/trust/kyc': typeof TrustKycRoute
-  '/trust/reviews': typeof TrustReviewsRoute
+  '/event/$eventId': typeof EventEventIdRoute
+  '/onboarding/organization': typeof OnboardingOrganizationRoute
+  '/org/branding': typeof OrgBrandingRoute
+  '/org/campuses': typeof OrgCampusesRoute
+  '/org/domain': typeof OrgDomainRoute
+  '/org/driver-applications': typeof OrgDriverApplicationsRoute
+  '/org/events': typeof OrgEventsRoute
+  '/org/members': typeof OrgMembersRoute
+  '/org/pickup-hubs': typeof OrgPickupHubsRoute
+  '/org/policies': typeof OrgPoliciesRoute
+  '/org/rides': typeof OrgRidesRoute
+  '/org/settings': typeof OrgSettingsRoute
+  '/org/staff': typeof OrgStaffRoute
+  '/profile_/driver-application': typeof ProfileDriverApplicationRoute
+  '/ride-requests_/$rideId': typeof RideRequestsRideIdRoute
+  '/rides_/$rideId': typeof RidesRideIdRoute
+  '/trip_/$rideId': typeof TripRideIdRoute
   '/admin/': typeof AdminIndexRoute
-  '/host/': typeof HostIndexRoute
-  '/payments/': typeof PaymentsIndexRoute
+  '/org/': typeof OrgIndexRoute
   '/admin/finance/payouts': typeof AdminFinancePayoutsRoute
   '/admin/finance/transactions': typeof AdminFinanceTransactionsRoute
   '/admin/users/$userId': typeof AdminUsersUserIdRoute
-  '/corporate/requests/$requestId': typeof CorporateRequestsRequestIdRoute
-  '/payments/receipts/$txnId': typeof PaymentsReceiptsTxnIdRoute
-  '/trust/disputes/$disputeId': typeof TrustDisputesDisputeIdRoute
-  '/trust/disputes/new': typeof TrustDisputesNewRoute
-  '/trust/review/$dealId': typeof TrustReviewDealIdRoute
+  '/event/$eventId_/pickups': typeof EventEventIdPickupsRoute
+  '/org/events_/$eventId': typeof OrgEventsEventIdRoute
+  '/org/events_/new': typeof OrgEventsNewRoute
   '/admin/finance/': typeof AdminFinanceIndexRoute
   '/admin/users/': typeof AdminUsersIndexRoute
-  '/payments/receipts/': typeof PaymentsReceiptsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/admin'
-    | '/corporate'
-    | '/feed'
-    | '/host'
-    | '/offers'
+    | '/community'
+    | '/events'
+    | '/find'
+    | '/login'
+    | '/offer'
+    | '/org'
+    | '/profile'
+    | '/ride-requests'
+    | '/rides'
     | '/role'
     | '/terms'
-    | '/trust'
+    | '/trip'
+    | '/waitlist'
     | '/admin/announcements'
     | '/admin/audit'
+    | '/admin/billing'
     | '/admin/disputes'
     | '/admin/kyc'
     | '/admin/moderation'
     | '/admin/more'
+    | '/admin/organizations'
+    | '/admin/safety'
     | '/admin/settings'
-    | '/corporate/deals'
-    | '/corporate/offers'
-    | '/corporate/requests'
-    | '/host/earnings'
-    | '/host/engaged'
-    | '/host/offers'
-    | '/host/vehicles'
-    | '/offers/$negotiationId'
-    | '/payments/methods'
-    | '/payments/payouts'
-    | '/signup/corporate'
-    | '/signup/host'
-    | '/trust/disputes'
-    | '/trust/kyc'
-    | '/trust/reviews'
+    | '/event/$eventId'
+    | '/onboarding/organization'
+    | '/org/branding'
+    | '/org/campuses'
+    | '/org/domain'
+    | '/org/driver-applications'
+    | '/org/events'
+    | '/org/members'
+    | '/org/pickup-hubs'
+    | '/org/policies'
+    | '/org/rides'
+    | '/org/settings'
+    | '/org/staff'
+    | '/profile/driver-application'
+    | '/ride-requests/$rideId'
+    | '/rides/$rideId'
+    | '/trip/$rideId'
     | '/admin/'
-    | '/host/'
-    | '/payments/'
+    | '/org/'
     | '/admin/finance/payouts'
     | '/admin/finance/transactions'
     | '/admin/users/$userId'
-    | '/corporate/requests/$requestId'
-    | '/payments/receipts/$txnId'
-    | '/trust/disputes/$disputeId'
-    | '/trust/disputes/new'
-    | '/trust/review/$dealId'
+    | '/event/$eventId/pickups'
+    | '/org/events/$eventId'
+    | '/org/events/new'
     | '/admin/finance/'
     | '/admin/users/'
-    | '/payments/receipts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/corporate'
-    | '/feed'
-    | '/offers'
+    | '/community'
+    | '/events'
+    | '/find'
+    | '/login'
+    | '/offer'
+    | '/profile'
+    | '/ride-requests'
+    | '/rides'
     | '/role'
     | '/terms'
-    | '/trust'
+    | '/trip'
+    | '/waitlist'
     | '/admin/announcements'
     | '/admin/audit'
+    | '/admin/billing'
     | '/admin/disputes'
     | '/admin/kyc'
     | '/admin/moderation'
     | '/admin/more'
+    | '/admin/organizations'
+    | '/admin/safety'
     | '/admin/settings'
-    | '/corporate/deals'
-    | '/corporate/offers'
-    | '/corporate/requests'
-    | '/host/earnings'
-    | '/host/engaged'
-    | '/host/offers'
-    | '/host/vehicles'
-    | '/offers/$negotiationId'
-    | '/payments/methods'
-    | '/payments/payouts'
-    | '/signup/corporate'
-    | '/signup/host'
-    | '/trust/disputes'
-    | '/trust/kyc'
-    | '/trust/reviews'
+    | '/event/$eventId'
+    | '/onboarding/organization'
+    | '/org/branding'
+    | '/org/campuses'
+    | '/org/domain'
+    | '/org/driver-applications'
+    | '/org/events'
+    | '/org/members'
+    | '/org/pickup-hubs'
+    | '/org/policies'
+    | '/org/rides'
+    | '/org/settings'
+    | '/org/staff'
+    | '/profile/driver-application'
+    | '/ride-requests/$rideId'
+    | '/rides/$rideId'
+    | '/trip/$rideId'
     | '/admin'
-    | '/host'
-    | '/payments'
+    | '/org'
     | '/admin/finance/payouts'
     | '/admin/finance/transactions'
     | '/admin/users/$userId'
-    | '/corporate/requests/$requestId'
-    | '/payments/receipts/$txnId'
-    | '/trust/disputes/$disputeId'
-    | '/trust/disputes/new'
-    | '/trust/review/$dealId'
+    | '/event/$eventId/pickups'
+    | '/org/events/$eventId'
+    | '/org/events/new'
     | '/admin/finance'
     | '/admin/users'
-    | '/payments/receipts'
   id:
     | '__root__'
     | '/'
     | '/admin'
-    | '/corporate'
-    | '/feed'
-    | '/host'
-    | '/offers'
+    | '/community'
+    | '/events'
+    | '/find'
+    | '/login'
+    | '/offer'
+    | '/org'
+    | '/profile'
+    | '/ride-requests'
+    | '/rides'
     | '/role'
     | '/terms'
-    | '/trust'
+    | '/trip'
+    | '/waitlist'
     | '/admin/announcements'
     | '/admin/audit'
+    | '/admin/billing'
     | '/admin/disputes'
     | '/admin/kyc'
     | '/admin/moderation'
     | '/admin/more'
+    | '/admin/organizations'
+    | '/admin/safety'
     | '/admin/settings'
-    | '/corporate/deals'
-    | '/corporate/offers'
-    | '/corporate/requests'
-    | '/host/earnings'
-    | '/host/engaged'
-    | '/host/offers'
-    | '/host/vehicles'
-    | '/offers/$negotiationId'
-    | '/payments/methods'
-    | '/payments/payouts'
-    | '/signup/corporate'
-    | '/signup/host'
-    | '/trust/disputes'
-    | '/trust/kyc'
-    | '/trust/reviews'
+    | '/event/$eventId'
+    | '/onboarding/organization'
+    | '/org/branding'
+    | '/org/campuses'
+    | '/org/domain'
+    | '/org/driver-applications'
+    | '/org/events'
+    | '/org/members'
+    | '/org/pickup-hubs'
+    | '/org/policies'
+    | '/org/rides'
+    | '/org/settings'
+    | '/org/staff'
+    | '/profile_/driver-application'
+    | '/ride-requests_/$rideId'
+    | '/rides_/$rideId'
+    | '/trip_/$rideId'
     | '/admin/'
-    | '/host/'
-    | '/payments/'
+    | '/org/'
     | '/admin/finance/payouts'
     | '/admin/finance/transactions'
     | '/admin/users/$userId'
-    | '/corporate/requests/$requestId'
-    | '/payments/receipts/$txnId'
-    | '/trust/disputes/$disputeId'
-    | '/trust/disputes/new'
-    | '/trust/review/$dealId'
+    | '/event/$eventId_/pickups'
+    | '/org/events_/$eventId'
+    | '/org/events_/new'
     | '/admin/finance/'
     | '/admin/users/'
-    | '/payments/receipts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
-  CorporateRoute: typeof CorporateRouteWithChildren
-  FeedRoute: typeof FeedRoute
-  HostRoute: typeof HostRouteWithChildren
-  OffersRoute: typeof OffersRouteWithChildren
+  CommunityRoute: typeof CommunityRoute
+  EventsRoute: typeof EventsRoute
+  FindRoute: typeof FindRoute
+  LoginRoute: typeof LoginRoute
+  OfferRoute: typeof OfferRoute
+  OrgRoute: typeof OrgRouteWithChildren
+  ProfileRoute: typeof ProfileRoute
+  RideRequestsRoute: typeof RideRequestsRoute
+  RidesRoute: typeof RidesRoute
   RoleRoute: typeof RoleRoute
   TermsRoute: typeof TermsRoute
-  TrustRoute: typeof TrustRouteWithChildren
-  PaymentsMethodsRoute: typeof PaymentsMethodsRoute
-  PaymentsPayoutsRoute: typeof PaymentsPayoutsRoute
-  SignupCorporateRoute: typeof SignupCorporateRoute
-  SignupHostRoute: typeof SignupHostRoute
-  PaymentsIndexRoute: typeof PaymentsIndexRoute
-  PaymentsReceiptsTxnIdRoute: typeof PaymentsReceiptsTxnIdRoute
-  PaymentsReceiptsIndexRoute: typeof PaymentsReceiptsIndexRoute
+  TripRoute: typeof TripRoute
+  WaitlistRoute: typeof WaitlistRoute
+  EventEventIdRoute: typeof EventEventIdRoute
+  OnboardingOrganizationRoute: typeof OnboardingOrganizationRoute
+  ProfileDriverApplicationRoute: typeof ProfileDriverApplicationRoute
+  RideRequestsRideIdRoute: typeof RideRequestsRideIdRoute
+  RidesRideIdRoute: typeof RidesRideIdRoute
+  TripRideIdRoute: typeof TripRideIdRoute
+  EventEventIdPickupsRoute: typeof EventEventIdPickupsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/trust': {
-      id: '/trust'
-      path: '/trust'
-      fullPath: '/trust'
-      preLoaderRoute: typeof TrustRouteImport
+    '/waitlist': {
+      id: '/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof WaitlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trip': {
+      id: '/trip'
+      path: '/trip'
+      fullPath: '/trip'
+      preLoaderRoute: typeof TripRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -607,32 +704,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoleRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/offers': {
-      id: '/offers'
-      path: '/offers'
-      fullPath: '/offers'
-      preLoaderRoute: typeof OffersRouteImport
+    '/rides': {
+      id: '/rides'
+      path: '/rides'
+      fullPath: '/rides'
+      preLoaderRoute: typeof RidesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/host': {
-      id: '/host'
-      path: '/host'
-      fullPath: '/host'
-      preLoaderRoute: typeof HostRouteImport
+    '/ride-requests': {
+      id: '/ride-requests'
+      path: '/ride-requests'
+      fullPath: '/ride-requests'
+      preLoaderRoute: typeof RideRequestsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/feed': {
-      id: '/feed'
-      path: '/feed'
-      fullPath: '/feed'
-      preLoaderRoute: typeof FeedRouteImport
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/corporate': {
-      id: '/corporate'
-      path: '/corporate'
-      fullPath: '/corporate'
-      preLoaderRoute: typeof CorporateRouteImport
+    '/org': {
+      id: '/org'
+      path: '/org'
+      fullPath: '/org'
+      preLoaderRoute: typeof OrgRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offer': {
+      id: '/offer'
+      path: '/offer'
+      fullPath: '/offer'
+      preLoaderRoute: typeof OfferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find': {
+      id: '/find'
+      path: '/find'
+      fullPath: '/find'
+      preLoaderRoute: typeof FindRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -649,19 +781,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/payments/': {
-      id: '/payments/'
-      path: '/payments'
-      fullPath: '/payments/'
-      preLoaderRoute: typeof PaymentsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/host/': {
-      id: '/host/'
+    '/org/': {
+      id: '/org/'
       path: '/'
-      fullPath: '/host/'
-      preLoaderRoute: typeof HostIndexRouteImport
-      parentRoute: typeof HostRoute
+      fullPath: '/org/'
+      preLoaderRoute: typeof OrgIndexRouteImport
+      parentRoute: typeof OrgRoute
     }
     '/admin/': {
       id: '/admin/'
@@ -670,116 +795,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/trust/reviews': {
-      id: '/trust/reviews'
-      path: '/reviews'
-      fullPath: '/trust/reviews'
-      preLoaderRoute: typeof TrustReviewsRouteImport
-      parentRoute: typeof TrustRoute
-    }
-    '/trust/kyc': {
-      id: '/trust/kyc'
-      path: '/kyc'
-      fullPath: '/trust/kyc'
-      preLoaderRoute: typeof TrustKycRouteImport
-      parentRoute: typeof TrustRoute
-    }
-    '/trust/disputes': {
-      id: '/trust/disputes'
-      path: '/disputes'
-      fullPath: '/trust/disputes'
-      preLoaderRoute: typeof TrustDisputesRouteImport
-      parentRoute: typeof TrustRoute
-    }
-    '/signup/host': {
-      id: '/signup/host'
-      path: '/signup/host'
-      fullPath: '/signup/host'
-      preLoaderRoute: typeof SignupHostRouteImport
+    '/trip_/$rideId': {
+      id: '/trip_/$rideId'
+      path: '/trip/$rideId'
+      fullPath: '/trip/$rideId'
+      preLoaderRoute: typeof TripRideIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup/corporate': {
-      id: '/signup/corporate'
-      path: '/signup/corporate'
-      fullPath: '/signup/corporate'
-      preLoaderRoute: typeof SignupCorporateRouteImport
+    '/rides_/$rideId': {
+      id: '/rides_/$rideId'
+      path: '/rides/$rideId'
+      fullPath: '/rides/$rideId'
+      preLoaderRoute: typeof RidesRideIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/payments/payouts': {
-      id: '/payments/payouts'
-      path: '/payments/payouts'
-      fullPath: '/payments/payouts'
-      preLoaderRoute: typeof PaymentsPayoutsRouteImport
+    '/ride-requests_/$rideId': {
+      id: '/ride-requests_/$rideId'
+      path: '/ride-requests/$rideId'
+      fullPath: '/ride-requests/$rideId'
+      preLoaderRoute: typeof RideRequestsRideIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/payments/methods': {
-      id: '/payments/methods'
-      path: '/payments/methods'
-      fullPath: '/payments/methods'
-      preLoaderRoute: typeof PaymentsMethodsRouteImport
+    '/profile_/driver-application': {
+      id: '/profile_/driver-application'
+      path: '/profile/driver-application'
+      fullPath: '/profile/driver-application'
+      preLoaderRoute: typeof ProfileDriverApplicationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/offers/$negotiationId': {
-      id: '/offers/$negotiationId'
-      path: '/$negotiationId'
-      fullPath: '/offers/$negotiationId'
-      preLoaderRoute: typeof OffersNegotiationIdRouteImport
-      parentRoute: typeof OffersRoute
+    '/org/staff': {
+      id: '/org/staff'
+      path: '/staff'
+      fullPath: '/org/staff'
+      preLoaderRoute: typeof OrgStaffRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/host/vehicles': {
-      id: '/host/vehicles'
-      path: '/vehicles'
-      fullPath: '/host/vehicles'
-      preLoaderRoute: typeof HostVehiclesRouteImport
-      parentRoute: typeof HostRoute
+    '/org/settings': {
+      id: '/org/settings'
+      path: '/settings'
+      fullPath: '/org/settings'
+      preLoaderRoute: typeof OrgSettingsRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/host/offers': {
-      id: '/host/offers'
-      path: '/offers'
-      fullPath: '/host/offers'
-      preLoaderRoute: typeof HostOffersRouteImport
-      parentRoute: typeof HostRoute
+    '/org/rides': {
+      id: '/org/rides'
+      path: '/rides'
+      fullPath: '/org/rides'
+      preLoaderRoute: typeof OrgRidesRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/host/engaged': {
-      id: '/host/engaged'
-      path: '/engaged'
-      fullPath: '/host/engaged'
-      preLoaderRoute: typeof HostEngagedRouteImport
-      parentRoute: typeof HostRoute
+    '/org/policies': {
+      id: '/org/policies'
+      path: '/policies'
+      fullPath: '/org/policies'
+      preLoaderRoute: typeof OrgPoliciesRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/host/earnings': {
-      id: '/host/earnings'
-      path: '/earnings'
-      fullPath: '/host/earnings'
-      preLoaderRoute: typeof HostEarningsRouteImport
-      parentRoute: typeof HostRoute
+    '/org/pickup-hubs': {
+      id: '/org/pickup-hubs'
+      path: '/pickup-hubs'
+      fullPath: '/org/pickup-hubs'
+      preLoaderRoute: typeof OrgPickupHubsRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/corporate/requests': {
-      id: '/corporate/requests'
-      path: '/requests'
-      fullPath: '/corporate/requests'
-      preLoaderRoute: typeof CorporateRequestsRouteImport
-      parentRoute: typeof CorporateRoute
+    '/org/members': {
+      id: '/org/members'
+      path: '/members'
+      fullPath: '/org/members'
+      preLoaderRoute: typeof OrgMembersRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/corporate/offers': {
-      id: '/corporate/offers'
-      path: '/offers'
-      fullPath: '/corporate/offers'
-      preLoaderRoute: typeof CorporateOffersRouteImport
-      parentRoute: typeof CorporateRoute
+    '/org/events': {
+      id: '/org/events'
+      path: '/events'
+      fullPath: '/org/events'
+      preLoaderRoute: typeof OrgEventsRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/corporate/deals': {
-      id: '/corporate/deals'
-      path: '/deals'
-      fullPath: '/corporate/deals'
-      preLoaderRoute: typeof CorporateDealsRouteImport
-      parentRoute: typeof CorporateRoute
+    '/org/driver-applications': {
+      id: '/org/driver-applications'
+      path: '/driver-applications'
+      fullPath: '/org/driver-applications'
+      preLoaderRoute: typeof OrgDriverApplicationsRouteImport
+      parentRoute: typeof OrgRoute
+    }
+    '/org/domain': {
+      id: '/org/domain'
+      path: '/domain'
+      fullPath: '/org/domain'
+      preLoaderRoute: typeof OrgDomainRouteImport
+      parentRoute: typeof OrgRoute
+    }
+    '/org/campuses': {
+      id: '/org/campuses'
+      path: '/campuses'
+      fullPath: '/org/campuses'
+      preLoaderRoute: typeof OrgCampusesRouteImport
+      parentRoute: typeof OrgRoute
+    }
+    '/org/branding': {
+      id: '/org/branding'
+      path: '/branding'
+      fullPath: '/org/branding'
+      preLoaderRoute: typeof OrgBrandingRouteImport
+      parentRoute: typeof OrgRoute
+    }
+    '/onboarding/organization': {
+      id: '/onboarding/organization'
+      path: '/onboarding/organization'
+      fullPath: '/onboarding/organization'
+      preLoaderRoute: typeof OnboardingOrganizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event/$eventId': {
+      id: '/event/$eventId'
+      path: '/event/$eventId'
+      fullPath: '/event/$eventId'
+      preLoaderRoute: typeof EventEventIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
       fullPath: '/admin/settings'
       preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/safety': {
+      id: '/admin/safety'
+      path: '/safety'
+      fullPath: '/admin/safety'
+      preLoaderRoute: typeof AdminSafetyRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/organizations': {
+      id: '/admin/organizations'
+      path: '/organizations'
+      fullPath: '/admin/organizations'
+      preLoaderRoute: typeof AdminOrganizationsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/more': {
@@ -810,6 +963,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDisputesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/billing': {
+      id: '/admin/billing'
+      path: '/billing'
+      fullPath: '/admin/billing'
+      preLoaderRoute: typeof AdminBillingRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/audit': {
       id: '/admin/audit'
       path: '/audit'
@@ -823,13 +983,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/announcements'
       preLoaderRoute: typeof AdminAnnouncementsRouteImport
       parentRoute: typeof AdminRoute
-    }
-    '/payments/receipts/': {
-      id: '/payments/receipts/'
-      path: '/payments/receipts'
-      fullPath: '/payments/receipts/'
-      preLoaderRoute: typeof PaymentsReceiptsIndexRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/admin/users/': {
       id: '/admin/users/'
@@ -845,40 +998,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFinanceIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/trust/review/$dealId': {
-      id: '/trust/review/$dealId'
-      path: '/review/$dealId'
-      fullPath: '/trust/review/$dealId'
-      preLoaderRoute: typeof TrustReviewDealIdRouteImport
-      parentRoute: typeof TrustRoute
+    '/org/events_/new': {
+      id: '/org/events_/new'
+      path: '/events/new'
+      fullPath: '/org/events/new'
+      preLoaderRoute: typeof OrgEventsNewRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/trust/disputes/new': {
-      id: '/trust/disputes/new'
-      path: '/new'
-      fullPath: '/trust/disputes/new'
-      preLoaderRoute: typeof TrustDisputesNewRouteImport
-      parentRoute: typeof TrustDisputesRoute
+    '/org/events_/$eventId': {
+      id: '/org/events_/$eventId'
+      path: '/events/$eventId'
+      fullPath: '/org/events/$eventId'
+      preLoaderRoute: typeof OrgEventsEventIdRouteImport
+      parentRoute: typeof OrgRoute
     }
-    '/trust/disputes/$disputeId': {
-      id: '/trust/disputes/$disputeId'
-      path: '/$disputeId'
-      fullPath: '/trust/disputes/$disputeId'
-      preLoaderRoute: typeof TrustDisputesDisputeIdRouteImport
-      parentRoute: typeof TrustDisputesRoute
-    }
-    '/payments/receipts/$txnId': {
-      id: '/payments/receipts/$txnId'
-      path: '/payments/receipts/$txnId'
-      fullPath: '/payments/receipts/$txnId'
-      preLoaderRoute: typeof PaymentsReceiptsTxnIdRouteImport
+    '/event/$eventId_/pickups': {
+      id: '/event/$eventId_/pickups'
+      path: '/event/$eventId/pickups'
+      fullPath: '/event/$eventId/pickups'
+      preLoaderRoute: typeof EventEventIdPickupsRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/corporate/requests/$requestId': {
-      id: '/corporate/requests/$requestId'
-      path: '/$requestId'
-      fullPath: '/corporate/requests/$requestId'
-      preLoaderRoute: typeof CorporateRequestsRequestIdRouteImport
-      parentRoute: typeof CorporateRequestsRoute
     }
     '/admin/users/$userId': {
       id: '/admin/users/$userId'
@@ -907,10 +1046,13 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
   AdminAuditRoute: typeof AdminAuditRoute
+  AdminBillingRoute: typeof AdminBillingRoute
   AdminDisputesRoute: typeof AdminDisputesRoute
   AdminKycRoute: typeof AdminKycRoute
   AdminModerationRoute: typeof AdminModerationRoute
   AdminMoreRoute: typeof AdminMoreRoute
+  AdminOrganizationsRoute: typeof AdminOrganizationsRoute
+  AdminSafetyRoute: typeof AdminSafetyRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminFinancePayoutsRoute: typeof AdminFinancePayoutsRoute
@@ -923,10 +1065,13 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAnnouncementsRoute: AdminAnnouncementsRoute,
   AdminAuditRoute: AdminAuditRoute,
+  AdminBillingRoute: AdminBillingRoute,
   AdminDisputesRoute: AdminDisputesRoute,
   AdminKycRoute: AdminKycRoute,
   AdminModerationRoute: AdminModerationRoute,
   AdminMoreRoute: AdminMoreRoute,
+  AdminOrganizationsRoute: AdminOrganizationsRoute,
+  AdminSafetyRoute: AdminSafetyRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminFinancePayoutsRoute: AdminFinancePayoutsRoute,
@@ -938,119 +1083,66 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface CorporateRequestsRouteChildren {
-  CorporateRequestsRequestIdRoute: typeof CorporateRequestsRequestIdRoute
+interface OrgRouteChildren {
+  OrgBrandingRoute: typeof OrgBrandingRoute
+  OrgCampusesRoute: typeof OrgCampusesRoute
+  OrgDomainRoute: typeof OrgDomainRoute
+  OrgDriverApplicationsRoute: typeof OrgDriverApplicationsRoute
+  OrgEventsRoute: typeof OrgEventsRoute
+  OrgMembersRoute: typeof OrgMembersRoute
+  OrgPickupHubsRoute: typeof OrgPickupHubsRoute
+  OrgPoliciesRoute: typeof OrgPoliciesRoute
+  OrgRidesRoute: typeof OrgRidesRoute
+  OrgSettingsRoute: typeof OrgSettingsRoute
+  OrgStaffRoute: typeof OrgStaffRoute
+  OrgIndexRoute: typeof OrgIndexRoute
+  OrgEventsEventIdRoute: typeof OrgEventsEventIdRoute
+  OrgEventsNewRoute: typeof OrgEventsNewRoute
 }
 
-const CorporateRequestsRouteChildren: CorporateRequestsRouteChildren = {
-  CorporateRequestsRequestIdRoute: CorporateRequestsRequestIdRoute,
+const OrgRouteChildren: OrgRouteChildren = {
+  OrgBrandingRoute: OrgBrandingRoute,
+  OrgCampusesRoute: OrgCampusesRoute,
+  OrgDomainRoute: OrgDomainRoute,
+  OrgDriverApplicationsRoute: OrgDriverApplicationsRoute,
+  OrgEventsRoute: OrgEventsRoute,
+  OrgMembersRoute: OrgMembersRoute,
+  OrgPickupHubsRoute: OrgPickupHubsRoute,
+  OrgPoliciesRoute: OrgPoliciesRoute,
+  OrgRidesRoute: OrgRidesRoute,
+  OrgSettingsRoute: OrgSettingsRoute,
+  OrgStaffRoute: OrgStaffRoute,
+  OrgIndexRoute: OrgIndexRoute,
+  OrgEventsEventIdRoute: OrgEventsEventIdRoute,
+  OrgEventsNewRoute: OrgEventsNewRoute,
 }
 
-const CorporateRequestsRouteWithChildren =
-  CorporateRequestsRoute._addFileChildren(CorporateRequestsRouteChildren)
-
-interface CorporateRouteChildren {
-  CorporateDealsRoute: typeof CorporateDealsRoute
-  CorporateOffersRoute: typeof CorporateOffersRoute
-  CorporateRequestsRoute: typeof CorporateRequestsRouteWithChildren
-}
-
-const CorporateRouteChildren: CorporateRouteChildren = {
-  CorporateDealsRoute: CorporateDealsRoute,
-  CorporateOffersRoute: CorporateOffersRoute,
-  CorporateRequestsRoute: CorporateRequestsRouteWithChildren,
-}
-
-const CorporateRouteWithChildren = CorporateRoute._addFileChildren(
-  CorporateRouteChildren,
-)
-
-interface HostRouteChildren {
-  HostEarningsRoute: typeof HostEarningsRoute
-  HostEngagedRoute: typeof HostEngagedRoute
-  HostOffersRoute: typeof HostOffersRoute
-  HostVehiclesRoute: typeof HostVehiclesRoute
-  HostIndexRoute: typeof HostIndexRoute
-}
-
-const HostRouteChildren: HostRouteChildren = {
-  HostEarningsRoute: HostEarningsRoute,
-  HostEngagedRoute: HostEngagedRoute,
-  HostOffersRoute: HostOffersRoute,
-  HostVehiclesRoute: HostVehiclesRoute,
-  HostIndexRoute: HostIndexRoute,
-}
-
-const HostRouteWithChildren = HostRoute._addFileChildren(HostRouteChildren)
-
-interface OffersRouteChildren {
-  OffersNegotiationIdRoute: typeof OffersNegotiationIdRoute
-}
-
-const OffersRouteChildren: OffersRouteChildren = {
-  OffersNegotiationIdRoute: OffersNegotiationIdRoute,
-}
-
-const OffersRouteWithChildren =
-  OffersRoute._addFileChildren(OffersRouteChildren)
-
-interface TrustDisputesRouteChildren {
-  TrustDisputesDisputeIdRoute: typeof TrustDisputesDisputeIdRoute
-  TrustDisputesNewRoute: typeof TrustDisputesNewRoute
-}
-
-const TrustDisputesRouteChildren: TrustDisputesRouteChildren = {
-  TrustDisputesDisputeIdRoute: TrustDisputesDisputeIdRoute,
-  TrustDisputesNewRoute: TrustDisputesNewRoute,
-}
-
-const TrustDisputesRouteWithChildren = TrustDisputesRoute._addFileChildren(
-  TrustDisputesRouteChildren,
-)
-
-interface TrustRouteChildren {
-  TrustDisputesRoute: typeof TrustDisputesRouteWithChildren
-  TrustKycRoute: typeof TrustKycRoute
-  TrustReviewsRoute: typeof TrustReviewsRoute
-  TrustReviewDealIdRoute: typeof TrustReviewDealIdRoute
-}
-
-const TrustRouteChildren: TrustRouteChildren = {
-  TrustDisputesRoute: TrustDisputesRouteWithChildren,
-  TrustKycRoute: TrustKycRoute,
-  TrustReviewsRoute: TrustReviewsRoute,
-  TrustReviewDealIdRoute: TrustReviewDealIdRoute,
-}
-
-const TrustRouteWithChildren = TrustRoute._addFileChildren(TrustRouteChildren)
+const OrgRouteWithChildren = OrgRoute._addFileChildren(OrgRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
-  CorporateRoute: CorporateRouteWithChildren,
-  FeedRoute: FeedRoute,
-  HostRoute: HostRouteWithChildren,
-  OffersRoute: OffersRouteWithChildren,
+  CommunityRoute: CommunityRoute,
+  EventsRoute: EventsRoute,
+  FindRoute: FindRoute,
+  LoginRoute: LoginRoute,
+  OfferRoute: OfferRoute,
+  OrgRoute: OrgRouteWithChildren,
+  ProfileRoute: ProfileRoute,
+  RideRequestsRoute: RideRequestsRoute,
+  RidesRoute: RidesRoute,
   RoleRoute: RoleRoute,
   TermsRoute: TermsRoute,
-  TrustRoute: TrustRouteWithChildren,
-  PaymentsMethodsRoute: PaymentsMethodsRoute,
-  PaymentsPayoutsRoute: PaymentsPayoutsRoute,
-  SignupCorporateRoute: SignupCorporateRoute,
-  SignupHostRoute: SignupHostRoute,
-  PaymentsIndexRoute: PaymentsIndexRoute,
-  PaymentsReceiptsTxnIdRoute: PaymentsReceiptsTxnIdRoute,
-  PaymentsReceiptsIndexRoute: PaymentsReceiptsIndexRoute,
+  TripRoute: TripRoute,
+  WaitlistRoute: WaitlistRoute,
+  EventEventIdRoute: EventEventIdRoute,
+  OnboardingOrganizationRoute: OnboardingOrganizationRoute,
+  ProfileDriverApplicationRoute: ProfileDriverApplicationRoute,
+  RideRequestsRideIdRoute: RideRequestsRideIdRoute,
+  RidesRideIdRoute: RidesRideIdRoute,
+  TripRideIdRoute: TripRideIdRoute,
+  EventEventIdPickupsRoute: EventEventIdPickupsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
