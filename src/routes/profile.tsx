@@ -1,0 +1,114 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  BadgeCheck,
+  CarFront,
+  ChevronRight,
+  ShieldCheck,
+  UserRound,
+  UsersRound,
+} from "lucide-react";
+import { withRole } from "@/components/auth/withRole";
+import { useOrgAdmin } from "@/lib/org-admin-store";
+import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
+export const Route = createFileRoute("/profile")({
+  component: withRole(["member", "organization_staff", "organization_admin"], Profile),
+});
+function Profile() {
+  const admin = useOrgAdmin();
+  const app = admin.driverApplications.find((a) => a.userId === "current-member");
+  return (
+    <div className="min-h-screen bg-muted/30 pb-24">
+      <header className="border-b bg-background px-5 py-6">
+        <div className="mx-auto max-w-md">
+          <p className="text-[11px] font-bold uppercase tracking-[.14em] text-primary">
+            Member account
+          </p>
+          <h1 className="mt-1 text-2xl font-black">Profile</h1>
+        </div>
+      </header>
+      <main className="mx-auto max-w-md space-y-4 px-5 pt-5">
+        <section className="rounded-2xl border bg-card p-4">
+          <div className="flex items-center gap-3">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-soft text-primary">
+              <UserRound className="h-6 w-6" />
+            </span>
+            <div className="flex-1">
+              <p className="text-sm font-black">Community Member</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Member profile and travel preferences
+              </p>
+            </div>
+            <BadgeCheck className="h-5 w-5 text-success" />
+          </div>
+        </section>
+        <Link to="/rides" className="flex items-center gap-3 rounded-2xl border bg-card p-4">
+          <CarFront className="h-5 w-5 text-primary" />
+          <span className="flex-1">
+            <span className="block text-sm font-black">My rides</span>
+            <span className="block text-xs text-muted-foreground">
+              Passenger bookings and driver offers
+            </span>
+          </span>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        </Link>
+        <section className="rounded-2xl border bg-card p-4">
+          <p className="mb-3 flex items-center gap-2 text-sm font-black">
+            <ShieldCheck className="h-5 w-5 text-primary" />
+            Verification
+          </p>
+          <div className="space-y-3 text-xs">
+            <Row label="Member identity" value="Verified" />
+            <Row
+              label="Driver profile"
+              value={
+                app?.status === "approved"
+                  ? "Approved"
+                  : app?.status === "pending"
+                    ? "Pending approval"
+                    : app?.status === "declined"
+                      ? "Declined"
+                      : "Not enabled"
+              }
+            />
+            <Row
+              label="Vehicle approval"
+              value={
+                app?.status === "approved" ? "Approved" : app ? "Under review" : "Not submitted"
+              }
+            />
+          </div>
+        </section>
+        <section className="rounded-2xl border bg-card p-4">
+          <p className="mb-3 flex items-center gap-2 text-sm font-black">
+            <UsersRound className="h-5 w-5 text-primary" />
+            Driver access
+          </p>
+          <p className="text-xs leading-5 text-muted-foreground">
+            {app?.status === "approved"
+              ? "Your driver and vehicle profile is approved for ride offers."
+              : app?.status === "pending"
+                ? "Your application is waiting for organization review."
+                : "Members who want to offer rides can submit their driver and vehicle details for organization approval."}
+          </p>
+          {app?.status !== "approved" && app?.status !== "pending" && (
+            <Link
+              to="/profile/driver-application"
+              className="mt-3 flex h-10 w-full items-center justify-center rounded-xl border text-xs font-bold"
+            >
+              Apply to offer rides
+            </Link>
+          )}
+        </section>
+      </main>
+      <CommunityBottomNav />
+    </div>
+  );
+}
+function Row({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between border-b pb-2 last:border-0 last:pb-0">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="font-bold">{value}</span>
+    </div>
+  );
+}

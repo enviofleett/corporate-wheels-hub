@@ -1,0 +1,84 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { CalendarDays, ChevronRight, MapPin } from "lucide-react";
+import { communityEvents, eventStore, useActiveEvent } from "@/lib/community-events";
+import { useTenant } from "@/components/tenant/TenantProvider";
+import { CommunityBottomNav } from "@/components/community/CommunityBottomNav";
+export const Route = createFileRoute("/events")({ component: Events });
+function Events() {
+  const active = useActiveEvent(),
+    nav = useNavigate(),
+    tenant = useTenant();
+  const select = (id: string) => {
+    eventStore.select(id);
+    nav({ to: "/event/$eventId", params: { eventId: id } });
+  };
+  const groups = [
+    [
+      "Upcoming",
+      communityEvents.filter((e) => e.organizationId === tenant.id && e.status === "carpool_open"),
+    ],
+    [
+      "Later",
+      communityEvents.filter((e) => e.organizationId === tenant.id && e.status === "published"),
+    ],
+    [
+      "Past",
+      communityEvents.filter((e) => e.organizationId === tenant.id && e.status === "completed"),
+    ],
+  ] as const;
+  return (
+    <div className="min-h-screen bg-muted/30 pb-24">
+      <header className="bg-primary px-5 pb-7 pt-8 text-primary-foreground">
+        <div className="mx-auto max-w-md">
+          <p className="text-[11px] font-bold uppercase tracking-[.16em] text-white/60">
+            {tenant.name}
+          </p>
+          <h1 className="mt-1 text-2xl font-black">Events</h1>
+          <p className="mt-1 text-xs text-white/70">
+            Choose an event to see full details, venue information and travel options.
+          </p>
+        </div>
+      </header>
+      <main className="mx-auto max-w-md space-y-6 px-5 pt-5">
+        {groups.map(
+          ([title, items]) =>
+            items.length > 0 && (
+              <section key={title}>
+                <h2 className="mb-3 text-sm font-bold">{title}</h2>
+                <div className="space-y-3">
+                  {items.map((e) => (
+                    <button
+                      key={e.id}
+                      onClick={() => select(e.id)}
+                      className={`flex w-full items-center gap-3 rounded-2xl border bg-card p-4 text-left ${active.id === e.id ? "border-primary ring-1 ring-primary/20" : "border-border"}`}
+                    >
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                        <CalendarDays className="h-5 w-5" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-bold">{e.name}</span>
+                        <span className="mt-1 block text-xs text-muted-foreground">
+                          {e.dateLabel}
+                        </span>
+                        <span className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
+                          <MapPin className="h-3 w-3" />
+                          {e.venue}
+                        </span>
+                        <span className="mt-2 block text-[11px] font-bold text-primary">
+                          {e.status === "carpool_open"
+                            ? `${e.rides} rides · ${e.seatsAvailable} seats available`
+                            : e.arrivalLabel}
+                        </span>
+                      </span>
+                      <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                    </button>
+                  ))}
+                </div>
+              </section>
+            ),
+        )}
+      </main>
+      <CommunityBottomNav />
+    </div>
+  );
+}

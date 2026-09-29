@@ -1,0 +1,28 @@
+import { Link, useLocation } from "@tanstack/react-router";
+import { BarChart3, CalendarDays, CarFront, UsersRound, Settings } from "lucide-react";
+const items = [
+  { to: "/org", label: "Overview", icon: BarChart3 },
+  { to: "/org/events", label: "Events", icon: CalendarDays },
+  { to: "/org/rides", label: "Rides", icon: CarFront },
+  { to: "/org/members", label: "Members", icon: UsersRound },
+  { to: "/org/settings", label: "Settings", icon: Settings },
+] as const;
+export function OrgBottomNav() {
+  const { pathname } = useLocation();
+  return (
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur">
+      <div className="mx-auto grid max-w-md grid-cols-5 px-2 pb-[max(.5rem,env(safe-area-inset-bottom))] pt-2">
+        {items.map(({ to, label, icon: Icon }) => (
+          <Link
+            key={to}
+            to={to}
+            className={`flex flex-col items-center gap-1 py-1.5 text-[10px] font-semibold ${pathname === to || (to !== "/org" && pathname.startsWith(to)) ? "text-primary" : "text-muted-foreground"}`}
+          >
+            <Icon className="h-5 w-5" />
+            {label}
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+}

@@ -2,12 +2,7 @@
 // Active requests posted by the (signed-in) corporate, incoming offers per request,
 // selected deals, and mock payment statuses.
 
-export type PaymentStatus =
-  | "awaiting_funding"
-  | "funded"
-  | "in_escrow"
-  | "released"
-  | "failed";
+export type PaymentStatus = "awaiting_funding" | "funded" | "in_escrow" | "released" | "failed";
 
 export type RequestStatus = "live" | "negotiating" | "filled" | "closed" | "draft";
 
@@ -331,10 +326,7 @@ export function corporateMetrics() {
       .length,
     newOffers: OFFERS.filter((o) => o.status === "new").length,
     activeDeals: DEALS.length,
-    inEscrow: DEALS.filter((d) => d.payment === "in_escrow").reduce(
-      (sum, d) => sum + d.price,
-      0,
-    ),
+    inEscrow: DEALS.filter((d) => d.payment === "in_escrow").reduce((sum, d) => sum + d.price, 0),
   };
 }
 

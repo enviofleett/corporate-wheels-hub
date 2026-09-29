@@ -1,18 +1,9 @@
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ShieldCheck, Lock, Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PaymentMethodRow } from "./PaymentMethodRow";
-import {
-  listPaymentMethods,
-  defaultPaymentMethod,
-  calcFees,
-} from "@/lib/payments-data";
+import { listPaymentMethods, defaultPaymentMethod, calcFees } from "@/lib/payments-data";
 import { formatNaira } from "@/lib/format";
 
 type Props = {
@@ -80,9 +71,7 @@ export function FundEscrowModal({
               <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
                 You are funding
               </p>
-              <p className="mt-0.5 text-sm font-semibold text-foreground">
-                {vehicleLabel}
-              </p>
+              <p className="mt-0.5 text-sm font-semibold text-foreground">{vehicleLabel}</p>
               <p className="text-[11px] text-muted-foreground">
                 with {hostHandle} · {durationLabel}
               </p>
@@ -94,11 +83,7 @@ export function FundEscrowModal({
               <Row label="Platform fee (5%)" value={formatNaira(fees.platform)} muted />
               <Row label="Gateway fee (1.5%)" value={formatNaira(fees.gateway)} muted />
               <div className="my-1 border-t border-border" />
-              <Row
-                label="Total to fund"
-                value={formatNaira(fees.grandTotal)}
-                bold
-              />
+              <Row label="Total to fund" value={formatNaira(fees.grandTotal)} bold />
             </section>
 
             {/* Payment methods */}
@@ -136,9 +121,7 @@ export function FundEscrowModal({
         {stage === "processing" && (
           <div className="flex flex-col items-center justify-center px-5 py-12 text-center">
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
-            <p className="mt-4 text-sm font-semibold text-foreground">
-              Funding escrow…
-            </p>
+            <p className="mt-4 text-sm font-semibold text-foreground">Funding escrow…</p>
             <p className="mt-1 text-xs text-muted-foreground">
               Securing {formatNaira(fees.grandTotal)} with your bank.
             </p>
@@ -150,17 +133,11 @@ export function FundEscrowModal({
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-success/15 text-success">
               <CheckCircle2 className="h-8 w-8" />
             </span>
-            <p className="mt-4 text-sm font-bold text-foreground">
-              Escrow funded
-            </p>
+            <p className="mt-4 text-sm font-bold text-foreground">Escrow funded</p>
             <p className="mt-1 text-xs text-muted-foreground">
               {formatNaira(fees.grandTotal)} held safely. The host has been notified.
             </p>
-            <Button
-              onClick={() => handleClose(false)}
-              className="mt-5 w-full"
-              variant="outline"
-            >
+            <Button onClick={() => handleClose(false)} className="mt-5 w-full" variant="outline">
               Done
             </Button>
           </div>
@@ -183,9 +160,7 @@ function Row({
 }) {
   return (
     <div className="flex items-center justify-between">
-      <span className={muted ? "text-muted-foreground" : "text-foreground"}>
-        {label}
-      </span>
+      <span className={muted ? "text-muted-foreground" : "text-foreground"}>{label}</span>
       <span
         className={`${bold ? "text-sm font-bold text-foreground" : "font-medium text-foreground"}`}
       >

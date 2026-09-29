@@ -30,9 +30,7 @@ export function PaymentMethodRow({ method, selected, onSelect, trailing }: Props
       </span>
       <div className="min-w-0 flex-1 text-left">
         <p className="truncate text-sm font-semibold text-foreground">{method.label}</p>
-        {method.hint && (
-          <p className="truncate text-[11px] text-muted-foreground">{method.hint}</p>
-        )}
+        {method.hint && <p className="truncate text-[11px] text-muted-foreground">{method.hint}</p>}
       </div>
       {trailing ??
         (selected ? (
@@ -58,9 +56,7 @@ export function PaymentMethodRow({ method, selected, onSelect, trailing }: Props
       type="button"
       onClick={() => onSelect?.(method.id)}
       className={`flex w-full items-center gap-3 rounded-xl border p-3 transition-colors ${
-        selected
-          ? "border-accent bg-accent-soft"
-          : "border-border bg-card hover:bg-muted/40"
+        selected ? "border-accent bg-accent-soft" : "border-border bg-card hover:bg-muted/40"
       }`}
     >
       {Inner}

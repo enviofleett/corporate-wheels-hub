@@ -1,11 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDownRight, ArrowUpRight, Banknote, TrendingUp, Wallet } from "lucide-react";
 import { AdminMetricCard } from "@/components/admin/AdminMetricCard";
-import {
-  adminMetrics,
-  listAdminTxns,
-  listPayoutApprovals,
-} from "@/lib/admin-data";
+import { adminMetrics, listAdminTxns, listPayoutApprovals } from "@/lib/admin-data";
 import { formatNaira, formatRelativeTime } from "@/lib/format";
 
 export const Route = createFileRoute("/admin/finance/")({
@@ -16,9 +12,7 @@ export const Route = createFileRoute("/admin/finance/")({
 function FinanceOverview() {
   const m = adminMetrics();
   const recent = listAdminTxns().slice(0, 4);
-  const pendingPayouts = listPayoutApprovals().filter(
-    (p) => p.status === "awaiting_approval",
-  );
+  const pendingPayouts = listPayoutApprovals().filter((p) => p.status === "awaiting_approval");
 
   return (
     <main className="mx-auto w-full max-w-md space-y-4 px-5 pt-4">
@@ -84,10 +78,7 @@ function FinanceOverview() {
       <section>
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground">Recent transactions</h2>
-          <Link
-            to="/admin/finance/transactions"
-            className="text-xs font-medium text-accent"
-          >
+          <Link to="/admin/finance/transactions" className="text-xs font-medium text-accent">
             See all →
           </Link>
         </div>
@@ -101,9 +92,7 @@ function FinanceOverview() {
               >
                 <span
                   className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-                    negative
-                      ? "bg-destructive/10 text-destructive"
-                      : "bg-success/10 text-success"
+                    negative ? "bg-destructive/10 text-destructive" : "bg-success/10 text-success"
                   }`}
                 >
                   {negative ? (
@@ -122,9 +111,7 @@ function FinanceOverview() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-bold text-foreground">{formatNaira(t.amount)}</p>
-                  <p className="text-[10px] text-muted-foreground">
-                    {formatRelativeTime(t.date)}
-                  </p>
+                  <p className="text-[10px] text-muted-foreground">{formatRelativeTime(t.date)}</p>
                 </div>
               </div>
             );

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { ArrowLeft, Bell, ShieldCheck, Sparkles } from "lucide-react";
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
   subtitle?: string;
   backTo?: string;
   showSearch?: boolean;
-  rightSlot?: React.ReactNode;
+  rightSlot?: ReactNode;
 };
 
 export function AdminTopBar({ title, subtitle, backTo, rightSlot }: Props) {
@@ -27,7 +28,7 @@ export function AdminTopBar({ title, subtitle, backTo, rightSlot }: Props) {
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <Sparkles className="h-3.5 w-3.5 text-accent" />
               </span>
-              <span className="text-base font-bold text-foreground">FleetLink</span>
+              <span className="text-base font-bold text-foreground">Community Rides</span>
               <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-destructive">
                 <ShieldCheck className="h-3 w-3" />
                 Admin

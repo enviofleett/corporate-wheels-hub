@@ -73,7 +73,6 @@ Build:
 2. Role selection (Corporate / Host)
 
 3. Corporate signup flow:
-
    - Company Name
 
    - CAC Number (input only)
@@ -85,7 +84,6 @@ Build:
    - Bank Account details
 
 4. Host signup flow:
-
    - Personal details
 
    - Vehicle details
@@ -97,7 +95,6 @@ IMPORTANT:
 - Include Terms & Conditions screen BEFORE account creation
 
 - Include checkboxes:
-
   - Accept escrow usage
 
   - Accept telematics requirement
@@ -171,7 +168,6 @@ Build a structured conversation UI:
 - Timeline of offers and counters
 
 - Status indicators:
-
   - Pending
 
   - Accepted
@@ -197,7 +193,6 @@ Sections:
 Offer Comparison UI:
 
 - Card layout comparing:
-
   - Host rating
 
   - Vehicle details
@@ -301,7 +296,6 @@ Display only:
 Vehicle card should show:
 
 - Telematics status:
-
   - Active
 
   - Inactive

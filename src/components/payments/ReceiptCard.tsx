@@ -32,9 +32,7 @@ export function ReceiptCard({ txn }: { txn: Transaction }) {
         <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
           {TXN_KIND_LABEL[txn.kind]}
         </p>
-        <p className="text-3xl font-bold text-foreground">
-          {formatNaira(Math.abs(txn.amount))}
-        </p>
+        <p className="text-3xl font-bold text-foreground">{formatNaira(Math.abs(txn.amount))}</p>
         <span
           className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${cls}`}
         >
@@ -50,18 +48,14 @@ export function ReceiptCard({ txn }: { txn: Transaction }) {
         {txn.vehicleLabel && <Row label="Vehicle" value={txn.vehicleLabel} />}
         {txn.method && <Row label="Method" value={txn.method} />}
         {txn.description && <Row label="Description" value={txn.description} />}
-        {txn.fee !== undefined && (
-          <Row label="Fees" value={formatNaira(txn.fee)} muted />
-        )}
+        {txn.fee !== undefined && <Row label="Fees" value={formatNaira(txn.fee)} muted />}
       </div>
 
       {/* Escrow footer */}
       {txn.kind === "escrow_funding" && (
         <footer className="flex items-center gap-2 border-t border-border bg-muted/40 px-5 py-3 text-[11px] text-muted-foreground">
           <ShieldCheck className="h-3.5 w-3.5 text-success" />
-          <span>
-            Held in FleetLink escrow. Released to host on confirmed delivery milestones.
-          </span>
+          <span>Held in FleetLink escrow. Released to host on confirmed delivery milestones.</span>
         </footer>
       )}
     </article>

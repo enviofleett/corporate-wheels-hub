@@ -624,8 +624,9 @@ export function adminMetrics() {
   const openDisputes = ADMIN_DISPUTES.filter((d) => d.status !== "resolved").length;
   const pendingPayouts = PAYOUT_APPROVALS.filter((p) => p.status === "awaiting_approval").length;
   const pendingMod = MOD_QUEUE.filter((m) => m.status === "pending").length;
-  const grossVolume = TXNS.filter((t) => t.kind === "escrow_funding" && t.status === "successful")
-    .reduce((s, t) => s + t.amount, 0);
+  const grossVolume = TXNS.filter(
+    (t) => t.kind === "escrow_funding" && t.status === "successful",
+  ).reduce((s, t) => s + t.amount, 0);
   const platformRevenue = TXNS.reduce((s, t) => s + (t.fee ?? 0), 0);
   const escrowHeld = 34_500_000;
   return {

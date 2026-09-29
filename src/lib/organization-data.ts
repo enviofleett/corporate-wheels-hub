@@ -1,0 +1,63 @@
+export type StaffRole = "owner" | "admin" | "event_manager" | "safety_officer" | "ride_coordinator";
+export const organizationMetrics = {
+  members: 624,
+  drivers: 142,
+  seats: 387,
+  booked: 311,
+  available: 76,
+  waitlist: 28,
+};
+export const organizationEvents = [
+  {
+    id: "general-assembly-2026",
+    name: "General Assembly 2026",
+    date: "12–13 Dec 2026",
+    venue: "Abuja",
+    status: "Live",
+    rides: 142,
+    booked: 311,
+  },
+  {
+    id: "sunday-service-20-dec",
+    name: "Sunday Service",
+    date: "20 Dec 2026",
+    venue: "Abuja",
+    status: "Draft",
+    rides: 0,
+    booked: 0,
+  },
+];
+export const organizationStaff = [
+  {
+    id: "stf-1",
+    name: "Sylvester C.",
+    email: "owner@example.org",
+    role: "owner" as StaffRole,
+    status: "Active",
+  },
+  {
+    id: "stf-2",
+    name: "Grace A.",
+    email: "grace@example.org",
+    role: "event_manager" as StaffRole,
+    status: "Active",
+  },
+  {
+    id: "stf-3",
+    name: "David O.",
+    email: "david@example.org",
+    role: "safety_officer" as StaffRole,
+    status: "Active",
+  },
+];
+export const pickupHubs = [
+  {
+    id: "hub-1",
+    name: "H-Medix 3rd Avenue",
+    area: "Gwarinpa",
+    campusId: "abuja",
+    status: "Active",
+  },
+  { id: "hub-2", name: "Banex Plaza", area: "Wuse 2", campusId: "abuja", status: "Active" },
+  { id: "hub-3", name: "Kubwa Market", area: "Kubwa", campusId: "abuja", status: "Active" },
+];

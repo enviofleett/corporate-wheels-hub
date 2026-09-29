@@ -98,7 +98,8 @@
   --ring: oklch(0.72 0.19 49);
   --gradient-hero: linear-gradient(135deg, oklch(0.24 0.06 258), oklch(0.32 0.08 258));
   --gradient-accent: linear-gradient(135deg, oklch(0.72 0.19 49), oklch(0.78 0.17 60));
-  --shadow-card: 0 2px 8px -2px oklch(0.24 0.06 258 / 0.08), 0 4px 16px -4px oklch(0.24 0.06 258 / 0.06);
+  --shadow-card:
+    0 2px 8px -2px oklch(0.24 0.06 258 / 0.08), 0 4px 16px -4px oklch(0.24 0.06 258 / 0.06);
   --shadow-elevated: 0 8px 24px -8px oklch(0.24 0.06 258 / 0.18);
   --shadow-accent: 0 8px 24px -8px oklch(0.72 0.19 49 / 0.4);
   --chart-1: oklch(0.646 0.222 41.116);

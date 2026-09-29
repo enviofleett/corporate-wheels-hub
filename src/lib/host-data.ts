@@ -348,9 +348,7 @@ export function listEngagedRequests(): EngagedRequest[] {
 }
 
 export function listEarnings(): EarningEntry[] {
-  return [...EARNINGS].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  return [...EARNINGS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function hostMetrics() {

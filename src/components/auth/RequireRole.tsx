@@ -1,41 +1,13 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useNavigate, useLocation } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { getRole, type AppRole } from "@/lib/role-store";
-
-interface RequireRoleProps {
-  /**
-   * Roles allowed to view the wrapped content.
-   * Pass multiple to allow shared screens (e.g. ["corporate", "host", "admin"]).
-   */
-  allow: AppRole[];
-  children: ReactNode;
-}
-
-/**
- * UI-only route guard. Reads role from localStorage; if the current role
- * isn't allowed, redirects to /role with `?from=<path>` so the role screen
- * can explain what was blocked. Renders nothing while resolving to avoid a
- * flash of protected content.
- */
-export function RequireRole({ allow, children }: RequireRoleProps) {
+export function RequireRole({ allow, children }: { allow: AppRole[]; children: ReactNode }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [ready, setReady] = useState(false);
-  const [authorized, setAuthorized] = useState(false);
-
+  const [ok, setOk] = useState(false);
   useEffect(() => {
-    const role = getRole();
-    if (role && allow.includes(role)) {
-      setAuthorized(true);
-    } else {
-      navigate({
-        to: "/role",
-        search: { from: location.pathname },
-      });
-    }
-    setReady(true);
-  }, [allow, navigate, location.pathname]);
-
-  if (!ready || !authorized) return null;
-  return <>{children}</>;
+    const r = getRole();
+    if (r && allow.includes(r)) setOk(true);
+    else navigate({ to: "/role" });
+  }, [allow, navigate]);
+  return ok ? <>{children}</> : null;
 }
